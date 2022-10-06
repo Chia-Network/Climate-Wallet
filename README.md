@@ -30,6 +30,13 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
 
 - [Install nodejs](https://nodejs.org/en/)
 
+- Make a `.env` file for your enviroment variables
+
+  ```sh
+  cp .env.example .env
+  # change variable in .env
+  ```
+
 - Run main script
 
   ```sh
