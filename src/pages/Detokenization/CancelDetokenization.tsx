@@ -17,11 +17,13 @@ import {
   CancelStep,
 } from '@/types/DetokenizationType'
 import {
+  useDeleteUnconfirmedTransactionsMutation,
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
 } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Alert,
   AlertTitle,
@@ -48,9 +50,13 @@ const CancelDetokenization = () => {
   const { wallet } = useWallet(walletId)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
 
+  const [
+    deleteUnconfirmedTransactions,
+    { isLoading: isDeleteUnconfirmedTransactionsLoading },
+  ] = useDeleteUnconfirmedTransactionsMutation()
+
   const [step, setStep] = useState<CancelStep>(CancelStep.Input)
   const [checked, setChecked] = useState<boolean>(false)
-  const [openResult, setOpenResult] = useState<boolean>(false)
 
   const { handleSubmit, formState, register, getValues } = useForm<CancelInput>(
     {
@@ -105,9 +111,15 @@ const CancelDetokenization = () => {
     setBlockingList(oldList.filter((item) => item.walletId !== walletId))
   }
   //TODO: Confirm cancel detokenzation
-  const handleConfirm = (data: CancelInput) => {
-    onRemoveBlockingList()
-    setStep(CancelStep.Result)
+  const handleConfirm = async (data: CancelInput) => {
+    try {
+      await deleteUnconfirmedTransactions({ walletId }).unwrap()
+
+      onRemoveBlockingList()
+      setStep(CancelStep.Result)
+    } catch (error) {
+      alert(JSON.stringify(error))
+    }
   }
 
   return (
@@ -184,6 +196,7 @@ const CancelDetokenization = () => {
               >
                 <Button
                   color="primary"
+                  disabled={isDeleteUnconfirmedTransactionsLoading}
                   onClick={() => {
                     navigate(-1)
                   }}
@@ -191,15 +204,16 @@ const CancelDetokenization = () => {
                   <Trans>Cancel</Trans>
                 </Button>
 
-                <Button
+                <LoadingButton
                   color="primary"
                   variant="contained"
                   type="submit"
                   disabled={!formState.isValid || !checked}
                   endIcon={<ChevronRightIcon />}
+                  loading={isDeleteUnconfirmedTransactionsLoading}
                 >
                   <Trans>Confirm</Trans>
-                </Button>
+                </LoadingButton>
               </Stack>
             </form>
           </TransactionBody>

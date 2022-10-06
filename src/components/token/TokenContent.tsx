@@ -1,6 +1,9 @@
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
-import { useGetWalletBalanceQuery } from '@chia/api-react'
+import {
+  useDeleteUnconfirmedTransactionsMutation,
+  useGetWalletBalanceQuery,
+} from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
