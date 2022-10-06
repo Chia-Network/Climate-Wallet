@@ -8,13 +8,16 @@ import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
+import { useCreatDetokenizationTxMutation } from '@/services/climateService'
 import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import { BlockingList, RequestInput } from '@/types/DetokenizationType'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
 } from '@chia/api-react'
+import { catToMojo, chiaToMojo } from '@chia/core'
 import { Trans } from '@lingui/macro'
+import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Alert,
   AlertTitle,
@@ -37,6 +40,9 @@ const RequestDetokenization = () => {
   const { walletId } = useParams()
   const { wallet, unit, loading } = useWallet(walletId)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
+
+  const [creacteDetokenzation, { isLoading: isDetokenzationLoading }] =
+    useCreatDetokenizationTxMutation()
 
   const [checked, setChecked] = useState<boolean>(false)
 
@@ -81,10 +87,33 @@ const RequestDetokenization = () => {
 
   //TODO: fake finish if finish request detokenzation
   const handleSave = async (data: RequestInput) => {
-    alert('request finish!!')
-    onSetBlockingList()
-    reset()
-    navigate(-1)
+    console.log('data', data)
+
+    const queryData = {
+      token: {
+        ...cwAsset,
+        org_uid: cwAsset?.orgUid,
+        warehouse_project_id: cwAsset?.projectId,
+        vintage_year: cwAsset?.vintageYear,
+      },
+      payment: {
+        amount: catToMojo(data.amount),
+        fee: chiaToMojo(0),
+      },
+    }
+
+    try {
+      const response = await creacteDetokenzation({
+        data: queryData,
+        assetId: assetId,
+      }).unwrap()
+
+      onSetBlockingList()
+      reset()
+      navigate(-1)
+    } catch (e) {
+      alert(JSON.stringify(e))
+    }
   }
 
   return (
@@ -185,18 +214,20 @@ const RequestDetokenization = () => {
                 onClick={() => {
                   navigate(-1)
                 }}
+                disabled={isDetokenzationLoading}
               >
                 <Trans>Cancel</Trans>
               </Button>
 
-              <Button
+              <LoadingButton
                 color="primary"
                 variant="contained"
                 type="submit"
                 disabled={!formState.isValid || !checked}
+                loading={isDetokenzationLoading}
               >
                 <Trans>Save request</Trans>
-              </Button>
+              </LoadingButton>
             </Stack>
           </TransactionBody>
         </TransactionContent>

@@ -26,7 +26,7 @@ export const climateServiceApi = createApi({
     }),
     creatDetokenizationTx: builder.mutation<any, any>({
       query: ({ assetId, data }) => ({
-        url: `/v1/tokens/${assetId}/detokenize`,
+        url: `/v1/tokens/${assetId}/request-detokenization`,
         method: 'PUT',
         body: data,
       }),
