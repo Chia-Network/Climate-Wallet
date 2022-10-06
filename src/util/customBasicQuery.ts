@@ -11,7 +11,7 @@ const fakeAhWeiCWAsset: CWAsset = {
   projectDeveloper: 'KB Developement',
   projectId: 'GS1',
   projectLink: 'www.goldstandard.org',
-  currentRegistry: 'ahwwei Gold Standard',
+  currentRegistry: 'chia Gold Standard',
   orgUid: '3e70df56ff67a6806df6ad101c159363845550d1f9afd81e3e0d5a5ab51af867',
   unitOwner: 'UK',
   countryJurisdictionOfOwner: 'Afghanistan',

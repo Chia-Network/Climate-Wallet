@@ -123,7 +123,7 @@ const Retire = () => {
       token: {
         ...cwAsset,
         org_uid: cwAsset?.orgUid,
-        project_id: cwAsset?.projectId,
+        warehouse_project_id: cwAsset?.projectId,
         vintage_year: cwAsset?.vintageYear,
       },
       payment: {
