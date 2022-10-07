@@ -1,10 +1,10 @@
+import { ExportButton } from '@/components/token'
 import { useSelectedWallet, useWalletTransactions } from '@/hooks/wallet'
 import { useGetTransactionsQuery } from '@/services/climateService'
 import { toBech32m } from '@chia/api'
 import { useCurrencyCode, useSerializedNavigationState } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import {
-  Button,
   Paper,
   Stack,
   Table,
@@ -16,6 +16,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import { tr } from 'make-plural'
 import React, { useMemo } from 'react'
 import TokenHistoryRow from './TokenHistoryRow'
 
@@ -32,14 +33,14 @@ const TokenHistory = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
 
   //TODO: replace old transactions endpoint
+  /*
   const { data: transactions2 } = useGetTransactionsQuery({
     wallet_id: Number(walletId),
     start: 0,
     end: 50,
     reverse: false,
   })
-
-  console.log(transactions2)
+  */
 
   const {
     transactions,
@@ -95,6 +96,16 @@ const TokenHistory = () => {
     pageChange(+event.target.value, 0)
   }
 
+  console.log(transactions)
+
+  const transactionsCSVData = useMemo(() => {
+    if (!transactions) return []
+    return transactions.map((transaction) => {
+      // TODO : check data
+      return { type: transaction.type }
+    })
+  }, [transactions])
+
   return (
     <Stack spacing={2} sx={{ paddingBottom: '30px' }}>
       {/* NOTO : not sure why the TablePagination would out of the screen, so add the padding bottom for the extra space */}
@@ -103,9 +114,7 @@ const TokenHistory = () => {
         <Typography variant="h6">
           <Trans>Transactions History</Trans>
         </Typography>
-        <Button variant="outlined" onClick={handleExport}>
-          <Trans>Export</Trans>
-        </Button>
+        <ExportButton fileName="history.csv" data={transactionsCSVData} />
       </Stack>
       {/*  table */}
       <Stack>

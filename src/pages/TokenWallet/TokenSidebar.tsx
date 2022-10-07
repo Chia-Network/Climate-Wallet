@@ -92,6 +92,14 @@ export default function TokenSidebar() {
     }
   }, [tokenSort])
 
+  const allCWAssetsCSVData = useMemo(() => {
+    if (!allCWAssets) return []
+    return allCWAssets.map((asset) => {
+      // TODO : check data
+      return { projectName: asset.projectName }
+    })
+  }, [allCWAssets])
+
   return (
     <StyledRoot direction="column" gap={3}>
       <Stack direction="column" spacing={3}>
@@ -99,14 +107,7 @@ export default function TokenSidebar() {
           <Typography variant="h5">
             <Trans>My Wallet</Trans>
           </Typography>
-          <ExportButton
-            fileName="token.csv"
-            data={
-              allCWAssets?.map((asset) => {
-                return { projectName: asset.projectName }
-              }) ?? []
-            }
-          />
+          <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="body2">
