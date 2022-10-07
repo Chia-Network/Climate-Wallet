@@ -96,8 +96,6 @@ const TokenHistory = () => {
     pageChange(+event.target.value, 0)
   }
 
-  console.log(transactions)
-
   const transactionsCSVData = useMemo(() => {
     if (!transactions) return []
     return transactions.map((transaction) => {
