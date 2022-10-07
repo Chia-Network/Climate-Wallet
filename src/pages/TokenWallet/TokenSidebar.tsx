@@ -7,11 +7,10 @@ import {
 } from '@/hooks/wallet'
 import { useGetAllCWAssetsQuery } from '@/services/climateWarehouse'
 
+import { ExportButton } from '@/components/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
-import VerticalAlignBottomIcon from '@mui/icons-material/VerticalAlignBottom'
 import {
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -20,7 +19,7 @@ import {
   styled,
   Typography,
 } from '@mui/material'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 enum TokeSortEnum {
   QuentyHL = 0, // Quantity - high to low
@@ -38,12 +37,6 @@ const StyledRoot = styled(Stack)(({ theme }) => ({
   flexGrow: 1,
   overflowY: 'auto',
 }))
-
-const StyledExportIcon = styled(VerticalAlignBottomIcon)({
-  width: '18px',
-  height: '18px',
-  marginRight: '10px',
-})
 
 export default function TokenSidebar() {
   const { isLoadingAddStrayCats } = useCWAddStrayCats()
@@ -78,8 +71,6 @@ export default function TokenSidebar() {
     )
   }, [wallets, allCWAssets])
 
-  const getNameAndValue = () => {}
-
   useEffect(() => {
     if (!walletId && filteredWallet.length > 0) {
       setWalletId(filteredWallet[0].walletId)
@@ -108,10 +99,14 @@ export default function TokenSidebar() {
           <Typography variant="h5">
             <Trans>My Wallet</Trans>
           </Typography>
-          <Button variant="outlined" sx={{ textTransform: 'uppercase' }}>
-            <StyledExportIcon />
-            <Trans>Export</Trans>
-          </Button>
+          <ExportButton
+            fileName="token.csv"
+            data={
+              allCWAssets?.map((asset) => {
+                return { projectName: asset.projectName }
+              }) ?? []
+            }
+          />
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="body2">
