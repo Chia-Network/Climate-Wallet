@@ -16,7 +16,6 @@ const StyledExportIcon = styled(FileDownloadOutlinedIcon)({
 })
 
 const ExportButton = ({ fileName, data }: IExportButtonProps) => {
-  const theme = useTheme()
   const csvLink = useRef()
 
   const handleExportClick = () => {
@@ -27,7 +26,7 @@ const ExportButton = ({ fileName, data }: IExportButtonProps) => {
   return (
     <Button
       variant="outlined"
-      sx={{ textTransform: 'uppercase', px: 1 }}
+      sx={{ textTransform: 'uppercase', px: 1, py: '4px' }}
       onClick={handleExportClick}
     >
       <StyledExportIcon />
