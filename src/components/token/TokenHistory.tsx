@@ -25,9 +25,12 @@ const historyTableHeads = [
   { key: 'Type', node: <Trans>Type</Trans> },
   { key: 'Status', node: <Trans>Status</Trans> },
   { key: 'Date', node: <Trans>Date</Trans> },
-  { key: 'Unit Count', node: <Trans>Unit Count</Trans> },
+  { key: 'Quantity', node: <Trans>Quantity</Trans> },
   { key: 'Fee', node: <Trans>Fee</Trans> },
 ]
+
+export const tableAlignLeft = (index: number) =>
+  [1, 2].includes(index) ? 'left' : 'right'
 
 const TokenHistory = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
@@ -104,6 +107,8 @@ const TokenHistory = () => {
     })
   }, [transactions])
 
+  console.log(transactions)
+
   return (
     <Stack spacing={2} sx={{ paddingBottom: '30px' }}>
       {/* NOTO : not sure why the TablePagination would out of the screen, so add the padding bottom for the extra space */}
@@ -122,8 +127,10 @@ const TokenHistory = () => {
               <TableRow>
                 {/* shift one head for collapse icon */}
                 <TableCell />
-                {historyTableHeads.map((head) => (
-                  <TableCell key={head.key}>{head.node}</TableCell>
+                {historyTableHeads.map((head, index) => (
+                  <TableCell align={tableAlignLeft(index)} key={head.key}>
+                    {head.node}
+                  </TableCell>
                 ))}
               </TableRow>
             </TableHead>

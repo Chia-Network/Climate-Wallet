@@ -1,6 +1,7 @@
 export enum TokenType {
-  Send = 0,
-  Receive = 1,
-  Retire = 2,
-  Detokenize = 3,
+  Default = 0,
+  Send = 1,
+  Receive = 2,
+  Detokenize = 2051,
+  Retire = 2052,
 }

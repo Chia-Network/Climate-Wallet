@@ -23,6 +23,7 @@ import {
 } from '@mui/material'
 import moment from 'moment'
 import React, { Fragment, ReactNode, useMemo } from 'react'
+import { tableAlignLeft } from './TokenHistory'
 import { TokenType } from './TokenType'
 
 interface TokenHistoryRowProps {
@@ -48,15 +49,17 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
     memos: memoHexs,
   } = transaction
 
-  // NOTE : this is fake token type, check how to get the real token type
-  const fakeTokenType = useMemo(() => {
-    return Math.floor(Math.random() * 4)
-  }, [transaction])
-
   const isOutgoing = [
     TransactionType.OUTGOING,
     TransactionType.OUTGOING_TRADE,
   ].includes(type)
+
+  const historyType: TokenType =
+    type === TokenType.Default
+      ? isOutgoing
+        ? TokenType.Send
+        : TokenType.Receive
+      : type
 
   const rows = useMemo<RowType[]>(
     () => [
@@ -76,7 +79,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         key: 'type',
         value: (
           <Typography variant="inherit">
-            {TokenType[fakeTokenType].toString()}
+            {TokenType[historyType].toString()}
           </Typography>
         ),
       },
@@ -140,7 +143,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   }, [memoHexs])
 
   const collapseRows = useMemo<RowType[]>(() => {
-    switch (fakeTokenType) {
+    switch (historyType) {
       case TokenType.Send:
         return [
           {
@@ -178,8 +181,13 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   return (
     <Fragment>
       <TableRow>
-        {rows.map((row) => (
-          <TableCell key={row.key} component="th" scope="row">
+        {rows.map((row, index) => (
+          <TableCell
+            align={tableAlignLeft(index - 1)}
+            key={row.key}
+            component="th"
+            scope="row"
+          >
             <Typography component="div" variant="body2" noWrap>
               {row.value}
             </Typography>
