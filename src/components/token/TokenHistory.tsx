@@ -7,6 +7,7 @@ import { Trans } from '@lingui/macro'
 import {
   Paper,
   Stack,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +16,7 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  useTheme,
 } from '@mui/material'
 import { tr } from 'make-plural'
 import React, { useMemo } from 'react'
@@ -32,8 +34,17 @@ const historyTableHeads = [
 export const tableAlignLeft = (index: number) =>
   [1, 2].includes(index) ? 'left' : 'right'
 
+const StyledWhiteTableCell = styled(TableCell)(({ theme }) => ({
+  backgroundColor: theme.palette.common.white,
+}))
+
+const StyledHeaderTableCell = styled(StyledWhiteTableCell)(({ theme }) => ({
+  borderBottom: `1px solid ${theme.palette.text.secondary} `,
+}))
+
 const TokenHistory = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
+  const theme = useTheme()
 
   //TODO: replace old transactions endpoint
   /*
@@ -73,10 +84,6 @@ const TokenHistory = () => {
       retireAddress,
     }
   }, [unit, feeUnit])
-
-  const handleExport = () => {
-    // TODO : implement export
-  }
 
   // if there is transaction, then show the pagination
   const pages = useMemo<boolean>(
@@ -121,16 +128,26 @@ const TokenHistory = () => {
       </Stack>
       {/*  table */}
       <Stack>
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            border: `1px solid ${theme.palette['other'].disabledBackground}`,
+            borderRadius: '4px',
+            boxShadow: 'none',
+          }}
+        >
           <Table stickyHeader aria-label="transactions history table">
             <TableHead>
               <TableRow>
                 {/* shift one head for collapse icon */}
-                <TableCell />
+                <StyledHeaderTableCell />
                 {historyTableHeads.map((head, index) => (
-                  <TableCell align={tableAlignLeft(index)} key={head.key}>
+                  <StyledHeaderTableCell
+                    align={tableAlignLeft(index)}
+                    key={head.key}
+                  >
                     {head.node}
-                  </TableCell>
+                  </StyledHeaderTableCell>
                 ))}
               </TableRow>
             </TableHead>
@@ -142,7 +159,7 @@ const TokenHistory = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell
+                  <StyledWhiteTableCell
                     style={{
                       paddingBottom: 0,
                       paddingTop: 0,
@@ -152,23 +169,23 @@ const TokenHistory = () => {
                     colSpan={6}
                   >
                     <Trans>No transaction history</Trans>
-                  </TableCell>
+                  </StyledWhiteTableCell>
                 </TableRow>
               )}
             </TableBody>
           </Table>
+          {pages && (
+            <TablePagination
+              rowsPerPageOptions={defaultRowsPerPageOptions}
+              component="div"
+              count={count ?? 0}
+              rowsPerPage={rowsPerPage}
+              page={page ?? 0}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
         </TableContainer>
-        {pages && (
-          <TablePagination
-            rowsPerPageOptions={defaultRowsPerPageOptions}
-            component="div"
-            count={count ?? 0}
-            rowsPerPage={rowsPerPage}
-            page={page ?? 0}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        )}
       </Stack>
     </Stack>
   )

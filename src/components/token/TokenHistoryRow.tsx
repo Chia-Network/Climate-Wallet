@@ -66,18 +66,6 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   const rows = useMemo<RowType[]>(
     () => [
       {
-        key: 'expand',
-        value: (
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        ),
-      },
-      {
         key: 'type',
         value: (
           <Typography variant="inherit">
@@ -195,9 +183,19 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   return (
     <Fragment>
       <TableRow>
+        {/* first cell is arrow icon */}
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
         {rows.map((row, index) => (
           <TableCell
-            align={tableAlignLeft(index - 1)}
+            align={tableAlignLeft(index)}
             key={row.key}
             component="th"
             scope="row"
