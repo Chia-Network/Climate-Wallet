@@ -20,6 +20,7 @@ import {
   TableCell,
   TableRow,
   Typography,
+  useTheme,
 } from '@mui/material'
 import moment from 'moment'
 import React, { Fragment, ReactNode, useMemo } from 'react'
@@ -38,6 +39,7 @@ type RowType = {
 const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   const [open, setOpen] = React.useState(false)
   const feeUnit = useCurrencyCode()
+  const theme = useTheme()
 
   const {
     isConfirmed,
@@ -85,7 +87,19 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
       },
       {
         key: 'status',
-        value: isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>,
+        value: (
+          <Box
+            sx={{
+              border: '1px solid #BFBFBF',
+              borderRadius: '30px',
+              px: 1,
+              textAlign: 'center',
+              color: theme.palette.text.secondary,
+            }}
+          >
+            {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+          </Box>
+        ),
       },
       {
         key: 'date',
@@ -188,7 +202,12 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
             component="th"
             scope="row"
           >
-            <Typography component="div" variant="body2" noWrap>
+            <Typography
+              component="div"
+              variant="body2"
+              noWrap
+              color="textPrimary"
+            >
               {row.value}
             </Typography>
           </TableCell>
