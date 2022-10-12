@@ -251,7 +251,7 @@ export default function AppStatusHeader() {
               <StateIndicatorDot color={colorW} />
             </Stack>
             <Stack color="black">
-              {connectionsW?.length >= 1 ? (
+              {connectionsW?.length >= 3 ? (
                 <Trans>Synced</Trans>
               ) : (
                 <Trans>Not Synced</Trans>
