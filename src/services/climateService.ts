@@ -20,15 +20,23 @@ export const climateServiceApi = createApi({
         params: { ...data },
       }),
     }),
+<<<<<<< HEAD
     getTransactionById: builder.query<TX, { txId?: string }>({
+=======
+    getTransactionById: builder.query<any, any>({
+>>>>>>> 8db47f74 (feat: add endpoint for get transaction by id)
       query: ({ txId }) => ({
         url: `/v1/transactions/${txId}`,
       }),
     }),
+<<<<<<< HEAD
     creatDetokenizationTx: builder.mutation<
       DetokenizationTxResponse,
       DetokenizationTxRequest
     >({
+=======
+    creatDetokenizationTx: builder.mutation<any, any>({
+>>>>>>> 8db47f74 (feat: add endpoint for get transaction by id)
       query: ({ assetId, data }) => ({
         url: `/v1/tokens/${assetId}/request-detokenization`,
         method: 'PUT',
