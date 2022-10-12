@@ -19,8 +19,11 @@ import {
 import {
   useDeleteUnconfirmedTransactionsMutation,
   useGetCATAssetIdQuery,
+  useGetCurrentAddressQuery,
   useGetWalletBalanceQuery,
+  useSpendCATMutation,
 } from '@chia/api-react'
+import { catToMojo, chiaToMojo } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -42,7 +45,6 @@ import {
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-
 const CancelDetokenization = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
@@ -50,6 +52,11 @@ const CancelDetokenization = () => {
   const { wallet } = useWallet(walletId)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
 
+  const { data: address } = useGetCurrentAddressQuery({
+    walletId: 1,
+  })
+
+  const [spendCAT, { isLoading: isSpendCatLoading }] = useSpendCATMutation()
   const [
     deleteUnconfirmedTransactions,
     { isLoading: isDeleteUnconfirmedTransactionsLoading },
@@ -57,6 +64,7 @@ const CancelDetokenization = () => {
 
   const [step, setStep] = useState<CancelStep>(CancelStep.Input)
   const [checked, setChecked] = useState<boolean>(false)
+  const [transactionId, setTransactionId] = useState<string>('')
 
   const { handleSubmit, formState, register, getValues } = useForm<CancelInput>(
     {
@@ -110,11 +118,20 @@ const CancelDetokenization = () => {
     const oldList: BlockingList = blockingList || []
     setBlockingList(oldList.filter((item) => item.walletId !== walletId))
   }
-  //TODO: Confirm cancel detokenzation
+
   const handleConfirm = async (data: CancelInput) => {
+    const queryData = {
+      walletId: Number(walletId),
+      address: address,
+      amount: walletBalance?.pendingBalance,
+      fee: chiaToMojo(data.fee),
+      waitForConfirmation: false,
+    }
+
     try {
       await deleteUnconfirmedTransactions({ walletId }).unwrap()
-
+      const response = await spendCAT(queryData).unwrap()
+      setTransactionId(response.transactionId)
       onRemoveBlockingList()
       setStep(CancelStep.Result)
     } catch (error) {
