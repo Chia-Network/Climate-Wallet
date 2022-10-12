@@ -42,7 +42,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   const theme = useTheme()
 
   const {
-    isConfirmed,
+    confirmed: isConfirmed,
     createdAtTime,
     type,
     amount,
