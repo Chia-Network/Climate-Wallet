@@ -1,7 +1,7 @@
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useWallet } from '@/hooks/wallet'
+import { useGetRetireKeysQuery } from '@/services/climateService'
 import { InputType } from '@/types/RetireType'
-import { useGetCurrentAddressQuery } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import { Button, Grid, InputAdornment, Stack, TextField } from '@mui/material'
 import { useFormContext } from 'react-hook-form'
@@ -10,12 +10,10 @@ import { useParams } from 'react-router-dom'
 const RetireInput = () => {
   const { walletId } = useParams()
 
-  const { register, setValue } = useFormContext<InputType>()
-  const { unit } = useWallet(1)
+  const { data: retireKey } = useGetRetireKeysQuery('')
 
-  const { data: address } = useGetCurrentAddressQuery({
-    walletId,
-  })
+  const { register, setValue, trigger } = useFormContext<InputType>()
+  const { unit } = useWallet(1)
 
   return (
     <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
@@ -70,7 +68,9 @@ const RetireInput = () => {
           <Button
             variant="contained"
             onClick={() => {
-              setValue('publicKey', address)
+              setValue('publicKey', retireKey?.bech32m, {
+                shouldValidate: true,
+              })
             }}
             sx={{ width: 240 }}
           >

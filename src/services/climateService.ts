@@ -43,6 +43,12 @@ export const climateServiceApi = createApi({
         body: data,
       }),
     }),
+    getRetireKeys: builder.query<any, any>({
+      query: () => ({
+        url: `/v1/keys`,
+        params: { derivation_index: 0, prefix: 'bls1238', hardened: false },
+      }),
+    }),
   }),
 })
 
@@ -52,4 +58,5 @@ export const {
   useCreateRetirementTxMutation,
   useGetTransactionsQuery,
   useHeathCheckQuery,
+  useGetRetireKeysQuery,
 } = climateServiceApi

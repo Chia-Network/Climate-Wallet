@@ -36,7 +36,7 @@ import {
   Typography,
 } from '@mui/material'
 import { ChangeEvent, useState } from 'react'
-import { FormProvider, useForm, useFormState } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import RetireInput from './RetireInput'
 
@@ -52,7 +52,7 @@ const Retire = () => {
     defaultValues: {
       amount: '1',
       fee: '0.001',
-      publicKey: 'xch...',
+      // publicKey: 'xch...',
     },
     mode: 'onChange',
   })
