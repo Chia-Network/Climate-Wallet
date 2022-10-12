@@ -24,6 +24,11 @@ export const climateServiceApi = createApi({
         params: { ...data },
       }),
     }),
+    getTransactionById: builder.query<any, any>({
+      query: ({ txId }) => ({
+        url: `/v1/transactions/${txId}`,
+      }),
+    }),
     creatDetokenizationTx: builder.mutation<any, any>({
       query: ({ assetId, data }) => ({
         url: `/v1/tokens/${assetId}/request-detokenization`,
@@ -43,6 +48,7 @@ export const climateServiceApi = createApi({
 
 export const {
   useCreatDetokenizationTxMutation,
+  useGetTransactionByIdQuery,
   useCreateRetirementTxMutation,
   useGetTransactionsQuery,
   useHeathCheckQuery,
