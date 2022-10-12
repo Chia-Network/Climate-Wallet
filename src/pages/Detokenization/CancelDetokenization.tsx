@@ -123,7 +123,7 @@ const CancelDetokenization = () => {
     const queryData = {
       walletId: Number(walletId),
       address: address,
-      amount: walletBalance?.pendingBalance,
+      amount: walletBalance?.confirmedWalletBalance,
       fee: chiaToMojo(data.fee),
       waitForConfirmation: false,
     }
