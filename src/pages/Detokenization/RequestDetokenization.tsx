@@ -38,7 +38,8 @@ import RequestDetokenizationDialog from './RequestDetokenizationDialog'
 const RequestDetokenization = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
-  const { wallet, unit, loading } = useWallet(walletId)
+  const { wallet } = useWallet(walletId)
+  const { unit } = useWallet(1)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
 
   const [creacteDetokenzation, { isLoading: isDetokenzationLoading }] =
@@ -46,9 +47,13 @@ const RequestDetokenization = () => {
 
   const [checked, setChecked] = useState<boolean>(false)
 
-  const { register, formState, handleSubmit, reset } = useForm<RequestInput>({
-    mode: 'onChange',
-  })
+  const { register, formState, handleSubmit, reset, getValues } =
+    useForm<RequestInput>({
+      defaultValues: {
+        fee: '0.001 ',
+      },
+      mode: 'onChange',
+    })
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
   const { data: cwAsset, isLoading: isLoadingAsset } =
@@ -77,11 +82,20 @@ const RequestDetokenization = () => {
   const handleChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }
-  const onSetBlockingList = () => {
+  const onSetBlockingList = (txId: string, content: string) => {
     const oldList: BlockingList = blockingList || []
 
     if (walletId && !oldList.some((item) => item.walletId === walletId)) {
-      setBlockingList([...oldList, { walletId: walletId }])
+      setBlockingList([
+        ...oldList,
+        {
+          walletId: walletId,
+          amount: String(getValues().amount),
+          txId: txId,
+          passphrase: getValues().passphrase,
+          content: content,
+        },
+      ])
     }
   }
 
@@ -108,7 +122,7 @@ const RequestDetokenization = () => {
         assetId: assetId,
       }).unwrap()
 
-      onSetBlockingList()
+      onSetBlockingList('', response?.content)
       reset()
       navigate(-1)
     } catch (e) {
@@ -168,6 +182,23 @@ const RequestDetokenization = () => {
                 />
               </Grid>
               <Grid xs={6} item>
+                <TextField
+                  label={<Trans>fee</Trans>}
+                  fullWidth
+                  {...register('fee', {
+                    required: true,
+                  })}
+                  required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        {unit} Free
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid xs={12} item>
                 <TextField
                   label={<Trans>Passphrase</Trans>}
                   fullWidth

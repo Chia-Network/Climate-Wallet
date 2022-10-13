@@ -16,5 +16,7 @@ export enum CancelStep {
 export type BlockingList = {
   walletId: string
   txId?: string
-  amount?: string
+  amount: string
+  content: string
+  passphrase: string
 }[]
