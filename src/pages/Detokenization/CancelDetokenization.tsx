@@ -2,6 +2,7 @@ import {
   TransactionBasicInfo,
   TransactionBody,
   TransactionContent,
+  TransactionResult,
   TransactionReviewList,
   TransactionStep,
 } from '@/components/transaction'
@@ -56,6 +57,10 @@ const CancelDetokenization = () => {
     walletId: 1,
   })
 
+  const detokenzationInfo = blockingList?.find(
+    (item) => item.walletId === walletId
+  )
+
   const [spendCAT, { isLoading: isSpendCatLoading }] = useSpendCATMutation()
   const [
     deleteUnconfirmedTransactions,
@@ -106,7 +111,7 @@ const CancelDetokenization = () => {
     {
       //TODO: Add real detokenzation quantity
       subtitle: <Trans>Detokenization Quantity</Trans>,
-      value: '400.000 tCO2e',
+      value: `${detokenzationInfo?.amount ?? 0} ${CARBON_TOKEN_UNIT}`,
     },
   ]
 
@@ -137,6 +142,10 @@ const CancelDetokenization = () => {
     } catch (error) {
       alert(JSON.stringify(error))
     }
+  }
+
+  const handleFinish = () => {
+    navigate(-1)
   }
 
   return (
@@ -227,7 +236,9 @@ const CancelDetokenization = () => {
                   type="submit"
                   disabled={!formState.isValid || !checked}
                   endIcon={<ChevronRightIcon />}
-                  loading={isDeleteUnconfirmedTransactionsLoading}
+                  loading={
+                    isDeleteUnconfirmedTransactionsLoading || isSpendCatLoading
+                  }
                 >
                   <Trans>Confirm</Trans>
                 </LoadingButton>
@@ -240,43 +251,20 @@ const CancelDetokenization = () => {
             <Trans>Result</Trans>
           </Typography>
           <TransactionBody>
-            <Typography gutterBottom>
-              <Trans>Transaction completed</Trans>
-            </Typography>
-            <Typography gutterBottom color={'gray'} marginBottom={2}>
-              <Trans>
-                You have completed the transaction, this is your transaction ID,
-                you can go to space scan to check the transaction history.
-              </Trans>
-            </Typography>
-
-            <Stack sx={{ mt: 1 }} alignItems={'center'}>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => navigate(-1)}
-                size="large"
-              >
-                <Trans>Finish</Trans>
-              </Button>
-            </Stack>
-            <Divider sx={{ mb: 3, mt: 3 }} />
-            <Typography gutterBottom>
-              <Trans>Transaction information</Trans>
-            </Typography>
-            <Typography gutterBottom color={'gray'} marginBottom={3}>
-              <Trans>This is your transaction information.</Trans>
-            </Typography>
-
-            <TransactionReviewList
-              infos={[
-                ...reviewInfo,
-                {
-                  subtitle: <Trans>Transaction fee</Trans>,
-                  value: `${getValues().fee} ${unit}`,
-                },
-              ]}
-            />
+            <TransactionResult
+              transactionId={transactionId}
+              onFinish={handleFinish}
+            >
+              <TransactionReviewList
+                infos={[
+                  ...reviewInfo,
+                  {
+                    subtitle: <Trans>Transaction fee</Trans>,
+                    value: `${getValues().fee} ${unit}`,
+                  },
+                ]}
+              />
+            </TransactionResult>
           </TransactionBody>
         </TabPanel>
       </TransactionContent>

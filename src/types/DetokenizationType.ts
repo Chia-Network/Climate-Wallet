@@ -1,6 +1,7 @@
 export interface RequestInput {
   amount: number
   passphrase: string
+  fee: string
 }
 
 export interface CancelInput {
@@ -14,4 +15,6 @@ export enum CancelStep {
 
 export type BlockingList = {
   walletId: string
+  txId?: string
+  amount?: string
 }[]
