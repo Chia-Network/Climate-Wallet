@@ -1,4 +1,5 @@
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
 import {
   useDeleteUnconfirmedTransactionsMutation,
@@ -56,12 +57,14 @@ const ButtonStack = ({ children }: PropsWithChildren<IButtonStackProps>) => {
   )
 }
 
-interface ITokenContentProps {
-  isDetoken: boolean
-}
-
-const TokenContent = ({ isDetoken }: ITokenContentProps) => {
+const TokenContent = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
+  const { isDetokenWallet, blockingList } = useDetokenzationBlockingList()
+  const isDetoken = isDetokenWallet(walletId)
+
+  const detokenizationInfo = blockingList?.find(
+    (item) => item.walletId === walletId
+  )
 
   const navigate = useNavigate()
 
@@ -134,7 +137,7 @@ const TokenContent = ({ isDetoken }: ITokenContentProps) => {
                 variant="h4"
                 color={theme.palette['other'].buttonTextGreen}
               >
-                {confirmedWalletBalanceValue}
+                {detokenizationInfo?.amount ?? 0}
               </Typography>
               <Typography variant="body1" fontWeight={400}>
                 {CARBON_TOKEN_UNIT}

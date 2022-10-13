@@ -38,7 +38,7 @@ const TokenWallet = () => {
       <StyledContainer spacing={3}>
         <TokenHeader />
         <Divider />
-        <TokenContent isDetoken={isDetoken} />
+        <TokenContent />
         <Divider />
         <TokenHistory />
       </StyledContainer>
