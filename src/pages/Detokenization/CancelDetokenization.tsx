@@ -57,7 +57,7 @@ const CancelDetokenization = () => {
     walletId: 1,
   })
 
-  const detokenzationInfo = blockingList?.find(
+  const detokenizationInfo = blockingList?.find(
     (item) => item.walletId === walletId
   )
 
@@ -111,7 +111,7 @@ const CancelDetokenization = () => {
     {
       //TODO: Add real detokenzation quantity
       subtitle: <Trans>Detokenization Quantity</Trans>,
-      value: `${detokenzationInfo?.amount ?? 0} ${CARBON_TOKEN_UNIT}`,
+      value: `${detokenizationInfo?.amount ?? 0} ${CARBON_TOKEN_UNIT}`,
     },
   ]
 
