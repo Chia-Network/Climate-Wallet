@@ -1,4 +1,9 @@
-import type { Detokenization, TokenMetaData } from './ClimateServiceType'
+import type {
+  Detokenization,
+  Retirement,
+  Tokenization,
+  TokenMetaData,
+} from './ClimateServiceType'
 
 export interface CWAsset extends TokenMetaData {
   warehouseUnitId: string
@@ -23,15 +28,9 @@ export interface CWAsset extends TokenMetaData {
   index: string
   public_key: string
   asset_id: string
-  tokenization: {
-    mod_hash: string
-    public_key: string
-  }
+  tokenization: Tokenization
   detokenization: Detokenization
-  permissionless_retirement: {
-    mod_hash: string
-    signature: string
-  }
+  permissionless_retirement: Retirement
 }
 
 export type CWAssetIds = string[]

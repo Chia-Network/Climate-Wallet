@@ -118,31 +118,30 @@ const Retire = () => {
 
   const handleCommit = async () => {
     const data = methods.getValues()
-
-    const queryData = {
-      token: {
-        ...cwAsset,
-        org_uid: cwAsset?.orgUid,
-        warehouse_project_id: cwAsset?.projectId,
-        vintage_year: cwAsset?.vintageYear,
-      },
-      payment: {
-        amount: catToMojo(data.amount),
-        fee: chiaToMojo(data.fee),
-        beneficiary_name: data.beneficiary,
-        beneficiary_address: data.publicKey,
-      },
-    }
-
-    try {
-      const response = await creacteRetirement({
-        data: queryData,
-        assetId: assetId,
-      }).unwrap()
-      setTransactionId(response?.tx?.id)
-      setStep(RetireStep.Result)
-    } catch ({ message }) {
-      alert(message)
+    if (cwAsset) {
+      try {
+        const response = await creacteRetirement({
+          data: {
+            token: {
+              ...cwAsset,
+              org_uid: cwAsset.orgUid,
+              warehouse_project_id: cwAsset.projectId,
+              vintage_year: cwAsset.vintageYear,
+            },
+            payment: {
+              amount: catToMojo(data.amount),
+              fee: chiaToMojo(data.fee),
+              beneficiary_name: data.beneficiary,
+              beneficiary_address: data.publicKey,
+            },
+          },
+          assetId: assetId,
+        }).unwrap()
+        setTransactionId(response?.tx?.id)
+        setStep(RetireStep.Result)
+      } catch ({ message }) {
+        alert(message)
+      }
     }
   }
 

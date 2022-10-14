@@ -3,10 +3,25 @@ export interface Tokenization {
   public_key: string
 }
 
+export interface Tokenization {
+  mod_hash: string
+  signature: string
+}
+
 export interface Detokenization {
   mod_hash: string
   public_key: string
   signature: string
+}
+
+export interface Retirement {
+  mod_hash: string
+  signature: string
+}
+
+export interface TX {
+  id: string
+  record: Object
 }
 
 export interface Rermissionless_retirement {
@@ -43,10 +58,20 @@ export interface DetokenizationTxResponse {
   content: string
 }
 
-export interface RetirementTailMetadata {
-  signature: string
+export interface RetirementTxRequest {
+  assetId: string
+  data: {
+    token: { permissionless_retirement: Retirement } & TokenMetaData
+    payment: {
+      amount: string
+      fee: string
+      beneficiary_name: string
+      beneficiary_address: string
+    }
+  }
 }
 
-export interface RetirementTxRequest {}
-
-export interface RetirementTxResponse {}
+export interface RetirementTxResponse {
+  token: TokenBasicData
+  tx: TX
+}
