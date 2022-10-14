@@ -5,7 +5,7 @@ import type {
   TokenMetaData,
 } from './ClimateServiceType'
 
-export interface CWAsset extends TokenMetaData {
+export interface CWAsset {
   warehouseUnitId: string
   issuanceId: string
   projectLocationId: string

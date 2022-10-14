@@ -1,6 +1,8 @@
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
+import { useGetTransactionByIdQuery } from '@/services/climateService'
+import { BlockingList } from '@/types/DetokenizationType'
 import {
   useDeleteUnconfirmedTransactionsMutation,
   useGetWalletBalanceQuery,
@@ -10,7 +12,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import { Button, ButtonProps, Stack, Typography, useTheme } from '@mui/material'
-import { PropsWithChildren, ReactNode } from 'react'
+import { PropsWithChildren, ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import TokenCard from './TokenCard'
 
@@ -58,8 +60,11 @@ const ButtonStack = ({ children }: PropsWithChildren<IButtonStackProps>) => {
 }
 
 const TokenContent = () => {
+  const theme = useTheme()
+
   const { walletId, wallet, unit, loading } = useSelectedWallet()
-  const { isDetokenWallet, blockingList } = useDetokenzationBlockingList()
+  const { isDetokenWallet, blockingList, setBlockingList } =
+    useDetokenzationBlockingList()
   const isDetoken = isDetokenWallet(walletId)
 
   const detokenizationInfo = blockingList?.find(
@@ -81,7 +86,10 @@ const TokenContent = () => {
     }
   )
 
-  // TODO : this is TotalBalance, check show which balance
+  const { data: txStatus } = useGetTransactionByIdQuery({
+    txId: detokenizationInfo?.txId,
+  })
+
   const confirmedWalletBalanceValue = useWalletHumanValue(
     wallet,
     walletBalance?.confirmedWalletBalance,
@@ -101,12 +109,18 @@ const TokenContent = () => {
     navigate(`/dashboard/wallets/detokenization/cancel/${walletId}`)
   }
 
-  const handleCancelRequest = () => {}
   const handleDownloadRequest = () => {}
 
-  const theme = useTheme()
+  const onRemoveBlockingList = () => {
+    const oldList: BlockingList = blockingList || []
+    setBlockingList(oldList.filter((item) => item.walletId !== walletId))
+  }
 
-  // TODO : if this token is Requesting detokenization, show other layout
+  useEffect(() => {
+    if (isDetoken && txStatus?.record?.confirmed) {
+      onRemoveBlockingList()
+    }
+  }, [isDetoken, txStatus])
 
   return (
     <Stack spacing={4}>

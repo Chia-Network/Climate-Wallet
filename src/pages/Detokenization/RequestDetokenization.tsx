@@ -120,7 +120,7 @@ const RequestDetokenization = () => {
           assetId: assetId,
         }).unwrap()
 
-        onSetBlockingList('', response?.content)
+        onSetBlockingList(response?.tx?.id, response?.content)
         reset()
         navigate(-1)
       } catch (e) {

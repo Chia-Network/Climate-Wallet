@@ -20,7 +20,7 @@ export const climateServiceApi = createApi({
         params: { ...data },
       }),
     }),
-    getTransactionById: builder.query<TX, { txId: string }>({
+    getTransactionById: builder.query<TX, { txId?: string }>({
       query: ({ txId }) => ({
         url: `/v1/transactions/${txId}`,
       }),

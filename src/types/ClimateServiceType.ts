@@ -5,7 +5,7 @@ export interface Tokenization {
 
 export interface Tokenization {
   mod_hash: string
-  signature: string
+  public_key: string
 }
 
 export interface Detokenization {
@@ -21,7 +21,7 @@ export interface Retirement {
 
 export interface TX {
   id: string
-  record: Object
+  record: { confirmed?: boolean }
 }
 
 export interface Rermissionless_retirement {
@@ -56,6 +56,7 @@ export interface DetokenizationTxRequest {
 export interface DetokenizationTxResponse {
   token: TokenBasicData
   content: string
+  tx: TX
 }
 
 export interface RetirementTxRequest {
