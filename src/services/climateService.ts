@@ -20,7 +20,11 @@ export const climateServiceApi = createApi({
         params: { ...data },
       }),
     }),
+<<<<<<< HEAD
     getTransactionById: builder.query<TX, { txId?: string }>({
+=======
+    getTransactionById: builder.query<TX, { txId: string }>({
+>>>>>>> d8775d74 (refactor: climate service endpoint type)
       query: ({ txId }) => ({
         url: `/v1/transactions/${txId}`,
       }),
