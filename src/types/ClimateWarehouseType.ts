@@ -1,4 +1,6 @@
-export interface CWAsset {
+import type { Detokenization, TokenMetaData } from './ClimateServiceType'
+
+export interface CWAsset extends TokenMetaData {
   warehouseUnitId: string
   issuanceId: string
   projectLocationId: string
@@ -11,7 +13,7 @@ export interface CWAsset {
   orgUid: string
   countryJurisdictionOfOwner: string
   inCountryJurisdictionOfOwner: string | null
-  vintageYear: number
+  vintageYear: string
   unitType: string
   marketplace: string
   marketplaceLink: string
@@ -25,11 +27,7 @@ export interface CWAsset {
     mod_hash: string
     public_key: string
   }
-  detokenization: {
-    mod_hash: string
-    public_key: string
-    signature: string
-  }
+  detokenization: Detokenization
   permissionless_retirement: {
     mod_hash: string
     signature: string

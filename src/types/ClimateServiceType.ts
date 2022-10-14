@@ -1,53 +1,52 @@
-export interface Request<T> {
-  data: T
-  assetId: string
+export interface Tokenization {
+  mod_hash: string
+  public_key: string
 }
 
-export interface Transaction {
-  id: string
-  record: any[]
+export interface Detokenization {
+  mod_hash: string
+  public_key: string
+  signature: string
 }
 
-export interface Token {
+export interface Rermissionless_retirement {
+  mod_hash: string
+  signature: string
+}
+
+export interface TokenBasicData {
   org_uid: string
-  project_id: string
-  vintage_year: number
+  warehouse_project_id: string
+  vintage_year: string
   sequence_num: number
 }
 
-export interface TokenOnChainBase {
+export interface TokenMetaData extends TokenBasicData {
   index: string
   public_key: string
   asset_id: string
 }
 
-export interface PaymentBase {
-  amount: number
-  fee: number
-}
-
 export interface DetokenizationTxRequest {
-  token: TokenOnChainBase
-  content: string
+  assetId: string
+  data: {
+    token: { detokenization: Detokenization } & TokenMetaData
+    payment: {
+      amount: string
+      fee: string
+    }
+  }
 }
 
 export interface DetokenizationTxResponse {
-  token: Token
-  tx: Transaction
+  token: TokenBasicData
+  content: string
 }
 
 export interface RetirementTailMetadata {
   signature: string
 }
 
-export interface RetirementTxRequest {
-  token: {
-    retirement: RetirementTailMetadata
-  }
-  payment: PaymentBase
-}
+export interface RetirementTxRequest {}
 
-export interface RetirementTxResponse {
-  token: Token
-  tx: Transaction
-}
+export interface RetirementTxResponse {}

@@ -10,6 +10,7 @@ import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreatDetokenizationTxMutation } from '@/services/climateService'
 import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
+import { DetokenizationTxRequest } from '@/types/ClimateServiceType'
 import { BlockingList, RequestInput } from '@/types/DetokenizationType'
 import {
   useGetCATAssetIdQuery,
@@ -99,34 +100,32 @@ const RequestDetokenization = () => {
     }
   }
 
-  //TODO: fake finish if finish request detokenzation
   const handleSave = async (data: RequestInput) => {
-    console.log('data', data)
+    if (cwAsset) {
+      try {
+        const response = await creacteDetokenzation({
+          data: {
+            token: {
+              ...cwAsset,
+              org_uid: cwAsset.orgUid,
+              warehouse_project_id: cwAsset.projectId,
+              vintage_year: cwAsset.vintageYear,
+            },
+            payment: {
+              amount: catToMojo(data.amount),
+              fee: chiaToMojo(0),
+            },
+          },
 
-    const queryData = {
-      token: {
-        ...cwAsset,
-        org_uid: cwAsset?.orgUid,
-        warehouse_project_id: cwAsset?.projectId,
-        vintage_year: cwAsset?.vintageYear,
-      },
-      payment: {
-        amount: catToMojo(data.amount),
-        fee: chiaToMojo(0),
-      },
-    }
+          assetId: assetId,
+        }).unwrap()
 
-    try {
-      const response = await creacteDetokenzation({
-        data: queryData,
-        assetId: assetId,
-      }).unwrap()
-
-      onSetBlockingList('', response?.content)
-      reset()
-      navigate(-1)
-    } catch (e) {
-      alert(JSON.stringify(e))
+        onSetBlockingList('', response?.content)
+        reset()
+        navigate(-1)
+      } catch (e) {
+        alert(JSON.stringify(e))
+      }
     }
   }
 

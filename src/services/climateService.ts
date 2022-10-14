@@ -1,7 +1,6 @@
 import {
   DetokenizationTxRequest,
   DetokenizationTxResponse,
-  Request,
   RetirementTxRequest,
   RetirementTxResponse,
 } from '@/types/ClimateServiceType'
@@ -24,12 +23,15 @@ export const climateServiceApi = createApi({
         params: { ...data },
       }),
     }),
-    getTransactionById: builder.query<any, any>({
+    getTransactionById: builder.query<any, { txId: string }>({
       query: ({ txId }) => ({
         url: `/v1/transactions/${txId}`,
       }),
     }),
-    creatDetokenizationTx: builder.mutation<any, any>({
+    creatDetokenizationTx: builder.mutation<
+      DetokenizationTxResponse,
+      DetokenizationTxRequest
+    >({
       query: ({ assetId, data }) => ({
         url: `/v1/tokens/${assetId}/request-detokenization`,
         method: 'PUT',
