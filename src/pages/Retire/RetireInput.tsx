@@ -68,9 +68,11 @@ const RetireInput = () => {
           <Button
             variant="contained"
             onClick={() => {
-              setValue('publicKey', retireKey?.bech32m, {
-                shouldValidate: true,
-              })
+              if (retireKey?.bech32m) {
+                setValue('publicKey', retireKey?.bech32m, {
+                  shouldValidate: true,
+                })
+              }
             }}
             sx={{ width: 240 }}
           >
