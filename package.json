@@ -22,7 +22,7 @@
     "locale:extract": "lingui extract",
     "locale:compile": "lingui compile",
     "locale": "lingui extract && lingui compile",
-    "packaging": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never"
+    "packaging": "electron-builder build --mac --win -c.extraMetadata.main=build/electron/main.js --publish never"
   },
   "dependencies": {
     "@chia/api": "./packages/api",
@@ -124,7 +124,6 @@
     "copy-webpack-plugin": "10.2.0",
     "cross-env": "7.0.3",
     "css-loader": "6.5.1",
-    "dotenv-webpack": "^8.0.1",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
     "electron-winstaller": "5.0.0",
