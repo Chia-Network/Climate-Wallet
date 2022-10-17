@@ -28,7 +28,7 @@ const TransactionReviewList = ({ infos }: Props) => {
         >
           <Grid item xs={4}>
             <Typography color="gray" component="div" sx={{ width: 200 }}>
-              <Trans>{item.subtitle}</Trans>
+              {item.subtitle}
             </Typography>
           </Grid>
           <Grid item xs={7}>

@@ -4868,7 +4868,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/token/TokenHistoryRow.tsx:228
-#: src/components/transaction/TransactionReviewList.tsx:31
 msgid "{0}"
 msgstr ""
 
