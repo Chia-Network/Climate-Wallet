@@ -1,5 +1,4 @@
 import App from '@/App'
-import '@/config/env'
 import '@/polyfill'
 import ReactDOM from 'react-dom'
 
