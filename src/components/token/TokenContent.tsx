@@ -5,7 +5,7 @@ import { useGetTransactionByIdQuery } from '@/services/climateService'
 import { BlockingList } from '@/types/DetokenizationType'
 import {
   useDeleteUnconfirmedTransactionsMutation,
-  useGetWalletBalanceQuery,
+  useGetWalletBalanceQuery
 } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'

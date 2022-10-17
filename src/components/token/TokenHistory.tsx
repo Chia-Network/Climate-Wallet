@@ -114,8 +114,6 @@ const TokenHistory = () => {
     })
   }, [transactions])
 
-  console.log(transactions)
-
   return (
     <Stack spacing={2} sx={{ paddingBottom: '40px' }}>
       {/* NOTO : not sure why the TablePagination would out of the screen, so add the padding bottom for the extra space */}
