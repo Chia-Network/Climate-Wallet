@@ -5,15 +5,8 @@ export interface Tokenization {
 
 export interface Tokenization {
   mod_hash: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-  public_key: string
-=======
   signature: string
->>>>>>> d8775d74 (refactor: climate service endpoint type)
-=======
   public_key: string
->>>>>>> 612c53df (feat: unlock detoekzation when finish)
 }
 
 export interface Detokenization {
@@ -29,15 +22,7 @@ export interface Retirement {
 
 export interface TX {
   id: string
-<<<<<<< HEAD
-<<<<<<< HEAD
   record: { confirmed?: boolean }
-=======
-  record: Object
->>>>>>> d8775d74 (refactor: climate service endpoint type)
-=======
-  record: { confirmed?: boolean }
->>>>>>> 612c53df (feat: unlock detoekzation when finish)
 }
 
 export interface Rermissionless_retirement {
