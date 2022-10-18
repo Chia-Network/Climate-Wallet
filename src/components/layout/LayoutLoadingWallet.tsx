@@ -7,8 +7,40 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
+import { PropsWithChildren, ReactNode } from 'react'
 
-const LayoutLoading = () => {
+export const LoginAlert = () => {
+  return (
+    <Alert
+      severity="info"
+      sx={{
+        position: 'absolute',
+        px: '14px',
+        py: '18px',
+        top: '56px',
+        width: '400px',
+      }}
+    >
+      <AlertTitle>
+        <Trans>Login info</Trans>
+      </AlertTitle>
+      <Typography variant="body2">
+        <Trans>
+          Please open your Chia wallet to be logged into your Climate wallet.
+        </Trans>
+      </Typography>
+    </Alert>
+  )
+}
+
+interface ILayoutLoadingWalletProps {
+  loadingDesc: ReactNode
+}
+
+const LayoutLoadingWallet = ({
+  loadingDesc,
+  children: alertComponent,
+}: PropsWithChildren<ILayoutLoadingWalletProps>) => {
   const theme = useTheme()
 
   return (
@@ -22,25 +54,7 @@ const LayoutLoading = () => {
         height: '100vh',
       }}
     >
-      <Alert
-        severity="info"
-        sx={{
-          position: 'absolute',
-          px: '14px',
-          py: '18px',
-          top: '56px',
-          width: '400px',
-        }}
-      >
-        <AlertTitle>
-          <Trans>Login info</Trans>
-        </AlertTitle>
-        <Typography variant="body2">
-          <Trans>
-            Please open your Chia wallet to be logged into your Climate wallet.
-          </Trans>
-        </Typography>
-      </Alert>
+      {alertComponent}
       {/* TODO : add logo */}
       <Typography variant="h4">
         <Trans>Climate Wallet</Trans>
@@ -51,10 +65,10 @@ const LayoutLoading = () => {
         color="textPrimary"
         sx={{ marginTop: '12px' }}
       >
-        <Trans>Loading...</Trans>
+        {loadingDesc}
       </Typography>
     </Stack>
   )
 }
 
-export default LayoutLoading
+export default LayoutLoadingWallet

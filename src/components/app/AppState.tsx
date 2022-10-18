@@ -1,7 +1,10 @@
-import LayoutLoadingWallet from '@/components/layout/LayoutLoadingWallet'
+import LayoutLoadingWallet, {
+  LoginAlert,
+} from '@/components/layout/LayoutLoadingWallet'
 import { ConnectionState, PassphrasePromptReason } from '@chia/api'
 import { useGetKeyringStatusQuery, useGetStateQuery } from '@chia/api-react'
 import { LayoutHero } from '@chia/core'
+import { Trans } from '@lingui/macro'
 import { ReactNode } from 'react'
 import AppPassPrompt from './AppPassPrompt'
 
@@ -22,7 +25,11 @@ export default function AppState(props: Props) {
   const isLoading = isLoadingKeyringStatus || !keyringStatus || !isConnected
 
   if (isLoading) {
-    return <LayoutLoadingWallet />
+    return (
+      <LayoutLoadingWallet loadingDesc={<Trans>Loading...</Trans>}>
+        <LoginAlert />
+      </LayoutLoadingWallet>
+    )
   }
 
   if (keyringStatus?.isKeyringLocked) {
