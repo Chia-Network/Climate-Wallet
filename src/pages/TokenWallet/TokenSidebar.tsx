@@ -1,3 +1,4 @@
+import { Loading } from '@/components/loading'
 import { TokenListItem } from '@/components/token'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
@@ -144,7 +145,7 @@ export default function TokenSidebar() {
       </Stack>
       <Stack spacing={1} direction="column">
         {isLoading ? (
-          <></>
+          <Loading center />
         ) : filteredWallet.length > 0 ? (
           filteredWallet.map((wallet) => {
             const { walletId, assetId } = wallet

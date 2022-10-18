@@ -1,12 +1,6 @@
+import { Loading } from '@/components/loading'
 import { Trans } from '@lingui/macro'
-import {
-  Alert,
-  AlertTitle,
-  CircularProgress,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Alert, AlertTitle, Stack, Typography, useTheme } from '@mui/material'
 import { PropsWithChildren, ReactNode } from 'react'
 
 export const LoginAlert = () => {
@@ -59,14 +53,7 @@ const LayoutLoadingWallet = ({
       <Typography variant="h4">
         <Trans>Climate Wallet</Trans>
       </Typography>
-      <CircularProgress sx={{ marginTop: '50px' }} />
-      <Typography
-        variant="caption"
-        color="textPrimary"
-        sx={{ marginTop: '12px' }}
-      >
-        {loadingDesc}
-      </Typography>
+      <Loading loadingDesc={loadingDesc} sx={{ marginTop: '50px' }} />
     </Stack>
   )
 }
