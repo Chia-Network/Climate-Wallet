@@ -1,9 +1,11 @@
+import LayoutLoadingWallet, {
+  LoginAlert,
+} from '@/components/layout/LayoutLoadingWallet'
 import { ConnectionState, PassphrasePromptReason } from '@chia/api'
 import { useGetKeyringStatusQuery, useGetStateQuery } from '@chia/api-react'
-import { Flex, LayoutHero, LayoutLoading, useSkipMigration } from '@chia/core'
+import { LayoutHero } from '@chia/core'
 import { Trans } from '@lingui/macro'
-import { Collapse, Typography } from '@mui/material'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import AppPassPrompt from './AppPassPrompt'
 
 type Props = {
@@ -12,19 +14,21 @@ type Props = {
 
 export default function AppState(props: Props) {
   const { children } = props
-  const { data: clienState = {}, isLoading: isClientStateLoading } =
+  const { data: clientState = {}, isLoading: isClientStateLoading } =
     useGetStateQuery()
   const { data: keyringStatus, isLoading: isLoadingKeyringStatus } =
     useGetKeyringStatusQuery()
 
   const isConnected =
-    !isClientStateLoading && clienState?.state === ConnectionState.CONNECTED
+    !isClientStateLoading && clientState?.state === ConnectionState.CONNECTED
 
-  if (isLoadingKeyringStatus || !keyringStatus) {
+  const isLoading = isLoadingKeyringStatus || !keyringStatus || !isConnected
+
+  if (isLoading) {
     return (
-      <LayoutLoading>
-        <Trans>Connecting to Chia Wallet</Trans>
-      </LayoutLoading>
+      <LayoutLoadingWallet loadingDesc={<Trans>Loading...</Trans>}>
+        <LoginAlert />
+      </LayoutLoadingWallet>
     )
   }
 
@@ -33,26 +37,6 @@ export default function AppState(props: Props) {
       <LayoutHero>
         <AppPassPrompt reason={PassphrasePromptReason.KEYRING_LOCKED} />
       </LayoutHero>
-    )
-  }
-
-  if (!isConnected) {
-    const { attempt } = clienState
-    return (
-      <LayoutLoading>
-        {!attempt ? (
-          <Trans>Connecting to Chia Wallet</Trans>
-        ) : (
-          <Flex flexDirection="column" gap={1}>
-            <Typography variant="body1" align="center">
-              <Trans>Please Open Chia Wallet</Trans>
-            </Typography>
-            <Typography variant="body1" align="center" color="textSecondary">
-              <Trans>Attempt {attempt}</Trans>
-            </Typography>
-          </Flex>
-        )}
-      </LayoutLoading>
     )
   }
 
