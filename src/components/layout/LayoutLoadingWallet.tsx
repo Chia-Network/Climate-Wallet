@@ -41,7 +41,7 @@ const LayoutLoading = () => {
           </Trans>
         </Typography>
       </Alert>
-
+      {/* TODO : add logo */}
       <Typography variant="h4">
         <Trans>Climate Wallet</Trans>
       </Typography>

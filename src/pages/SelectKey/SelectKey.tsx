@@ -72,9 +72,21 @@ export default function SelectKey() {
     }
   }, [loggedInFingerprint])
 
+  useEffect(() => {
+    // NOTE : if loading time is more than 10 sec, then refresh
+    const refreshTimer = setTimeout(() => {
+      navigate(0)
+    }, 10000)
+
+    return () => {
+      clearTimeout(refreshTimer)
+    }
+  }, [])
+
   return (
     <StyledContainer maxWidth="xs">
       <Flex flexDirection="column" alignItems="center" gap={3}>
+        {/* TDOD : replace the chia logo */}
         <Logo width={130} />
         {isLoadingLoggedInFingerprint ? (
           <Loading center>
