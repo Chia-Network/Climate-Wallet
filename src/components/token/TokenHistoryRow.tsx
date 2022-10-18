@@ -33,6 +33,7 @@ interface TokenHistoryRowProps {
 
 type RowType = {
   key: string
+  title?: ReactNode
   value: ReactNode
 }
 
@@ -150,6 +151,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'To',
+            title: <Trans>{'To'}</Trans>,
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
@@ -158,10 +160,12 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'Beneficiary',
+            title: <Trans>{'Beneficiary'}</Trans>,
             value: <Typography variant="inherit">{fakeBeneficiary}</Typography>,
           },
           {
             key: 'Public Key',
+            title: <Trans>{'Public Key'}</Trans>,
             value: <Typography variant="inherit">{fakePublicKey}</Typography>,
           },
         ]
@@ -169,6 +173,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'From',
+            title: <Trans>{'From'}</Trans>,
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
@@ -225,7 +230,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
                         color="textSecondary"
                         noWrap
                       >
-                        <Trans>{row.key}</Trans>
+                        {row.title}
                         {':'}
                       </Typography>
                     </TableCell>
