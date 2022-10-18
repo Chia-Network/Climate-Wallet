@@ -10,7 +10,6 @@ export default function SelectKey() {
     data: loggedInFingerprint,
     isLoading: isLoadingLoggedInFingerprint,
     error: errorLoadingLoggedInFingerprint,
-    refetch: refetchLoadingLoggedInFingerprint,
   } = useGetLoggedInFingerprintQuery()
 
   useEffect(() => {
