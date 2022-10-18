@@ -1,3 +1,4 @@
+import { Loading } from '@/components/loading'
 import {
   TokenAlert,
   TokenContent,
@@ -6,7 +7,6 @@ import {
 } from '@/components/token'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useSelectedWallet } from '@/hooks/wallet'
-import { Loading } from '@chia/core'
 import { Divider, Stack, styled } from '@mui/material'
 
 const StyledStackRoot = styled(Stack)({
