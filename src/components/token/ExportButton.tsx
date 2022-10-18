@@ -19,7 +19,6 @@ const ExportButton = ({ fileName, data }: IExportButtonProps) => {
   const csvLink = useRef()
 
   const handleExportClick = () => {
-    console.log(csvLink)
     csvLink?.current?.link.click()
   }
 

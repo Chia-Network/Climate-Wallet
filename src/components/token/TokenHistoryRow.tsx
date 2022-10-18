@@ -1,12 +1,7 @@
 import { CARBON_TOKEN_UNIT as unit } from '@/constants/unit'
-import { getMemosDescription } from '@/util/token'
+import { getMemosDescription, transactionToHistory } from '@/util/token'
 import { Transaction, TransactionType } from '@chia/api'
-import {
-  FormatLargeNumber,
-  mojoToCAT,
-  mojoToChia,
-  useCurrencyCode,
-} from '@chia/core'
+import { useCurrencyCode } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -45,34 +40,18 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   const {
     confirmed: isConfirmed,
     createdAtTime,
-    type,
-    amount,
-    feeAmount,
     toAddress,
     memos: memoHexs,
   } = transaction
 
-  const isOutgoing = [
-    TransactionType.OUTGOING,
-    TransactionType.OUTGOING_TRADE,
-  ].includes(type)
-
-  const historyType: TokenType =
-    type === TokenType.Default
-      ? isOutgoing
-        ? TokenType.Send
-        : TokenType.Receive
-      : type
+  const history = transactionToHistory(transaction, feeUnit)
+  const { historyType } = history
 
   const rows = useMemo<RowType[]>(
     () => [
       {
         key: 'type',
-        value: (
-          <Typography variant="inherit">
-            {TokenType[historyType].toString()}
-          </Typography>
-        ),
+        value: <Typography variant="inherit">{history.type}</Typography>,
       },
       {
         key: 'status',
@@ -96,25 +75,11 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
       },
       {
         key: 'unit count',
-        value: (
-          <>
-            {isOutgoing ? <Trans>-</Trans> : <Trans>+</Trans>}
-            &nbsp;
-            <FormatLargeNumber value={mojoToCAT(amount)} />
-            &nbsp;
-            {unit}
-          </>
-        ),
+        value: <>{history.unitCount}</>,
       },
       {
         key: 'fee',
-        value: (
-          <>
-            <FormatLargeNumber value={mojoToChia(feeAmount)} />
-            &nbsp;
-            {feeUnit}
-          </>
-        ),
+        value: <>{history.fee}</>,
       },
     ],
     [transaction, open]

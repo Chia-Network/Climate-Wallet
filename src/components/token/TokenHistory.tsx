@@ -1,6 +1,5 @@
-import { ExportButton } from '@/components/token'
 import { useSelectedWallet, useWalletTransactions } from '@/hooks/wallet'
-import { useGetTransactionsQuery } from '@/services/climateService'
+import { transactionToHistory } from '@/util/token'
 import { toBech32m } from '@chia/api'
 import { useCurrencyCode, useSerializedNavigationState } from '@chia/core'
 import { Trans } from '@lingui/macro'
@@ -18,9 +17,10 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import { tr } from 'make-plural'
 import React, { useMemo } from 'react'
+import ExportButton from './ExportButton'
 import TokenHistoryRow from './TokenHistoryRow'
+import { TokenType } from './TokenType'
 
 const defaultRowsPerPageOptions = [5, 10, 25, 50, 100]
 const historyTableHeads = [
@@ -109,8 +109,15 @@ const TokenHistory = () => {
   const transactionsCSVData = useMemo(() => {
     if (!transactions) return []
     return transactions.map((transaction) => {
+      const history = transactionToHistory(transaction, feeUnit)
       // TODO : check data
-      return { type: transaction.type }
+      return {
+        Type: history.type,
+        Status: history.status,
+        Date: history.date,
+        Quantity: history.unitCount,
+        Fee: history.fee,
+      }
     })
   }, [transactions])
 
