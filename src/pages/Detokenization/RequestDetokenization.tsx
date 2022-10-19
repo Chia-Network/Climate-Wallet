@@ -88,13 +88,14 @@ const RequestDetokenization = () => {
   const handleChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }
-  const onSetBlockingList = (txId: string, content: string, amount: number) => {
+  const onSetBlockingList = (txId: string, content: string) => {
     const oldList: BlockingList = blockingList || []
 
     if (walletId && !oldList.some((item) => item.walletId === walletId)) {
+      const amount = getValues().amount
       const newItem: BlockingListContent = {
         walletId: walletId,
-        amount: String(getValues().amount),
+        amount: String(amount),
         txId: txId,
         passphrase: getValues().passphrase,
         content: content,
@@ -128,7 +129,7 @@ const RequestDetokenization = () => {
           assetId: assetId,
         }).unwrap()
 
-        onSetBlockingList(response?.tx?.id, response?.content, data.amount)
+        onSetBlockingList(response?.tx?.id, response?.content)
         reset()
         navigate(-1)
       } catch (e) {
