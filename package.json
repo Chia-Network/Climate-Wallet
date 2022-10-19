@@ -59,6 +59,7 @@
         "lodash": "4.17.21",
         "make-plural": "7.0.0",
         "match-sorter": "6.3.1",
+        "minizip-asm.js": "^1.0.10",
         "moment": "^2.29.4",
         "normalize-url": "7.0.3",
         "python-shell": "^3.0.1",
@@ -93,7 +94,6 @@
         "@babel/preset-typescript": "7.16.7",
         "@babel/register": "7.16.9",
         "@babel/runtime": "^7.18.9",
-        "dotenv-webpack": "^8.0.1",
         "@lingui/babel-preset-react": "^2.9.2",
         "@lingui/cli": "3.13.0",
         "@lingui/core": "3.13.0",
@@ -125,6 +125,7 @@
         "copy-webpack-plugin": "10.2.0",
         "cross-env": "7.0.3",
         "css-loader": "6.5.1",
+        "dotenv-webpack": "^8.0.1",
         "electron": "^20.0.2",
         "electron-builder": "^23.3.3",
         "electron-winstaller": "5.0.0",
@@ -185,32 +186,38 @@
         },
         "mac": {
             "icon": "src/assets/img/logo-512.png",
-            "target": [{
-                "target": "default",
-                "arch": [
-                    "x64",
-                    "arm64"
-                ]
-            }]
+            "target": [
+                {
+                    "target": "default",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                }
+            ]
         },
         "win": {
             "icon": "src/assets/img/logo-512.png",
-            "target": [{
-                "target": "nsis",
-                "arch": [
-                    "x64",
-                    "ia32"
-                ]
-            }]
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64",
+                        "ia32"
+                    ]
+                }
+            ]
         },
         "linux": {
             "icon": "src/assets/img/logo-512.png",
-            "target": [{
-                "target": "AppImage",
-                "arch": [
-                    "x64"
-                ]
-            }]
+            "target": [
+                {
+                    "target": "AppImage",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
         }
     },
     "version": "1.0.0"
