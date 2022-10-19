@@ -8,6 +8,7 @@ import {
   Collapse,
   IconButton,
   Stack,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -24,10 +25,21 @@ interface TokenHistoryRowProps {
 }
 
 type RowType = {
+  width?: string
   key: string
   title?: ReactNode
   value: ReactNode
 }
+
+const StyledTableCellWithoutBorder = styled(TableCell)({
+  borderBottom: 'none',
+  paddingBottom: '10px',
+  paddingTop: '10px',
+})
+
+const StyledTableCell = styled(TableCell)({
+  width: 'auto',
+})
 
 const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   const [open, setOpen] = React.useState(false)
@@ -66,6 +78,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
       ),
     },
     {
+      width: '100%',
       key: 'date',
       value: <Box>{transactionHistory.date}</Box>,
     },
@@ -79,17 +92,11 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     },
   ]
 
-  // TODO : refine
-  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transactionHistory])
-  const fakeBeneficiary = useMemo(
-    () => 'Lorem ipsum dolor sit amet, eos susci',
-    [transactionHistory]
-  )
-
   const memosNode = useMemo<RowType>(() => {
     const memos = getMemosDescription(memoHexs)
     return {
       key: 'Memos',
+      title: <Trans>{'Memos'}</Trans>,
       value: memos.state ? (
         <Stack direction="row" spacing={1}>
           {memos.value.map((memo, index) => (
@@ -107,6 +114,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   const collapseRows = useMemo<RowType[]>(() => {
     switch (historyType) {
       case TokenType.Send:
+      case TokenType.Retire:
         return [
           {
             key: 'To',
@@ -114,19 +122,6 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
-        ]
-      case TokenType.Retire:
-        return [
-          {
-            key: 'Beneficiary',
-            title: <Trans>{'Beneficiary'}</Trans>,
-            value: <Typography variant="inherit">{fakeBeneficiary}</Typography>,
-          },
-          {
-            key: 'Public Key',
-            title: <Trans>{'Public Key'}</Trans>,
-            value: <Typography variant="inherit">{fakePublicKey}</Typography>,
-          },
         ]
       case TokenType.Receive:
         return [
@@ -148,7 +143,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     <Fragment>
       <TableRow>
         {/* first cell is arrow icon */}
-        <TableCell>
+        <StyledTableCell>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -156,13 +151,16 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
+        </StyledTableCell>
         {rows.map((row, index) => (
-          <TableCell
+          <StyledTableCell
             align={tableAlignLeft(index)}
             key={row.key}
             component="th"
             scope="row"
+            sx={{
+              width: row.width ?? 'auto',
+            }}
           >
             <Typography
               component="div"
@@ -172,17 +170,17 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
             >
               {row.value}
             </Typography>
-          </TableCell>
+          </StyledTableCell>
         ))}
       </TableRow>
-      <TableRow>
+      <TableRow sx={{ py: 2 }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table size="small">
+            <Table>
               <TableBody>
                 {collapseRows.map((row) => (
                   <TableRow key={row.key}>
-                    <TableCell>
+                    <StyledTableCellWithoutBorder>
                       <Typography
                         component="div"
                         variant="body2"
@@ -190,16 +188,17 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
                         noWrap
                       >
                         {row.title}
-                        {':'}
                       </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Box maxWidth="100%">
-                        <Typography component="div" variant="body2" noWrap>
-                          {row.value}
-                        </Typography>
-                      </Box>
-                    </TableCell>
+                    </StyledTableCellWithoutBorder>
+                    <StyledTableCellWithoutBorder
+                      sx={{
+                        width: '100%',
+                      }}
+                    >
+                      <Typography component="div" variant="body2" noWrap>
+                        {row.value}
+                      </Typography>
+                    </StyledTableCellWithoutBorder>
                   </TableRow>
                 ))}
               </TableBody>
