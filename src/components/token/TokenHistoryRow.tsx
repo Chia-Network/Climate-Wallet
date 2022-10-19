@@ -1,7 +1,5 @@
-import { CARBON_TOKEN_UNIT as unit } from '@/constants/unit'
-import { getMemosDescription, transactionToHistory } from '@/util/token'
-import { Transaction, TransactionType } from '@chia/api'
-import { useCurrencyCode } from '@chia/core'
+import { TransactionHistory } from '@/hooks/wallet'
+import { getMemosDescription } from '@/util/token'
 import { Trans } from '@lingui/macro'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -17,13 +15,12 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import moment from 'moment'
 import React, { Fragment, ReactNode, useMemo } from 'react'
 import { tableAlignLeft } from './TokenHistory'
 import { TokenType } from './TokenType'
 
 interface TokenHistoryRowProps {
-  transaction: Transaction
+  transactionHistory: TransactionHistory
 }
 
 type RowType = {
@@ -32,64 +29,61 @@ type RowType = {
   value: ReactNode
 }
 
-const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
+const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   const [open, setOpen] = React.useState(false)
-  const feeUnit = useCurrencyCode()
   const theme = useTheme()
 
   const {
     confirmed: isConfirmed,
-    createdAtTime,
     toAddress,
     memos: memoHexs,
-  } = transaction
+    historyType,
+  } = transactionHistory
 
-  const history = transactionToHistory(transaction, feeUnit)
-  const { historyType } = history
-
-  const rows = useMemo<RowType[]>(
-    () => [
-      {
-        key: 'type',
-        value: <Typography variant="inherit">{history.type}</Typography>,
-      },
-      {
-        key: 'status',
-        value: (
-          <Box
-            sx={{
-              border: '1px solid #BFBFBF',
-              borderRadius: '30px',
-              px: 1,
-              textAlign: 'center',
-              color: theme.palette.text.secondary,
-            }}
-          >
-            {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
-          </Box>
-        ),
-      },
-      {
-        key: 'date',
-        value: <Box>{moment(createdAtTime * 1000).format('LLL')}</Box>,
-      },
-      {
-        key: 'unit count',
-        value: <>{history.unitCount}</>,
-      },
-      {
-        key: 'fee',
-        value: <>{history.fee}</>,
-      },
-    ],
-    [transaction, open]
-  )
+  const rows: RowType[] = [
+    {
+      key: 'type',
+      value: (
+        <Typography variant="inherit">
+          {transactionHistory.historyTypeString}
+        </Typography>
+      ),
+    },
+    {
+      key: 'status',
+      value: (
+        <Box
+          sx={{
+            border: '1px solid #BFBFBF',
+            borderRadius: '30px',
+            px: 1,
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+          }}
+        >
+          {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+        </Box>
+      ),
+    },
+    {
+      key: 'date',
+      value: <Box>{transactionHistory.date}</Box>,
+    },
+    {
+      key: 'unit count',
+      value: <>{transactionHistory.unitCount}</>,
+    },
+    {
+      key: 'fee',
+      value: <>{transactionHistory.fee}</>,
+    },
+  ]
 
   // TODO : refine
-  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transaction])
+  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transactionHistory])
   const fakeBeneficiary = useMemo(
     () => 'Lorem ipsum dolor sit amet, eos susci',
-    [transaction]
+    [transactionHistory]
   )
 
   const memosNode = useMemo<RowType>(() => {
@@ -148,7 +142,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
       default:
         return []
     }
-  }, [transaction])
+  }, [transactionHistory])
 
   return (
     <Fragment>

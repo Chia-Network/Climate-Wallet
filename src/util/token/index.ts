@@ -1,11 +1,5 @@
-import { TokenType } from '@/components/token'
-import { CARBON_TOKEN_UNIT as unit } from '@/constants/unit'
-import { Transaction, TransactionType } from '@chia/api'
-import { mojoToCAT, mojoToChia } from '@chia/core'
 import { useLocale } from '@chia/core/'
-import { Trans } from '@lingui/macro'
 import BigNumber from 'bignumber.js'
-import moment from 'moment'
 
 export const getMemosDescription = (
   memos: string[]
@@ -93,40 +87,4 @@ export default function bigNumberToLocaleString(
   }
 
   return value.toFormat(format)
-}
-
-export const transactionToHistory = (
-  transaction: Transaction,
-  feeUnit: string
-) => {
-  const {
-    confirmed: isConfirmed,
-    createdAtTime,
-    type,
-    amount,
-    feeAmount,
-  } = transaction
-
-  const isOutgoing = [
-    TransactionType.OUTGOING,
-    TransactionType.OUTGOING_TRADE,
-  ].includes(type)
-
-  const historyType: TokenType =
-    type === TokenType.Default
-      ? isOutgoing
-        ? TokenType.Send
-        : TokenType.Receive
-      : type
-
-  return {
-    historyType: historyType,
-    type: TokenType[historyType].toString(),
-    status: isConfirmed ? 'Confirmed' : 'Pending',
-    date: moment(createdAtTime * 1000).format('LLL'),
-    unitCount: `${isOutgoing ? '+' : '-'} ${FormatLargeNumber(
-      mojoToCAT(amount)
-    )} ${unit}`,
-    fee: `${FormatLargeNumber(mojoToChia(feeAmount))} ${feeUnit}`,
-  }
 }
