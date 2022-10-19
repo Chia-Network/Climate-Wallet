@@ -33,8 +33,9 @@ type RowType = {
 
 const StyledTableCellWithoutBorder = styled(TableCell)({
   borderBottom: 'none',
-  paddingBottom: '10px',
-  paddingTop: '10px',
+  height: '24px',
+  paddingBottom: 0,
+  paddingTop: 0,
 })
 
 const StyledTableCell = styled(TableCell)({
@@ -176,33 +177,39 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
       <TableRow sx={{ py: 2 }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table>
-              <TableBody>
-                {collapseRows.map((row) => (
-                  <TableRow key={row.key}>
-                    <StyledTableCellWithoutBorder>
-                      <Typography
-                        component="div"
-                        variant="body2"
-                        color="textSecondary"
-                        noWrap
+            <Box
+              sx={{
+                py: '12px',
+              }}
+            >
+              <Table>
+                <TableBody>
+                  {collapseRows.map((row) => (
+                    <TableRow key={row.key}>
+                      <StyledTableCellWithoutBorder align="right">
+                        <Typography
+                          component="div"
+                          variant="body2"
+                          color="textSecondary"
+                          noWrap
+                        >
+                          {row.title}
+                        </Typography>
+                      </StyledTableCellWithoutBorder>
+                      <StyledTableCellWithoutBorder
+                        sx={{
+                          width: '100%',
+                        }}
                       >
-                        {row.title}
-                      </Typography>
-                    </StyledTableCellWithoutBorder>
-                    <StyledTableCellWithoutBorder
-                      sx={{
-                        width: '100%',
-                      }}
-                    >
-                      <Typography component="div" variant="body2" noWrap>
-                        {row.value}
-                      </Typography>
-                    </StyledTableCellWithoutBorder>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                        <Typography component="div" variant="body2" noWrap>
+                          {row.value}
+                        </Typography>
+                      </StyledTableCellWithoutBorder>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
           </Collapse>
         </TableCell>
       </TableRow>
