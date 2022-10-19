@@ -10,8 +10,12 @@ import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreatDetokenizationTxMutation } from '@/services/climateService'
 import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
-import { DetokenizationTxRequest } from '@/types/ClimateServiceType'
-import { BlockingList, RequestInput } from '@/types/DetokenizationType'
+import {
+  BlockingList,
+  BlockingListContent,
+  RequestInput,
+} from '@/types/DetokenizationType'
+import createDetokenFile from '@/util/createDetokenFile'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -31,6 +35,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import moment from 'moment'
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -83,20 +88,23 @@ const RequestDetokenization = () => {
   const handleChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }
-  const onSetBlockingList = (txId: string, content: string) => {
+  const onSetBlockingList = (txId: string, content: string, amount: number) => {
     const oldList: BlockingList = blockingList || []
 
     if (walletId && !oldList.some((item) => item.walletId === walletId)) {
-      setBlockingList([
-        ...oldList,
-        {
-          walletId: walletId,
-          amount: String(getValues().amount),
-          txId: txId,
-          passphrase: getValues().passphrase,
-          content: content,
-        },
-      ])
+      const newItem: BlockingListContent = {
+        walletId: walletId,
+        amount: String(getValues().amount),
+        txId: txId,
+        passphrase: getValues().passphrase,
+        content: content,
+        fileName: `detok-${amount}${CARBON_TOKEN_UNIT}-${moment().format(
+          'YYYY-MM-DD'
+        )}`,
+      }
+
+      setBlockingList([...oldList, newItem])
+      createDetokenFile(newItem)
     }
   }
 
@@ -120,7 +128,7 @@ const RequestDetokenization = () => {
           assetId: assetId,
         }).unwrap()
 
-        onSetBlockingList(response?.tx?.id, response?.content)
+        onSetBlockingList(response?.tx?.id, response?.content, data.amount)
         reset()
         navigate(-1)
       } catch (e) {
