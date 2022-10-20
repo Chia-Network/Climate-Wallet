@@ -1,10 +1,9 @@
 import {
   useGetAllCWAssetQuery,
-  useGetAllCWProjectByIdQuery,
-  useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
+  useGetCWProjectByIdQuery,
 } from '@/services/climateWarehouseService'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 export function useGetAllCWAssets() {
   const {
@@ -58,7 +57,7 @@ export function useGetAllCWAssetsById(assetId: string) {
     data: project,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetAllCWProjectByIdQuery(asset?.issuance?.warehouseProjectId)
+  } = useGetCWProjectByIdQuery(asset?.issuance?.warehouseProjectId)
 
   const data = useMemo(() => {
     if (asset && project) {

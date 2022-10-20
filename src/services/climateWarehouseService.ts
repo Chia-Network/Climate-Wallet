@@ -14,7 +14,7 @@ export const climateWarehouseServiceApi = createApi({
       }),
     }),
     //get one unit by warehouseUnitId
-    getAllCWAssetById: builder.query({
+    getCWAssetById: builder.query({
       query: (warehouseUnitId) => ({
         url: `v1/units`,
         params: { warehouseUnitId },
@@ -33,7 +33,7 @@ export const climateWarehouseServiceApi = createApi({
       }),
     }),
     //get on project by warehouseProjectId
-    getAllCWProjectById: builder.query({
+    getCWProjectById: builder.query({
       query: (warehouseProjectId) => ({
         url: `v1/projects`,
         params: { warehouseProjectId },
@@ -43,9 +43,9 @@ export const climateWarehouseServiceApi = createApi({
 })
 
 export const {
-  useGetAllCWAssetByIdQuery,
+  useGetCWAssetByIdQuery,
   useGetAllCWAssetQuery,
-  useGetAllCWProjectByIdQuery,
+  useGetCWProjectByIdQuery,
   useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
 } = climateWarehouseServiceApi
