@@ -26,6 +26,19 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
 
 ## Usage
 
+### Setpup submodule and follow submodule readme to stepup env
+
+```sh
+git submodule update --init --recursive
+cp .env.submodule climate-token-driver/.env
+```
+
+### package submodule for dev and build
+
+```sh
+npm run package-submodule
+```
+
 ### Run from source for development
 
 - [Install nodejs](https://nodejs.org/en/)
@@ -44,16 +57,27 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
   npm run dev
   ```
 
-### Package and run app
+### Package app
 
-- Build react and electron
+- Windows
 
   ```sh
+  #Build react and electron
   npm run build
+  #Build submodule
+  npm run package-submodule
+  #Package the app
+  npm run package-windows
+
   ```
 
-- Package the app
+- Mac
 
   ```sh
-  npm run packaging
+  #Build react and electron
+  npm run build
+  #Build submodule
+  npm run package-submodule
+  #Package the app
+  npm run package-mac
   ```
