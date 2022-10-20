@@ -29,10 +29,8 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
 ### Setpup submodule and follow submodule readme to stepup env
 
 ```sh
+git submodule update --init --recursive
 cp .env.submodule climate-token-driver/.env
-cd climate-token-driver
-git submodule update --init
-cd ..
 ```
 
 ### package submodule for dev and build
