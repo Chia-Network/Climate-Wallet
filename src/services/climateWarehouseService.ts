@@ -8,23 +8,33 @@ export const climateWarehouseApi = createApi({
   reducerPath: 'climateWarehouseApi',
   baseQuery: fetchBaseQuery({ baseUrl: serviceURL }),
   endpoints: (builder) => ({
-    getAllCWAsset: builder.query<any, any>({
+    //get all units
+    getAllCWAsset: builder.query({
       query: () => ({
         url: `v1/units`,
       }),
     }),
-    getAllCWAssetById: builder.query<any, any>({
+    //get one unit by warehouseUnitId
+    getAllCWAssetById: builder.query({
       query: (warehouseUnitId) => ({
         url: `v1/units`,
         params: { warehouseUnitId },
       }),
     }),
-    getAllCWPorject: builder.query<any, any>({
+    //get all organizations
+    getAllOrganizations: builder.query({
+      query: () => ({
+        url: `v1/organizations`,
+      }),
+    }),
+    //get all project
+    getAllCWPorject: builder.query({
       query: () => ({
         url: `v1/projects`,
       }),
     }),
-    getAllCWPorjectById: builder.query<any, any>({
+    //get on project by warehouseProjectId
+    getAllCWPorjectById: builder.query({
       query: (warehouseProjectId) => ({
         url: `v1/projects`,
         params: { warehouseProjectId },
