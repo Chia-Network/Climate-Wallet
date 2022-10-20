@@ -1,15 +1,14 @@
 import { ApiRes, CWAsset, CWAssetIds } from '@/types/ClimateWarehouseType'
-import customBasicQuery from '@/util/customBasicQuery'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const serviceURL = process.env.CLIMATE_WAREHOUSE
 
-export const climateWarehouseApi = createApi({
-  reducerPath: 'climateWarehouseApi',
+export const climateWarehouseServiceApi = createApi({
+  reducerPath: 'climateWarehouseServiceApi',
   baseQuery: fetchBaseQuery({ baseUrl: serviceURL }),
   endpoints: (builder) => ({
     //get all units
-    getAllCWAsset: builder.query({
+    getAllCWAsset: builder.query<CWAsset[], any>({
       query: () => ({
         url: `v1/units`,
       }),
@@ -28,13 +27,13 @@ export const climateWarehouseApi = createApi({
       }),
     }),
     //get all project
-    getAllCWPorject: builder.query({
+    getAllCWProject: builder.query({
       query: () => ({
         url: `v1/projects`,
       }),
     }),
     //get on project by warehouseProjectId
-    getAllCWPorjectById: builder.query({
+    getAllCWProjectById: builder.query({
       query: (warehouseProjectId) => ({
         url: `v1/projects`,
         params: { warehouseProjectId },
@@ -46,7 +45,7 @@ export const climateWarehouseApi = createApi({
 export const {
   useGetAllCWAssetByIdQuery,
   useGetAllCWAssetQuery,
-  useGetAllCWPorjectByIdQuery,
-  useGetAllCWPorjectQuery,
+  useGetAllCWProjectByIdQuery,
+  useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
-} = climateWarehouseApi
+} = climateWarehouseServiceApi

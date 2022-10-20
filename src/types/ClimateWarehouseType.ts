@@ -5,6 +5,20 @@ import type {
   TokenMetaData,
 } from './ClimateServiceType'
 
+export interface Issuance {
+  id: string
+  orgUid: string
+  warehouseProjectId: string
+  startDate: string
+  endDate: string
+  verificationApproach: string
+  verificationReportDate: string
+  verificationBody: string
+  timeStaged: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface CWAsset {
   warehouseUnitId: string
   issuanceId: string
@@ -31,6 +45,7 @@ export interface CWAsset {
   tokenization: Tokenization
   detokenization: Detokenization
   permissionless_retirement: Retirement
+  issuance: Issuance
 }
 
 export type CWAssetIds = string[]
