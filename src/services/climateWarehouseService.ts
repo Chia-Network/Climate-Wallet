@@ -43,4 +43,10 @@ export const climateWarehouseApi = createApi({
   }),
 })
 
-export const {} = climateWarehouseApi
+export const {
+  useGetAllCWAssetByIdQuery,
+  useGetAllCWAssetQuery,
+  useGetAllCWPorjectByIdQuery,
+  useGetAllCWPorjectQuery,
+  useGetAllOrganizationsQuery,
+} = climateWarehouseApi
