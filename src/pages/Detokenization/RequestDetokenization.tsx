@@ -199,9 +199,7 @@ const RequestDetokenization = () => {
                   required
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment position="end">
-                        {unit} Free
-                      </InputAdornment>
+                      <InputAdornment position="end">{unit}</InputAdornment>
                     ),
                   }}
                 />
