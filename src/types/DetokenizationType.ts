@@ -13,10 +13,13 @@ export enum CancelStep {
   Result = 1,
 }
 
-export type BlockingList = {
+export interface BlockingListContent {
   walletId: string
   txId?: string
   amount: string
   content: string
   passphrase: string
-}[]
+  fileName: string
+}
+
+export type BlockingList = BlockingListContent[]
