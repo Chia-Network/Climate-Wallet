@@ -24,7 +24,7 @@ const defaultRowsPerPageOptions = [5, 10, 25, 50, 100]
 const historyTableHeads = [
   { key: 'Type', node: <Trans>Type</Trans> },
   { key: 'Status', node: <Trans>Status</Trans> },
-  { key: 'Date', node: <Trans>Date</Trans> },
+  { key: 'Date', node: <Trans>Date</Trans>, width: '100%' },
   { key: 'Quantity', node: <Trans>Quantity</Trans> },
   { key: 'Fee', node: <Trans>Fee</Trans> },
 ]
@@ -40,19 +40,13 @@ const StyledHeaderTableCell = styled(StyledWhiteTableCell)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.text.secondary} `,
 }))
 
+const StyledHeaderSmallTableCell = styled(StyledHeaderTableCell)({
+  maxWidth: '40px',
+})
+
 const TokenHistory = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
   const theme = useTheme()
-
-  //TODO: replace old transactions endpoint
-  /*
-  const { data: transactions2 } = useGetTransactionsQuery({
-    wallet_id: Number(walletId),
-    start: 0,
-    end: 50,
-    reverse: false,
-  })
-  */
 
   const {
     transactionsHistory,
@@ -122,11 +116,14 @@ const TokenHistory = () => {
             <TableHead>
               <TableRow>
                 {/* shift one head for collapse icon */}
-                <StyledHeaderTableCell />
+                <StyledHeaderSmallTableCell />
                 {historyTableHeads.map((head, index) => (
                   <StyledHeaderTableCell
                     align={tableAlignLeft(index)}
                     key={head.key}
+                    sx={{
+                      width: head.width ?? 'auto',
+                    }}
                   >
                     {head.node}
                   </StyledHeaderTableCell>
