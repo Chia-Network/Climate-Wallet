@@ -5,12 +5,11 @@ import {
   TransactionPrompt,
 } from '@/components/transaction'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreatDetokenizationTxMutation } from '@/services/climateService'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
-import { DetokenizationTxRequest } from '@/types/ClimateServiceType'
 import { BlockingList, RequestInput } from '@/types/DetokenizationType'
 import {
   useGetCATAssetIdQuery,
@@ -58,7 +57,7 @@ const RequestDetokenization = () => {
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
   const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetCWAssetByIdQuery(assetId)
+    useGetAllCWAssetsById(assetId)
   const { data: walletBalance, isLoading: isLoadingWalletBalance } =
     useGetWalletBalanceQuery(
       {

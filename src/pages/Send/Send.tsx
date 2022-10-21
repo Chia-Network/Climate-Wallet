@@ -10,9 +10,9 @@ import {
 } from '@/components/transaction'
 import TabPanel from '@/components/UIKit/TabPanel'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import { InputType, SendStep } from '@/types/SendType'
 import transactionValidCheck from '@/util/transactionValidCheck'
 import {
@@ -54,9 +54,6 @@ const Send = () => {
   //TODO:  remove default address and amount
   const methods = useForm<InputType>({
     defaultValues: {
-      address:
-        'txch1crq5vdxm0rfgpqzerplfuzl38egmrs6qgvyps97n2ag5nwjlgqvssl5awh',
-      amount: '1',
       fee: '0.001',
     },
     mode: 'onChange',
@@ -65,7 +62,7 @@ const Send = () => {
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
 
   const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetCWAssetByIdQuery(assetId)
+    useGetAllCWAssetsById(assetId)
 
   const { data: walletBalance, isLoading: isLoadingWalletBalance } =
     useGetWalletBalanceQuery(

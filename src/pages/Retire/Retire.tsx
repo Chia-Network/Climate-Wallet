@@ -11,10 +11,10 @@ import {
 } from '@/components/transaction'
 import TabPanel from '@/components/UIKit/TabPanel'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreateRetirementTxMutation } from '@/services/climateService'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import { InputType, RetireStep } from '@/types/RetireType'
 import {
   useGetCATAssetIdQuery,
@@ -50,9 +50,7 @@ const Retire = () => {
 
   const methods = useForm<InputType>({
     defaultValues: {
-      amount: '1',
       fee: '0.001',
-      // publicKey: 'xch...',
     },
     mode: 'onChange',
   })
@@ -60,7 +58,7 @@ const Retire = () => {
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
 
   const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetCWAssetByIdQuery(assetId)
+    useGetAllCWAssetsById(assetId)
 
   const { data: walletBalance, isLoading: isLoadingWalletBalance } =
     useGetWalletBalanceQuery(

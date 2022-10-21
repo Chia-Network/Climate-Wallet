@@ -8,6 +8,7 @@ import {
 } from '@/components/transaction'
 import TabPanel from '@/components/UIKit/TabPanel'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
@@ -46,6 +47,7 @@ import {
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+
 const CancelDetokenization = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
@@ -83,7 +85,7 @@ const CancelDetokenization = () => {
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
 
   const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetCWAssetByIdQuery(assetId)
+    useGetAllCWAssetsById(assetId)
 
   const { data: walletBalance, isLoading: isLoadingWalletBalance } =
     useGetWalletBalanceQuery(
