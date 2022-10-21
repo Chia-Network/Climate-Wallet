@@ -1,12 +1,5 @@
-import { CARBON_TOKEN_UNIT as unit } from '@/constants/unit'
+import { TransactionHistory } from '@/hooks/wallet'
 import { getMemosDescription } from '@/util/token'
-import { Transaction, TransactionType } from '@chia/api'
-import {
-  FormatLargeNumber,
-  mojoToCAT,
-  mojoToChia,
-  useCurrencyCode,
-} from '@chia/core'
 import { Trans } from '@lingui/macro'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -22,108 +15,75 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import moment from 'moment'
 import React, { Fragment, ReactNode, useMemo } from 'react'
 import { tableAlignLeft } from './TokenHistory'
 import { TokenType } from './TokenType'
 
 interface TokenHistoryRowProps {
-  transaction: Transaction
+  transactionHistory: TransactionHistory
 }
 
 type RowType = {
   key: string
+  title?: ReactNode
   value: ReactNode
 }
 
-const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
+const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   const [open, setOpen] = React.useState(false)
-  const feeUnit = useCurrencyCode()
   const theme = useTheme()
 
   const {
     confirmed: isConfirmed,
-    createdAtTime,
-    type,
-    amount,
-    feeAmount,
     toAddress,
     memos: memoHexs,
-  } = transaction
+    historyType,
+  } = transactionHistory
 
-  const isOutgoing = [
-    TransactionType.OUTGOING,
-    TransactionType.OUTGOING_TRADE,
-  ].includes(type)
-
-  const historyType: TokenType =
-    type === TokenType.Default
-      ? isOutgoing
-        ? TokenType.Send
-        : TokenType.Receive
-      : type
-
-  const rows = useMemo<RowType[]>(
-    () => [
-      {
-        key: 'type',
-        value: (
-          <Typography variant="inherit">
-            {TokenType[historyType].toString()}
-          </Typography>
-        ),
-      },
-      {
-        key: 'status',
-        value: (
-          <Box
-            sx={{
-              border: '1px solid #BFBFBF',
-              borderRadius: '30px',
-              px: 1,
-              textAlign: 'center',
-              color: theme.palette.text.secondary,
-            }}
-          >
-            {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
-          </Box>
-        ),
-      },
-      {
-        key: 'date',
-        value: <Box>{moment(createdAtTime * 1000).format('LLL')}</Box>,
-      },
-      {
-        key: 'unit count',
-        value: (
-          <>
-            {isOutgoing ? <Trans>-</Trans> : <Trans>+</Trans>}
-            &nbsp;
-            <FormatLargeNumber value={mojoToCAT(amount)} />
-            &nbsp;
-            {unit}
-          </>
-        ),
-      },
-      {
-        key: 'fee',
-        value: (
-          <>
-            <FormatLargeNumber value={mojoToChia(feeAmount)} />
-            &nbsp;
-            {feeUnit}
-          </>
-        ),
-      },
-    ],
-    [transaction, open]
-  )
+  const rows: RowType[] = [
+    {
+      key: 'type',
+      value: (
+        <Typography variant="inherit">
+          {transactionHistory.historyTypeString}
+        </Typography>
+      ),
+    },
+    {
+      key: 'status',
+      value: (
+        <Box
+          sx={{
+            border: '1px solid #BFBFBF',
+            borderRadius: '30px',
+            px: 1,
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+          }}
+        >
+          {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+        </Box>
+      ),
+    },
+    {
+      key: 'date',
+      value: <Box>{transactionHistory.date}</Box>,
+    },
+    {
+      key: 'unit count',
+      value: <>{transactionHistory.unitCount}</>,
+    },
+    {
+      key: 'fee',
+      value: <>{transactionHistory.fee}</>,
+    },
+  ]
 
   // TODO : refine
-  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transaction])
+  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transactionHistory])
   const fakeBeneficiary = useMemo(
     () => 'Lorem ipsum dolor sit amet, eos susci',
-    [transaction]
+    [transactionHistory]
   )
 
   const memosNode = useMemo<RowType>(() => {
@@ -150,6 +110,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'To',
+            title: <Trans>{'To'}</Trans>,
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
@@ -158,10 +119,12 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'Beneficiary',
+            title: <Trans>{'Beneficiary'}</Trans>,
             value: <Typography variant="inherit">{fakeBeneficiary}</Typography>,
           },
           {
             key: 'Public Key',
+            title: <Trans>{'Public Key'}</Trans>,
             value: <Typography variant="inherit">{fakePublicKey}</Typography>,
           },
         ]
@@ -169,6 +132,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
         return [
           {
             key: 'From',
+            title: <Trans>{'From'}</Trans>,
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
@@ -178,7 +142,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
       default:
         return []
     }
-  }, [transaction])
+  }, [transactionHistory])
 
   return (
     <Fragment>
@@ -225,7 +189,7 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
                         color="textSecondary"
                         noWrap
                       >
-                        <Trans>{row.key}</Trans>
+                        {row.title}
                         {':'}
                       </Typography>
                     </TableCell>
