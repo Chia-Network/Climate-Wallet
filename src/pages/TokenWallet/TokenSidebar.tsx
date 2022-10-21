@@ -5,6 +5,7 @@ import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
   useCWAddStrayCats,
   useSelectedWallet,
+  useWalletsBalance,
   useWalletsList,
 } from '@/hooks/wallet'
 import { WalletType } from '@chia/api'
@@ -105,6 +106,8 @@ export default function TokenSidebar() {
       }
     })
   }, [allCWAssets])
+
+  useWalletsBalance(filteredWallet)
 
   const theme = useTheme()
 

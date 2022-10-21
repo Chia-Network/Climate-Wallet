@@ -107,7 +107,7 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
             <Trans>Requesting Detokenization</Trans>
           </Box>
         )}
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" spacing={1} alignItems="flex-end">
           <Typography
             variant="h6"
             sx={{
