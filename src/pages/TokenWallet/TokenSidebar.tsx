@@ -1,24 +1,22 @@
 import { Loading } from '@/components/loading'
-import { TokenListItem } from '@/components/token'
+import { ExportButton, TokenListItem } from '@/components/token'
+import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
   useCWAddStrayCats,
   useSelectedWallet,
   useWalletsList,
 } from '@/hooks/wallet'
-import { useGetAllCWAssetsQuery } from '@/services/climateWarehouse'
-
-import { ExportButton } from '@/components/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
 import {
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   Stack,
   styled,
   Typography,
+  useTheme,
 } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -56,7 +54,7 @@ export default function TokenSidebar() {
     data: allCWAssets,
     isLoading: isLoadingAllCWAssets,
     error: errorAllCWAssets,
-  } = useGetAllCWAssetsQuery('')
+  } = useGetAllCWAssets()
 
   const isLoading =
     isLoadingWallets || isLoadingAllCWAssets || isLoadingAddStrayCats
@@ -108,6 +106,8 @@ export default function TokenSidebar() {
     })
   }, [allCWAssets])
 
+  const theme = useTheme()
+
   return (
     <StyledRoot direction="column" gap={3}>
       <Stack direction="column" spacing={3}>
@@ -117,44 +117,54 @@ export default function TokenSidebar() {
           </Typography>
           <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography variant="body2">
-            <Trans>Sort by</Trans>
-          </Typography>
-          <FormControl sx={{ flex: 1 }}>
-            <InputLabel id="demo-simple-select-label">
-              <Trans>Label</Trans>
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={tokenSort}
-              label={<Trans>Label</Trans>}
-              onChange={(event) => {
-                setTokenSort(event.target.value as TokeSortEnum)
-              }}
-            >
-              <MenuItem value={TokeSortEnum.QuentyHL}>
-                <Trans>Quantity - high to low</Trans>
-              </MenuItem>
-              <MenuItem value={TokeSortEnum.QuentyLH}>
-                <Trans>Quantity - low to high</Trans>
-              </MenuItem>
-              <MenuItem value={TokeSortEnum.NameAZ}>
-                <Trans>Name - A to Z</Trans>
-              </MenuItem>
-              <MenuItem value={TokeSortEnum.NameZA}>
-                <Trans>Name - Z to A</Trans>
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
       </Stack>
-      <Stack spacing={1} direction="column">
-        {isLoading ? (
-          <Loading center />
-        ) : filteredWallet.length > 0 ? (
-          filteredWallet.map((wallet) => {
+
+      {isLoading ? (
+        <Loading center />
+      ) : filteredWallet.length > 0 ? (
+        <Stack spacing={1} direction="column">
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            sx={{
+              color: theme.palette.text.secondary,
+              mb: 3,
+            }}
+          >
+            <Typography variant="body2">
+              <Trans>Sort by</Trans>
+            </Typography>
+            <FormControl sx={{ flex: 1 }}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={tokenSort}
+                displayEmpty
+                onChange={(event) => {
+                  setTokenSort(event.target.value as TokeSortEnum)
+                }}
+                sx={{
+                  height: '40px',
+                  color: theme.palette.text.secondary,
+                }}
+              >
+                <MenuItem value={TokeSortEnum.QuentyHL}>
+                  <Trans>Quantity - high to low</Trans>
+                </MenuItem>
+                <MenuItem value={TokeSortEnum.QuentyLH}>
+                  <Trans>Quantity - low to high</Trans>
+                </MenuItem>
+                <MenuItem value={TokeSortEnum.NameAZ}>
+                  <Trans>Name - A to Z</Trans>
+                </MenuItem>
+                <MenuItem value={TokeSortEnum.NameZA}>
+                  <Trans>Name - Z to A</Trans>
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+          {filteredWallet.map((wallet) => {
             const { walletId, assetId } = wallet
             return (
               <TokenListItem
@@ -163,11 +173,21 @@ export default function TokenSidebar() {
                 isDetoken={isDetokenWallet(walletId)}
               />
             )
-          })
-        ) : (
-          <Typography>No projects.</Typography>
-        )}
-      </Stack>
+          })}
+        </Stack>
+      ) : (
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            py: '100px',
+          }}
+        >
+          <Typography variant="body2" color="textSecondary">
+            No projects.
+          </Typography>
+        </Stack>
+      )}
     </StyledRoot>
   )
 }
