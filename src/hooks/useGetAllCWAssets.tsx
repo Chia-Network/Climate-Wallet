@@ -66,7 +66,7 @@ export function useGetAllCWAssetsById(assetId: string) {
     data: metadata,
     isLoading: isLoadingMetadata,
     error: errorMetadata,
-  } = useGetCWMetaDataQuery(asset?.issuance?.orgUid, {
+  } = useGetCWMetaDataQuery(asset?.orgUid, {
     skip: !asset?.issuance?.orgUid,
   })
 

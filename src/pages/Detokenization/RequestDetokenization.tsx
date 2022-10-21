@@ -105,10 +105,14 @@ const RequestDetokenization = () => {
         const response = await creacteDetokenzation({
           data: {
             token: {
-              ...cwAsset,
               org_uid: cwAsset.orgUid,
-              warehouse_project_id: cwAsset.projectId,
+              warehouse_project_id: cwAsset.warehouse_project_id,
               vintage_year: cwAsset.vintageYear,
+              sequence_num: cwAsset.sequence_num,
+              index: cwAsset.index,
+              public_key: cwAsset.public_key,
+              asset_id: cwAsset.asset_id,
+              detokenization: cwAsset.detokenization,
             },
             payment: {
               amount: catToMojo(data.amount),
