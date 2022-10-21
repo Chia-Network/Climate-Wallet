@@ -1,5 +1,6 @@
 import { Loading } from '@/components/loading'
-import { TokenListItem } from '@/components/token'
+import { ExportButton, TokenListItem } from '@/components/token'
+import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
   useCWAddStrayCats,
@@ -7,8 +8,6 @@ import {
   useWalletsList,
 } from '@/hooks/wallet'
 import { useGetAllCWAssetsQuery } from '@/services/climateWarehouse'
-
-import { ExportButton } from '@/components/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
 import {
@@ -56,7 +55,7 @@ export default function TokenSidebar() {
     data: allCWAssets,
     isLoading: isLoadingAllCWAssets,
     error: errorAllCWAssets,
-  } = useGetAllCWAssetsQuery('')
+  } = useGetAllCWAssets()
 
   const isLoading =
     isLoadingWallets || isLoadingAllCWAssets || isLoadingAddStrayCats
@@ -149,6 +148,7 @@ export default function TokenSidebar() {
         ) : filteredWallet.length > 0 ? (
           filteredWallet.map((wallet) => {
             const { walletId, assetId } = wallet
+
             return (
               <TokenListItem
                 key={assetId ?? walletId}
