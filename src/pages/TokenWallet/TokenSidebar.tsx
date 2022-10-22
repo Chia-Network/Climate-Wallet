@@ -30,10 +30,10 @@ enum TokeSortEnum {
 }
 
 const StyledRoot = styled(Stack)(({ theme }) => ({
-  width: '400px',
+  width: '360px',
   height: '100%',
   // TODO : check why overflow not work, so it need more padding to active scroll
-  padding: '32px 30px 80px 40px',
+  padding: '32px 24px 80px 40px',
   borderRight: `1px solid ${theme.palette.divider}`,
   flexGrow: 1,
   overflowY: 'auto',

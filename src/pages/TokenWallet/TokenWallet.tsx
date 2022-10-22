@@ -16,7 +16,7 @@ const StyledStackRoot = styled(Stack)({
 })
 
 const StyledContainer = styled(Stack)({
-  padding: '32px 40px 40px 30px',
+  padding: '32px 40px 40px 32px',
 })
 
 const TokenWallet = () => {
