@@ -177,13 +177,13 @@ const Retire = () => {
             <TransactionStep
               steps={[
                 {
-                  subtitle: 'Enter quantity to retire',
+                  subtitle: <Trans>Transaction Information</Trans>,
                 },
                 {
-                  subtitle: 'Confirm transaction details',
+                  subtitle: <Trans>Review</Trans>,
                 },
                 {
-                  subtitle: 'Transaction result',
+                  subtitle: <Trans>Result</Trans>,
                 },
               ]}
               selected={step}
@@ -195,22 +195,28 @@ const Retire = () => {
           <TabPanel value={step} index={0}>
             <Stack>
               <Typography variant="h4" sx={{ m: 1 }} textAlign={'center'}>
-                <Trans>Retire</Trans>
+                <Trans>Token Retirement</Trans>
               </Typography>
 
               <TransactionBody>
-                <Typography gutterBottom variant="body1">
+                <Typography
+                  gutterBottom
+                  variant="body1"
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Project information</Trans>
                 </Typography>
-                <Typography color={'gray'} marginBottom={2} variant="body1">
-                  <Trans>Please confirm project details.</Trans>
-                </Typography>
                 <TransactionBasicInfo infos={carbonTokenInfo} />
-                <Typography gutterBottom variant="body1">
+                <Typography
+                  gutterBottom
+                  variant="body1"
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Transaction information</Trans>
-                </Typography>
-                <Typography color={'gray'} marginBottom={2} variant="body1">
-                  <Trans>Please fill in your transaction information.</Trans>
                 </Typography>
                 <form onSubmit={methods.handleSubmit(handlePrview)}>
                   <RetireInput />

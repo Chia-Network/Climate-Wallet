@@ -3,17 +3,26 @@ import { useWallet } from '@/hooks/wallet'
 import { useGetRetireKeysQuery } from '@/services/climateService'
 import { InputType } from '@/types/RetireType'
 import { Trans } from '@lingui/macro'
-import { Button, Grid, InputAdornment, Stack, TextField } from '@mui/material'
+import { Help as HelpIcon } from '@mui/icons-material'
+import {
+  Button,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import { useFormContext } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
 
 const RetireInput = () => {
-  const { walletId } = useParams()
-
   const { data: retireKey } = useGetRetireKeysQuery('')
 
   const { register, setValue, trigger } = useFormContext<InputType>()
   const { unit } = useWallet(1)
+
+  const theme = useTheme()
 
   return (
     <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
@@ -49,7 +58,7 @@ const RetireInput = () => {
       </Grid>
       <Grid xs={12} item>
         <TextField
-          label={<Trans>The name of the beneficiary</Trans>}
+          label={<Trans>Beneficiary Name</Trans>}
           fullWidth
           {...register('beneficiary', {})}
         />
@@ -57,27 +66,54 @@ const RetireInput = () => {
       <Grid xs={12} item>
         <Stack direction={'row'}>
           <TextField
-            label={<Trans>The public key of the beneficiary</Trans>}
+            label={<Trans>Beneficiary Public Key</Trans>}
             fullWidth
             {...register('publicKey', { required: true })}
-            InputLabelProps={{
-              shrink: true,
-            }}
             required
-          />
-          <Button
-            variant="contained"
-            onClick={() => {
-              if (retireKey?.bech32m) {
-                setValue('publicKey', retireKey?.bech32m, {
-                  shouldValidate: true,
-                })
-              }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip
+                    title={
+                      <Trans>
+                        Public key of the beneficiary to be recorded on the
+                        blockchain. Can be used by the beneficiary to prove
+                        claimed retirements for auditing purposes.
+                      </Trans>
+                    }
+                    arrow
+                  >
+                    <HelpIcon
+                      color="disabled"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        width: '24px',
+                        height: '24px',
+                        mr: 1,
+                      }}
+                    />
+                  </Tooltip>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      px: '20px',
+                    }}
+                    onClick={() => {
+                      if (retireKey?.bech32m) {
+                        setValue('publicKey', retireKey?.bech32m, {
+                          shouldValidate: true,
+                        })
+                      }
+                    }}
+                  >
+                    <Typography variant="body1">
+                      <Trans>My Public Key</Trans>
+                    </Typography>
+                  </Button>
+                </InputAdornment>
+              ),
             }}
-            sx={{ width: 240 }}
-          >
-            Insert a address
-          </Button>
+          />
         </Stack>
       </Grid>
     </Grid>

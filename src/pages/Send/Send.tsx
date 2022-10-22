@@ -197,20 +197,22 @@ const Send = () => {
                 <Trans>Send</Trans>
               </Typography>
               <TransactionBody>
-                <Typography gutterBottom>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Project information</Trans>
                 </Typography>
-                <Typography gutterBottom color={'gray'} marginBottom={2}>
-                  <Trans>Please confirm project details.</Trans>
-                </Typography>
-
                 <TransactionBasicInfo infos={carbonTokenInfo} />
-
-                <Typography gutterBottom>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Transaction information</Trans>
-                </Typography>
-                <Typography gutterBottom color={'gray'} marginBottom={3}>
-                  <Trans>Please fill in your transaction information.</Trans>
                 </Typography>
                 <form onSubmit={methods.handleSubmit(handleReview)}>
                   <SendInput />
