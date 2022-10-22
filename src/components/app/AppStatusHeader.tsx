@@ -10,12 +10,14 @@ import {
 import { StateColor, StateIndicatorDot } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import { Help as HelpIcon } from '@mui/icons-material'
+import CloseIcon from '@mui/icons-material/Close'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import {
   alpha,
   Button,
   ButtonProps,
   Dialog,
+  IconButton,
   Stack,
   SxProps,
   Theme,
@@ -198,19 +200,36 @@ export default function AppStatusHeader() {
           </Button>
           {/* new address dialog */}
           <Dialog open={openView} onClose={handleCloseView}>
-            <Stack sx={{ p: 3 }} spacing={2}>
-              <Typography sx={{ textAlign: 'center', mt: 3 }} variant="h5">
+            <Stack sx={{ px: '24px', py: '16px' }} spacing={'24px'}>
+              <IconButton
+                aria-label="close"
+                onClick={handleCloseView}
+                sx={{
+                  position: 'absolute',
+                  right: 15,
+                  top: 8,
+                  color: theme.palette.text.primary,
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography
+                sx={{ textAlign: 'center', mt: 3 }}
+                variant="h6"
+                fontWeight={500}
+              >
                 <Trans>Address</Trans>
               </Typography>
               <Typography
                 sx={{
                   textAlign: 'center',
                   wordBreak: 'break-all',
-                  py: 2,
+                  py: '30px',
                   px: 3,
-                  backgroundColor: '#EBF5EB',
+                  backgroundColor: '#EDF6F1',
                 }}
-                variant="body1"
+                variant="body2"
+                fontWeight={500}
               >
                 {address ?? ''}
               </Typography>
@@ -220,6 +239,7 @@ export default function AppStatusHeader() {
                 justifyContent="space-between"
                 sx={{
                   width: '100%',
+                  pt: '16px',
                 }}
               >
                 <Button onClick={handleNewAddress} variant="outlined">
