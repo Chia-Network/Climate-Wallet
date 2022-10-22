@@ -244,7 +244,13 @@ export default function AppStatusHeader() {
                   pt: '16px',
                 }}
               >
-                <Button onClick={handleNewAddress} variant="outlined">
+                <Button
+                  onClick={handleNewAddress}
+                  variant="outlined"
+                  sx={{
+                    textTransform: 'uppercase',
+                  }}
+                >
                   <Trans>New Address</Trans>
                 </Button>
                 <Button onClick={handleCopy} variant="contained">
