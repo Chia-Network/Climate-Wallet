@@ -6,7 +6,7 @@ interface ITokenCardProps {
   title: ReactNode
 }
 
-const paddingLeft = 7
+const paddingLeft = '44px'
 
 const TokenCard = ({
   icon,

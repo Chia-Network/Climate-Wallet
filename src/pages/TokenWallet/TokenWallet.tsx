@@ -49,9 +49,7 @@ const TokenWallet = () => {
       {isDetoken && <TokenAlert />}
       <StyledContainer spacing={3}>
         <TokenHeader />
-        <Divider />
         <TokenContent />
-        <Divider />
         <TokenHistory />
       </StyledContainer>
     </StyledStackRoot>
