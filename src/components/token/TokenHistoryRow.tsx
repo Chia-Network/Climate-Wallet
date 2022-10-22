@@ -189,7 +189,10 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
                 <TableBody>
                   {collapseRows.map((row) => (
                     <TableRow key={row.key}>
-                      <StyledTableCellWithoutBorder align="right">
+                      <StyledTableCellWithoutBorder
+                        align="right"
+                        sx={{ verticalAlign: 'top' }}
+                      >
                         <Typography
                           component="div"
                           variant="body2"
@@ -204,7 +207,13 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
                           width: '100%',
                         }}
                       >
-                        <Typography component="div" variant="body2" noWrap>
+                        <Typography
+                          component="div"
+                          variant="body2"
+                          sx={{
+                            wordBreak: 'break-all',
+                          }}
+                        >
                           {row.value}
                         </Typography>
                       </StyledTableCellWithoutBorder>
