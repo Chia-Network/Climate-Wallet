@@ -8,13 +8,12 @@ import {
   Stack,
   SxProps,
   Theme,
-  Typography,
 } from '@mui/material'
 import React, { PropsWithChildren, useRef, useState } from 'react'
 
 const borderStyle: SxProps<Theme> = {
   border: '1px solid #E0E0E0',
-  borderRadius: '8px',
+  borderRadius: '4px',
 }
 
 const BorderButton = ({
@@ -56,7 +55,11 @@ const LanguageSelect = () => {
           color: 'black', // TODO : use theme color like icon color
         }}
       >
-        <LanguageIcon />
+        <LanguageIcon
+          sx={{
+            width: '20px',
+          }}
+        />
       </BorderButton>
       <Menu
         id="fade-menu"

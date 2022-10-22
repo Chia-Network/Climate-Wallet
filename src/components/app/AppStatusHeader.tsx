@@ -12,6 +12,7 @@ import { Trans } from '@lingui/macro'
 import { Help as HelpIcon } from '@mui/icons-material'
 import CloseIcon from '@mui/icons-material/Close'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import {
   alpha,
   Button,
@@ -34,7 +35,7 @@ const chiaWalletId: number = 1
 
 const borderStyle: SxProps<Theme> = {
   border: '1px solid #E0E0E0',
-  borderRadius: '8px',
+  borderRadius: '4px',
 }
 
 const iconStyle: SxProps<Theme> = {
@@ -179,7 +180,7 @@ export default function AppStatusHeader() {
             sx={{
               textTransform: 'none',
               paddingX: 2,
-              borderRadius: '7px',
+              borderRadius: '3px',
               fontWeight: '500',
               backgroundColor: theme.palette['other'].lightBackground,
               color: theme.palette.text.primary,
@@ -191,7 +192,12 @@ export default function AppStatusHeader() {
           >
             <Stack direction="row" spacing={1}>
               <BoldTypography>{shortAddress}</BoldTypography>
-              <ContentCopyIcon sx={iconStyle} />
+              <MoreHorizIcon
+                sx={{
+                  ...iconStyle,
+                  color: theme.palette['other'].buttonTextGreen,
+                }}
+              />
             </Stack>
           </Button>
           {/* new address dialog */}
