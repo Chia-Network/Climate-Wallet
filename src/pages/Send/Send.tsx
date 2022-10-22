@@ -121,7 +121,7 @@ const Send = () => {
     setChecked(event.target.checked)
   }
 
-  const handleCommit = async () => {
+  const handleSubmit = async () => {
     const data = methods.getValues()
 
     if (transactionValidCheck(data, state)) {
@@ -287,12 +287,12 @@ const Send = () => {
 
                   <LoadingButton
                     variant="contained"
-                    onClick={handleCommit}
+                    onClick={handleSubmit}
                     disabled={!checked}
                     loading={isSpendCatLoading}
                     endIcon={<ChevronRightIcon />}
                   >
-                    <Trans>Commit</Trans>
+                    <Trans>Submit</Trans>
                   </LoadingButton>
                 </Stack>
               </TransactionBody>
