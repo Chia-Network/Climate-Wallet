@@ -20,6 +20,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
+import { WalletListItem } from '../../types/WalletType'
 
 enum TokeSortEnum {
   QuentyHL = 0, // Quantity - high to low
@@ -57,10 +58,7 @@ export default function TokenSidebar() {
     error: errorAllCWAssets,
   } = useGetAllCWAssets()
 
-  const isLoading =
-    isLoadingWallets || isLoadingAllCWAssets || isLoadingAddStrayCats
-
-  const filteredWallet = useMemo(() => {
+  const filteredWallets = useMemo<WalletListItem[]>(() => {
     if (!wallets || !allCWAssets) {
       return []
     }
@@ -72,30 +70,65 @@ export default function TokenSidebar() {
   }, [wallets, allCWAssets])
 
   const { isLoading: isLoadingWalletsBalance, data: walletsBalance } =
-    useWalletsBalance(filteredWallet)
+    useWalletsBalance(filteredWallets)
 
   console.log('walletsBalance', walletsBalance)
 
   useEffect(() => {
-    if (!walletId && filteredWallet.length > 0) {
-      setWalletId(filteredWallet[0].walletId)
+    if (!walletId && filteredWallets.length > 0) {
+      setWalletId(filteredWallets[0].walletId)
     }
-  }, [filteredWallet])
+  }, [filteredWallets])
 
-  useEffect(() => {
-    // TODO
+  // TODO : can refactor
+  const sortedWallets = useMemo<WalletListItem[]>(() => {
+    if (filteredWallets.length !== walletsBalance.length) {
+      return [...filteredWallets]
+    }
+
     switch (tokenSort) {
       default:
+        return [...filteredWallets]
       case TokeSortEnum.QuentyHL:
-        break
+        return [...filteredWallets].sort((a, b) => {
+          return (
+            walletsBalance[filteredWallets.indexOf(a)] -
+            walletsBalance[filteredWallets.indexOf(b)]
+          )
+        })
       case TokeSortEnum.QuentyLH:
-        break
+        return [...filteredWallets].sort((a, b) => {
+          return (
+            walletsBalance[filteredWallets.indexOf(b)] -
+            walletsBalance[filteredWallets.indexOf(a)]
+          )
+        })
       case TokeSortEnum.NameAZ:
-        break
+        return [...filteredWallets].sort((a, b) => {
+          var aName =
+            allCWAssets.find(
+              (asset) => asset.marketplaceIdentifier === a.assetId
+            )?.projectName ?? ''
+          var bName =
+            allCWAssets.find(
+              (asset) => asset.marketplaceIdentifier === b.assetId
+            )?.projectName ?? ''
+          return aName.localeCompare(bName)
+        })
       case TokeSortEnum.NameZA:
-        break
+        return [...filteredWallets].sort((a, b) => {
+          var aName =
+            allCWAssets.find(
+              (asset) => asset.marketplaceIdentifier === a.assetId
+            )?.projectName ?? ''
+          var bName =
+            allCWAssets.find(
+              (asset) => asset.marketplaceIdentifier === b.assetId
+            )?.projectName ?? ''
+          return bName.localeCompare(aName)
+        })
     }
-  }, [tokenSort])
+  }, [tokenSort, filteredWallets, walletsBalance])
 
   const allCWAssetsCSVData = useMemo(() => {
     if (!allCWAssets) return []
@@ -112,6 +145,12 @@ export default function TokenSidebar() {
     })
   }, [allCWAssets])
 
+  const isLoading =
+    isLoadingWallets ||
+    isLoadingAllCWAssets ||
+    isLoadingAddStrayCats ||
+    isLoadingWalletsBalance
+
   const theme = useTheme()
 
   return (
@@ -127,7 +166,7 @@ export default function TokenSidebar() {
 
       {isLoading ? (
         <Loading center />
-      ) : filteredWallet.length > 0 ? (
+      ) : filteredWallets.length > 0 ? (
         <Stack spacing={1} direction="column">
           <Stack
             direction="row"
@@ -170,7 +209,7 @@ export default function TokenSidebar() {
               </Select>
             </FormControl>
           </Stack>
-          {filteredWallet.map((wallet) => {
+          {sortedWallets.map((wallet) => {
             const { walletId, assetId } = wallet
             return (
               <TokenListItem
