@@ -1,3 +1,4 @@
+import GreySkeleton from '@/components/common/GreySkeleton'
 import {
   useSelectedWallet,
   useWallet,
@@ -42,7 +43,7 @@ const StyledButton = styled(Button, {
   textAlign: 'left',
 }))
 
-const StyledSkeleton = styled(Skeleton)({
+const StyledSkeleton = styled(GreySkeleton)({
   width: '270px',
   height: '30px',
 })

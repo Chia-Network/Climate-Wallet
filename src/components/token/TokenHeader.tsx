@@ -1,9 +1,10 @@
+import GreySkeleton from '@/components/common/GreySkeleton'
 import useOpenExternal from '@/hooks/useOpenExternal'
 import { useSelectedWallet } from '@/hooks/wallet'
 import { Trans } from '@lingui/macro'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material'
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material'
 import { ReactNode } from 'react'
 import TokenCard from './TokenCard'
 
@@ -48,7 +49,7 @@ const TokenHeader = () => {
     <Stack spacing={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         {isLoadingAsset || !asset ? (
-          <Skeleton />
+          <GreySkeleton />
         ) : (
           <Typography variant="h6" fontWeight={500}>
             {asset.projectName}
