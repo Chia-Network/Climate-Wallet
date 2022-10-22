@@ -108,7 +108,7 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
             <Trans>Requesting Detokenization</Trans>
           </Box>
         )}
-        <Stack direction="row" spacing={1} alignItems="flex-end">
+        <Stack direction="row" spacing="4px" alignItems="flex-end">
           <Typography
             variant="h6"
             sx={{
@@ -120,7 +120,11 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
           </Typography>
           <Typography
             variant="caption"
-            sx={{ color: theme.palette.text.secondary, textAlign: 'bottom' }}
+            sx={{
+              color: theme.palette.text.secondary,
+              textAlign: 'bottom',
+              pb: '2px',
+            }}
           >
             tCO2e
           </Typography>
@@ -152,13 +156,18 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
                 &nbsp;
                 <Typography variant="body2">{asset.vintageYear}</Typography>
               </Stack>
-              <Divider />
+              <Divider
+                sx={{
+                  backgroundColor: '#BFBFBF',
+                }}
+              />
               <Stack
                 direction="row"
-                spacing={1}
+                spacing="12px"
                 alignItems="center"
                 sx={{
                   mt: '6px',
+                  pl: '3px',
                 }}
               >
                 <Avatar
