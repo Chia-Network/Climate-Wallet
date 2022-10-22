@@ -140,10 +140,9 @@ export default function AppStatusHeader() {
   // style
   const theme = useTheme()
 
-  const colorW =
-    connectionsW?.length >= 1
-      ? StateColor.SUCCESS
-      : theme.palette.text.secondary
+  const isSyncingDone = connectionsW?.length >= 3
+
+  const colorW = isSyncingDone ? StateColor.SUCCESS : '#F37C22'
 
   return (
     <Stack
@@ -264,7 +263,7 @@ export default function AppStatusHeader() {
               <StateIndicatorDot color={colorW} />
             </Stack>
             <Stack color="black">
-              {connectionsW?.length >= 3 ? (
+              {isSyncingDone ? (
                 <Trans>Synced</Trans>
               ) : (
                 <Trans>Not Synced</Trans>
