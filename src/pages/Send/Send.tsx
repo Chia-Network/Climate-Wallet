@@ -176,13 +176,13 @@ const Send = () => {
             <TransactionStep
               steps={[
                 {
-                  subtitle: 'Enter quantity to transfer',
+                  subtitle: <Trans>Transaction Information</Trans>,
                 },
                 {
-                  subtitle: 'Confirm transaction details',
+                  subtitle: <Trans>Review</Trans>,
                 },
                 {
-                  subtitle: 'Transaction result',
+                  subtitle: <Trans>Result</Trans>,
                 },
               ]}
               selected={step}
