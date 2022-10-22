@@ -71,6 +71,11 @@ export default function TokenSidebar() {
     )
   }, [wallets, allCWAssets])
 
+  const { isLoading: isLoadingWalletsBalance, data: walletsBalance } =
+    useWalletsBalance(filteredWallet)
+
+  console.log('walletsBalance', walletsBalance)
+
   useEffect(() => {
     if (!walletId && filteredWallet.length > 0) {
       setWalletId(filteredWallet[0].walletId)
@@ -106,8 +111,6 @@ export default function TokenSidebar() {
       }
     })
   }, [allCWAssets])
-
-  useWalletsBalance(filteredWallet)
 
   const theme = useTheme()
 

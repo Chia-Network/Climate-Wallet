@@ -1,19 +1,33 @@
 import { useGetWalletsBalanceMutation } from '@/services/chiaWalletsService'
 import { WalletListItem } from '@/types/WalletType'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function useWalletsBalance(wallets: WalletListItem[]) {
+export default function useWalletsBalance(wallets: WalletListItem[]): {
+  isLoading: boolean
+  data: number[]
+} {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [data, setData] = useState<number[]>([])
   const [getWalletsBalance] = useGetWalletsBalanceMutation()
 
   useEffect(() => {
     Promise.all(
       wallets.map((wallet) => {
-        console.log(wallet)
         const { walletId } = wallet
         return getWalletsBalance({ walletId }).unwrap()
       })
-    ).then((data) => {
-      console.log(data)
+    ).then((walletBalances) => {
+      setIsLoading(false)
+      setData(
+        walletBalances.map(
+          (walletBalance) => walletBalance.confirmedWalletBalance
+        )
+      )
     })
   }, [wallets])
+
+  return {
+    isLoading,
+    data,
+  }
 }
