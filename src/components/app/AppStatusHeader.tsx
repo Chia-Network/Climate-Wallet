@@ -1,3 +1,4 @@
+import LanguageSelect from '@/components/common/LanguageSelect'
 import { useWallet, useWalletHumanValue } from '@/hooks/wallet'
 import {
   useGetCurrentAddressQuery,
@@ -6,23 +7,23 @@ import {
   useGetWalletBalanceQuery,
   useGetWalletConnectionsQuery,
 } from '@chia/api-react'
-import { Flex, StateColor, StateIndicatorDot } from '@chia/core'
+import { StateColor, StateIndicatorDot } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import { Help as HelpIcon } from '@mui/icons-material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import LanguageIcon from '@mui/icons-material/Language'
 import {
   alpha,
   Button,
   ButtonProps,
   Dialog,
   Stack,
+  SxProps,
+  Theme,
   Tooltip,
   Typography,
   TypographyProps,
+  useTheme,
 } from '@mui/material'
-import { SxProps, Theme, useTheme } from '@mui/material/styles'
-import { spacing } from '@mui/system'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import { useCopyToClipboard } from 'react-use'
@@ -30,10 +31,10 @@ import { useCopyToClipboard } from 'react-use'
 const chiaWalletId: number = 1
 
 const borderStyle: SxProps<Theme> = {
-  // TODO : add this border color to the theme ?
   border: '1px solid #E0E0E0',
   borderRadius: '8px',
 }
+
 const iconStyle: SxProps<Theme> = {
   width: '20px',
   height: '20px',
@@ -234,16 +235,7 @@ export default function AppStatusHeader() {
           </Dialog>
         </Stack>
         {/* language */}
-        <BorderButton
-          sx={{
-            width: '36px',
-            height: '36px',
-            minWidth: 'unset',
-            color: 'black', // TODO : use theme color like icon color
-          }}
-        >
-          <LanguageIcon />
-        </BorderButton>
+        <LanguageSelect />
         {/* synced */}
         <BorderButton sx={{ minWidth: 105, textTransform: 'uppercase' }}>
           <Stack direction="row" gap={1} alignItems="center">
