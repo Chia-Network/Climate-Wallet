@@ -21,8 +21,9 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
         </Typography>
         <Typography gutterBottom color={'gray'} variant={'body1'}>
           <Trans>
-            You have completed the transaction, this is your transaction ID, you
-            can go to space scan to check the transaction history.
+            This transaction has been submitted to the blockchain with this
+            transaction ID. It should be confirmed within a few minutes. Until
+            then, it will appear in your transaction history as ‘Pending’.
           </Trans>
         </Typography>
         <TransactionID transactionId={transactionId} />
