@@ -86,7 +86,7 @@ const Retire = () => {
   const reviewInfo = [
     ...carbonTokenInfo,
     {
-      subtitle: <Trans>Send Quantity</Trans>,
+      subtitle: <Trans>Retire Quantity</Trans>,
       value: methods.getValues().amount,
     },
     {
@@ -95,11 +95,11 @@ const Retire = () => {
     },
 
     {
-      subtitle: <Trans>Beneficiary</Trans>,
+      subtitle: <Trans>Beneficiary Name</Trans>,
       value: methods.getValues().beneficiary,
     },
     {
-      subtitle: <Trans>Address</Trans>,
+      subtitle: <Trans>Beneficiary Public Key</Trans>,
       value: methods.getValues().publicKey,
     },
   ]
@@ -116,7 +116,7 @@ const Retire = () => {
     setChecked(event.target.checked)
   }
 
-  const handleCommit = async () => {
+  const handleSubmit = async () => {
     const data = methods.getValues()
     if (cwAsset) {
       try {
@@ -295,12 +295,12 @@ const Retire = () => {
                   <LoadingButton
                     color="primary"
                     variant="contained"
-                    onClick={handleCommit}
+                    onClick={handleSubmit}
                     disabled={!checked}
                     endIcon={<ChevronRightIcon />}
                     loading={isRetirementLoading}
                   >
-                    <Trans>Commit</Trans>
+                    <Trans>Submit</Trans>
                   </LoadingButton>
                 </Stack>
               </TransactionBody>
