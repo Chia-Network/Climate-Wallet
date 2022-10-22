@@ -98,7 +98,7 @@ const TokenHistory = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         {/*  header */}
         <Typography variant="h6">
-          <Trans>Transactions History</Trans>
+          <Trans>Transaction History</Trans>
         </Typography>
         <ExportButton fileName="history.csv" data={transactionsCSVData} />
       </Stack>
