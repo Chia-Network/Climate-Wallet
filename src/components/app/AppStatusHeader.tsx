@@ -136,9 +136,6 @@ export default function AppStatusHeader() {
     {},
     { pollingInterval: 10000 }
   )
-  const [anchorElW, setAnchorElW] = React.useState<HTMLButtonElement | null>(
-    null
-  )
 
   // style
   const theme = useTheme()
@@ -152,10 +149,10 @@ export default function AppStatusHeader() {
     <Stack
       direction="row"
       justifyContent="space-between"
-      alignItems="center"
+      alignItems="flex-end"
       flex={1}
     >
-      <Typography color="textSecondary" variant="body2">
+      <Typography color="textSecondary" variant="body2" sx={{ mb: '5px' }}>
         {fingerprint ?? ''}
       </Typography>
       <Stack direction="row" spacing={1}>
