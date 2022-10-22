@@ -4,10 +4,7 @@ import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
 import { useGetTransactionByIdQuery } from '@/services/climateService'
 import { BlockingList } from '@/types/DetokenizationType'
 import createDetokenFile from '@/util/createDetokenFile'
-import {
-  useDeleteUnconfirmedTransactionsMutation,
-  useGetWalletBalanceQuery,
-} from '@chia/api-react'
+import { useGetWalletBalanceQuery } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'

@@ -25,7 +25,19 @@ const TokenWallet = () => {
   const isDetoken = isDetokenWallet(walletId)
 
   if (loading) {
-    return <Loading center />
+    return (
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Loading sx={{ mt: '32px' }} />
+      </Stack>
+    )
   }
 
   if (!wallet) {
