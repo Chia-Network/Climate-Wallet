@@ -162,7 +162,11 @@ export default function AppStatusHeader() {
           <Stack direction="row" spacing={1} alignItems="center" px={2}>
             <BoldTypography>{spendableBalanceValue}</BoldTypography>
             <Tooltip
-              title={<Trans>This is your spendable balance</Trans>}
+              title={
+                <Trans>
+                  This is your balance available to pay blockchain fees.
+                </Trans>
+              }
               arrow
             >
               <HelpIcon
