@@ -98,17 +98,20 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     return {
       key: 'Memos',
       title: <Trans>{'Memos'}</Trans>,
-      value: memos.state ? (
-        <Stack direction="row" spacing={1}>
-          {memos.value.map((memo, index) => (
-            <Typography variant="inherit" key={index}>
-              {memo ?? ''}
-            </Typography>
-          ))}
-        </Stack>
-      ) : (
-        <Typography variant="inherit">{memos.value[0]}</Typography>
-      ),
+      value:
+        Object.values(memoHexs).length === 0 ? (
+          <Typography variant="inherit">{''}</Typography>
+        ) : memos.state ? (
+          <Stack direction="row" spacing={1}>
+            {memos.value.map((memo, index) => (
+              <Typography variant="inherit" key={index}>
+                {memo ?? ''}
+              </Typography>
+            ))}
+          </Stack>
+        ) : (
+          <Typography variant="inherit">{memos.value[0]}</Typography>
+        ),
     }
   }, [memoHexs])
 
