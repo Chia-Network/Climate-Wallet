@@ -54,3 +54,7 @@ export interface ApiRes<T> {
   data: T
   status: number
 }
+
+interface Project {}
+
+interface Unit {}
