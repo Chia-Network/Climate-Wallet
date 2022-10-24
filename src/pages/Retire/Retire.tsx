@@ -141,8 +141,8 @@ const Retire = () => {
         }).unwrap()
         setTransactionId(response?.tx?.id)
         setStep(RetireStep.Result)
-      } catch ({ message }) {
-        alert(message)
+      } catch (e) {
+        alert(JSON.stringify(e))
       }
     }
   }
