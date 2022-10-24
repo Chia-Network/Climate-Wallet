@@ -87,9 +87,12 @@ const TokenContent = () => {
     }
   )
 
-  const { data: txStatus } = useGetTransactionByIdQuery({
-    txId: detokenizationInfo?.txId,
-  })
+  const { data: txStatus } = useGetTransactionByIdQuery(
+    {
+      txId: detokenizationInfo?.txId,
+    },
+    { skip: !detokenizationInfo?.txId }
+  )
 
   const confirmedWalletBalanceValue = useWalletHumanValue(
     wallet,

@@ -39,6 +39,14 @@ export const climateWarehouseServiceApi = createApi({
         params: { warehouseProjectId },
       }),
     }),
+
+    //get on project by warehouseProjectId
+    getCWMetaData: builder.query({
+      query: (orgUid) => ({
+        url: `v1/organizations/metadata`,
+        params: { orgUid },
+      }),
+    }),
   }),
 })
 
@@ -48,4 +56,5 @@ export const {
   useGetAllCWProjectByIdQuery,
   useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
+  useGetCWMetaDataQuery,
 } = climateWarehouseServiceApi
