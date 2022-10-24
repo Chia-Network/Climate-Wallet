@@ -1,3 +1,4 @@
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import {
   useSelectedWallet,
   useWallet,
@@ -61,7 +62,8 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
     data: asset,
     isLoading: isLoadingAsset,
     error: errorAsset,
-  } = useGetCWAssetByIdQuery(assetId ?? '')
+  } = useGetAllCWAssetsById(assetId)
+
   const { data: walletBalance } = useGetWalletBalanceQuery(
     { walletId },
     { pollingInterval: 10000 }

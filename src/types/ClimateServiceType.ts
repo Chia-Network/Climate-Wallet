@@ -41,6 +41,7 @@ export interface TokenMetaData extends TokenBasicData {
   index: string
   public_key: string
   asset_id: string
+  sequence_num: number
 }
 
 export interface DetokenizationTxRequest {

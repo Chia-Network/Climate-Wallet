@@ -1,8 +1,8 @@
 import {
   useGetAllCWAssetQuery,
   useGetAllCWProjectByIdQuery,
-  useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
+  useGetCWMetaDataQuery,
 } from '@/services/climateWarehouseService'
 import { useMemo, useState } from 'react'
 
@@ -48,7 +48,7 @@ export function useGetAllCWAssetsById(assetId: string) {
   } = useGetAllCWAssets()
 
   const asset = useMemo(() => {
-    if (assets) {
+    if (assets && assetId) {
       return assets.find((item) => item.marketplaceIdentifier === assetId)
     }
     return null
@@ -58,16 +58,35 @@ export function useGetAllCWAssetsById(assetId: string) {
     data: project,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetAllCWProjectByIdQuery(asset?.issuance?.warehouseProjectId)
+  } = useGetAllCWProjectByIdQuery(asset?.issuance?.warehouseProjectId, {
+    skip: !asset?.issuance?.warehouseProjectId,
+  })
+
+  const {
+    data: metadata,
+    isLoading: isLoadingMetadata,
+    error: errorMetadata,
+  } = useGetCWMetaDataQuery(asset?.orgUid, {
+    skip: !asset?.issuance?.orgUid,
+  })
 
   const data = useMemo(() => {
-    if (asset && project) {
-      return { ...asset, ...project }
-    }
-  }, [asset, project])
+    if (asset && project && metadata) {
+      let json = {}
+      const key = `meta_0x${asset?.marketplaceIdentifier}`
 
-  const isLoading = isLoadingAssets || isLoadingProjects
-  const error = errorAssets || errorProjects
+      try {
+        if (metadata[key]) {
+          json = JSON.parse(metadata[key])
+        }
+      } catch (error) {}
+
+      return { ...asset, ...project, ...json }
+    }
+  }, [asset, project, metadata])
+
+  const isLoading = isLoadingAssets || isLoadingProjects || isLoadingMetadata
+  const error = errorAssets || errorProjects || errorMetadata
 
   return { data, isLoading, error }
 }
