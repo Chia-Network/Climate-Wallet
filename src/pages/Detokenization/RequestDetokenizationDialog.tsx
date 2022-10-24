@@ -23,6 +23,8 @@ const StyledQuestionButton = styled(Button)(({ theme }) => ({
   borderRadius: 8,
   backgroundColor: 'transparent',
   color: theme.palette.text.primary,
+  position: 'absolute',
+  right: 0,
 }))
 
 const RequestDetokenizationDialog = () => {

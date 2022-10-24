@@ -1,14 +1,15 @@
+import GreySkeleton from '@/components/common/GreySkeleton'
 import useOpenExternal from '@/hooks/useOpenExternal'
 import { useSelectedWallet } from '@/hooks/wallet'
 import { Trans } from '@lingui/macro'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { Box, Button, Skeleton, Stack, Typography } from '@mui/material'
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material'
 import { ReactNode } from 'react'
 import TokenCard from './TokenCard'
 
 interface TokenHeaderDescProps {
-  title: string
+  title: string | ReactNode
   value: string | ReactNode
 }
 
@@ -33,11 +34,13 @@ const TokenHeader = () => {
     return null
   }
 
-  const handleViewDetails = () => {
-    // TODO : open climate warehouse web
-  }
-
   const openExternal = useOpenExternal()
+
+  const handleViewDetails = () => {
+    openExternal(
+      `https://app.climatewarehouse.chia.net/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
+    )
+  }
 
   const handleProjectLinkClick = (url: string) => {
     const prefix = url.includes('https://') ? '' : 'https://'
@@ -48,7 +51,7 @@ const TokenHeader = () => {
     <Stack spacing={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         {isLoadingAsset || !asset ? (
-          <Skeleton />
+          <GreySkeleton />
         ) : (
           <Typography variant="h6" fontWeight={500}>
             {asset.projectName}
@@ -70,15 +73,30 @@ const TokenHeader = () => {
         title={<Trans>Project Details</Trans>}
       >
         <TokenHeaderDesc
-          title="Vintage Year"
+          title={<Trans>Vintage Year</Trans>}
           value={asset?.vintageYear.toString() ?? ''}
         />
         <TokenHeaderDesc
-          title="Current Registry"
-          value={asset?.currentRegistry ?? ''}
+          title={<Trans>Current Registry</Trans>}
+          value={
+            <Stack direction="row" spacing={1}>
+              <Avatar
+                alt={'token icon'}
+                src={asset?.registryLogo}
+                variant="rounded"
+                sx={{
+                  width: '24px',
+                  height: '24px',
+                }}
+              />
+              <Typography variant="body1" fontWeight={400} color="textPrimary">
+                {asset?.currentRegistry ?? ''}
+              </Typography>
+            </Stack>
+          }
         />
         <TokenHeaderDesc
-          title="Project Link"
+          title={<Trans>Project Link</Trans>}
           value={
             asset?.projectLink ? (
               <Box
@@ -96,6 +114,10 @@ const TokenHeader = () => {
               ''
             )
           }
+        />
+        <TokenHeaderDesc
+          title={<Trans>Token Asset ID</Trans>}
+          value={asset?.asset_id.toString() ?? ''}
         />
       </TokenCard>
     </Stack>

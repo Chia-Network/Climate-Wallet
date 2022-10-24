@@ -1,8 +1,6 @@
 import type { TransactionInfosType } from '@/types/TransactionType'
-import { Trans } from '@lingui/macro'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { ReactNode } from 'react'
 interface Props {
   infos: TransactionInfosType
 }
@@ -13,30 +11,28 @@ const TransactionReviewList = ({ infos }: Props) => {
   return (
     <Box sx={{ mt: 1, mb: 3 }}>
       {infos.map((item, index) => (
-        <Grid
-          container
+        <Stack
           key={index}
           sx={{
-            mb: 1,
-            pb: 1,
-            pt: 1,
+            py: '12px',
             borderBottomColor: theme.palette.grey[300],
             borderBottomWidth: 1,
             borderBottomStyle: 'solid',
           }}
-          spacing={1}
+          spacing={0}
+          direction="row"
         >
-          <Grid item xs={4}>
-            <Typography color="gray" component="div" sx={{ width: 200 }}>
-              {item.subtitle}
-            </Typography>
-          </Grid>
-          <Grid item xs={7}>
-            <Typography component="div" sx={{ wordBreak: 'break-all' }}>
-              {item.value}
-            </Typography>
-          </Grid>
-        </Grid>
+          <Typography color="textSecondary" variant="body2" sx={{ width: 168 }}>
+            {item.subtitle}
+          </Typography>
+          <Typography
+            variant="body2"
+            fontWeight={500}
+            sx={{ wordBreak: 'break-all' }}
+          >
+            {item.value}
+          </Typography>
+        </Stack>
       ))}
     </Box>
   )

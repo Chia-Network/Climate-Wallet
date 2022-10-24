@@ -84,7 +84,7 @@ const Retire = () => {
   const reviewInfo = [
     ...carbonTokenInfo,
     {
-      subtitle: <Trans>Send Quantity</Trans>,
+      subtitle: <Trans>Retire Quantity</Trans>,
       value: methods.getValues().amount,
     },
     {
@@ -93,11 +93,11 @@ const Retire = () => {
     },
 
     {
-      subtitle: <Trans>Beneficiary</Trans>,
+      subtitle: <Trans>Beneficiary Name</Trans>,
       value: methods.getValues().beneficiary,
     },
     {
-      subtitle: <Trans>Address</Trans>,
+      subtitle: <Trans>Beneficiary Public Key</Trans>,
       value: methods.getValues().publicKey,
     },
   ]
@@ -114,7 +114,7 @@ const Retire = () => {
     setChecked(event.target.checked)
   }
 
-  const handleCommit = async () => {
+  const handleSubmit = async () => {
     const data = methods.getValues()
     if (cwAsset) {
       try {
@@ -179,13 +179,13 @@ const Retire = () => {
             <TransactionStep
               steps={[
                 {
-                  subtitle: 'Enter quantity to retire',
+                  subtitle: <Trans>Transaction Information</Trans>,
                 },
                 {
-                  subtitle: 'Confirm transaction details',
+                  subtitle: <Trans>Review</Trans>,
                 },
                 {
-                  subtitle: 'Transaction result',
+                  subtitle: <Trans>Result</Trans>,
                 },
               ]}
               selected={step}
@@ -197,22 +197,28 @@ const Retire = () => {
           <TabPanel value={step} index={0}>
             <Stack>
               <Typography variant="h4" sx={{ m: 1 }} textAlign={'center'}>
-                <Trans>Retire</Trans>
+                <Trans>Token Retirement</Trans>
               </Typography>
 
               <TransactionBody>
-                <Typography gutterBottom variant="body1">
+                <Typography
+                  gutterBottom
+                  variant="body1"
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Project information</Trans>
                 </Typography>
-                <Typography color={'gray'} marginBottom={2} variant="body1">
-                  <Trans>Please confirm project details.</Trans>
-                </Typography>
                 <TransactionBasicInfo infos={carbonTokenInfo} />
-                <Typography gutterBottom variant="body1">
+                <Typography
+                  gutterBottom
+                  variant="body1"
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Transaction information</Trans>
-                </Typography>
-                <Typography color={'gray'} marginBottom={2} variant="body1">
-                  <Trans>Please fill in your transaction information.</Trans>
                 </Typography>
                 <form onSubmit={methods.handleSubmit(handlePrview)}>
                   <RetireInput />
@@ -291,12 +297,12 @@ const Retire = () => {
                   <LoadingButton
                     color="primary"
                     variant="contained"
-                    onClick={handleCommit}
+                    onClick={handleSubmit}
                     disabled={!checked}
                     endIcon={<ChevronRightIcon />}
                     loading={isRetirementLoading}
                   >
-                    <Trans>Commit</Trans>
+                    <Trans>Submit</Trans>
                   </LoadingButton>
                 </Stack>
               </TransactionBody>

@@ -151,6 +151,7 @@ const RequestDetokenization = () => {
             justifyContent={'center'}
             direction={'row'}
             alignItems={'center'}
+            sx={{ position: 'relative' }}
           >
             <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
               <Trans>Request Detokenization</Trans>
@@ -159,20 +160,20 @@ const RequestDetokenization = () => {
             <RequestDetokenizationDialog />
           </Stack>
           <TransactionBody>
-            <Typography>
+            <Typography
+              sx={{
+                mb: '20px',
+              }}
+            >
               <Trans>Project information</Trans>
             </Typography>
-            <Typography gutterBottom color="gray">
-              <Trans>Please confirm project details</Trans>
-            </Typography>
             <TransactionBasicInfo infos={carbonTokenInfo} />
-            <Typography>
+            <Typography
+              sx={{
+                mb: '20px',
+              }}
+            >
               <Trans>Request Detokenization</Trans>
-            </Typography>
-            <Typography gutterBottom color="gray">
-              <Trans>
-                Please fill in the details of request detokenization
-              </Trans>
             </Typography>
 
             <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>

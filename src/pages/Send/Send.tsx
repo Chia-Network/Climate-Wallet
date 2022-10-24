@@ -118,7 +118,7 @@ const Send = () => {
     setChecked(event.target.checked)
   }
 
-  const handleCommit = async () => {
+  const handleSubmit = async () => {
     const data = methods.getValues()
 
     if (transactionValidCheck(data, state)) {
@@ -173,13 +173,13 @@ const Send = () => {
             <TransactionStep
               steps={[
                 {
-                  subtitle: 'Enter quantity to transfer',
+                  subtitle: <Trans>Transaction Information</Trans>,
                 },
                 {
-                  subtitle: 'Confirm transaction details',
+                  subtitle: <Trans>Review</Trans>,
                 },
                 {
-                  subtitle: 'Transaction result',
+                  subtitle: <Trans>Result</Trans>,
                 },
               ]}
               selected={step}
@@ -194,20 +194,22 @@ const Send = () => {
                 <Trans>Send</Trans>
               </Typography>
               <TransactionBody>
-                <Typography gutterBottom>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Project information</Trans>
                 </Typography>
-                <Typography gutterBottom color={'gray'} marginBottom={2}>
-                  <Trans>Please confirm project details.</Trans>
-                </Typography>
-
                 <TransactionBasicInfo infos={carbonTokenInfo} />
-
-                <Typography gutterBottom>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
                   <Trans>Transaction information</Trans>
-                </Typography>
-                <Typography gutterBottom color={'gray'} marginBottom={3}>
-                  <Trans>Please fill in your transaction information.</Trans>
                 </Typography>
                 <form onSubmit={methods.handleSubmit(handleReview)}>
                   <SendInput />
@@ -246,6 +248,14 @@ const Send = () => {
               </Typography>
 
               <TransactionBody>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
+                  <Trans>Transaction information</Trans>
+                </Typography>
                 <TransactionReviewList infos={reviewInfo} />
                 <Alert severity="info">
                   <AlertTitle>
@@ -284,12 +294,12 @@ const Send = () => {
 
                   <LoadingButton
                     variant="contained"
-                    onClick={handleCommit}
+                    onClick={handleSubmit}
                     disabled={!checked}
                     loading={isSpendCatLoading}
                     endIcon={<ChevronRightIcon />}
                   >
-                    <Trans>Commit</Trans>
+                    <Trans>Submit</Trans>
                   </LoadingButton>
                 </Stack>
               </TransactionBody>

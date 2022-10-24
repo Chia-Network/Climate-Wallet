@@ -41,7 +41,7 @@ const Layout: FC<Props> = ({ children, outlet, actions }) => {
               />
             </Grid>
             <Grid item>
-              <Typography variant="h6" color="secondary" fontWeight="500">
+              <Typography variant="h5" color="secondary" fontWeight="500">
                 <Trans>Climate Wallet</Trans>
               </Typography>
             </Grid>
