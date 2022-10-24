@@ -9,7 +9,7 @@ import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
-import { useWallet, useWalletHumanValue } from '@/hooks/wallet'
+import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreatDetokenizationTxMutation } from '@/services/climateService'
 import {
   BlockingList,
@@ -17,6 +17,7 @@ import {
   RequestInput,
 } from '@/types/DetokenizationType'
 import createDetokenFile from '@/util/createDetokenFile'
+import transactionValidCheck from '@/util/transactionValidCheck'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -48,6 +49,7 @@ const RequestDetokenization = () => {
   const { wallet } = useWallet(walletId)
   const { unit } = useWallet(1)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
+  const { state } = useWalletState()
 
   const [creacteDetokenzation, { isLoading: isDetokenzationLoading }] =
     useCreatDetokenizationTxMutation()
@@ -111,7 +113,11 @@ const RequestDetokenization = () => {
   }
 
   const handleSave = async (data: RequestInput) => {
-    if (cwAsset) {
+    if (data.amount > walletBalance?.confirmedWalletBalance) {
+      alert('Detokenization tokens is more then hold tokens')
+      return
+    }
+    if (cwAsset && transactionValidCheck(data, state)) {
       try {
         const response = await creacteDetokenzation({
           data: {

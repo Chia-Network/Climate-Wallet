@@ -20,8 +20,6 @@ const RetireInput = () => {
   } = useFormContext<InputType>()
   const { unit } = useWallet(1)
 
-  console.log('errors', errors)
-
   return (
     <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
       <Grid xs={6} item>

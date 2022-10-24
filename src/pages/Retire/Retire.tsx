@@ -16,6 +16,7 @@ import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreateRetirementTxMutation } from '@/services/climateService'
 import { InputType, RetireStep } from '@/types/RetireType'
+import transactionValidCheck from '@/util/transactionValidCheck'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -44,6 +45,7 @@ const Retire = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
   const { wallet, unit, loading } = useWallet(walletId)
+  const { state } = useWalletState()
 
   const [creacteRetirement, { isLoading: isRetirementLoading }] =
     useCreateRetirementTxMutation()
@@ -107,7 +109,11 @@ const Retire = () => {
   const [transactionId, setTransactionId] = useState<string>('')
 
   const handlePrview = (data: InputType) => {
-    setStep(RetireStep.Review)
+    if (data.amount > walletBalance?.confirmedWalletBalance) {
+      alert('Retire tokens is more then hold tokens')
+    } else {
+      setStep(RetireStep.Review)
+    }
   }
 
   const handleChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +122,8 @@ const Retire = () => {
 
   const handleCommit = async () => {
     const data = methods.getValues()
-    if (cwAsset) {
+
+    if (cwAsset && transactionValidCheck(data, state)) {
       try {
         const response = await creacteRetirement({
           data: {
