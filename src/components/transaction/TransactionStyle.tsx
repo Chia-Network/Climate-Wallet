@@ -1,4 +1,5 @@
-import { Card, Stack, TextField } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
+import { Button, Card, Stack, TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const TransactionBody = styled(Card)<{ selected?: boolean }>(
@@ -24,5 +25,13 @@ export const TransactionInput = styled(TextField)<{ selected?: boolean }>(
     width: '100%',
   })
 )
+
+export const TransactionButton = styled(Button)({
+  padding: '8px 40px',
+})
+
+export const TransactionLoadingButton = styled(LoadingButton)({
+  padding: '8px 40px',
+})
 
 export const TransactionContentWidth = 720

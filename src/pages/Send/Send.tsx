@@ -2,7 +2,9 @@ import {
   TransactionBackButton,
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
+  TransactionLoadingButton,
   TransactionPrompt,
   TransactionResult,
   TransactionReviewList,
@@ -23,7 +25,6 @@ import {
 import { catToMojo, chiaToMojo } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Alert,
   AlertTitle,
@@ -40,10 +41,6 @@ import { ChangeEvent, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import SendInput from './SendInput'
-
-const StyledTableButton = styled(Button)({
-  padding: '8px 40px',
-})
 
 const Send = () => {
   const navigate = useNavigate()
@@ -219,23 +216,23 @@ const Send = () => {
                     sx={{ mt: 1 }}
                     spacing={1}
                   >
-                    <StyledTableButton
+                    <TransactionButton
                       variant="text"
                       onClick={() => {
                         navigate(-1)
                       }}
                     >
                       <Trans>Cancel</Trans>
-                    </StyledTableButton>
+                    </TransactionButton>
 
-                    <StyledTableButton
+                    <TransactionButton
                       variant="contained"
                       type="submit"
                       disabled={!methods.formState.isValid}
                       endIcon={<ChevronRightIcon />}
                     >
                       <Trans>Next</Trans>
-                    </StyledTableButton>
+                    </TransactionButton>
                   </Stack>
                 </form>
               </TransactionBody>
@@ -284,15 +281,15 @@ const Send = () => {
                   sx={{ mt: 2 }}
                   spacing={1}
                 >
-                  <Button
+                  <TransactionButton
                     color="primary"
                     onClick={() => navigate(-1)}
                     disabled={isSpendCatLoading}
                   >
                     <Trans>Cancel</Trans>
-                  </Button>
+                  </TransactionButton>
 
-                  <LoadingButton
+                  <TransactionLoadingButton
                     variant="contained"
                     onClick={handleSubmit}
                     disabled={!checked}
@@ -300,7 +297,7 @@ const Send = () => {
                     endIcon={<ChevronRightIcon />}
                   >
                     <Trans>Submit</Trans>
-                  </LoadingButton>
+                  </TransactionLoadingButton>
                 </Stack>
               </TransactionBody>
             </Stack>

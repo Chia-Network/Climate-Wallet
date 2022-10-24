@@ -2,8 +2,10 @@ import {
   TransactionBackButton,
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
   TransactionContentWidth,
+  TransactionLoadingButton,
   TransactionPrompt,
   TransactionResult,
   TransactionReviewList,
@@ -235,16 +237,16 @@ const Retire = () => {
                     sx={{ mt: 1 }}
                     spacing={1}
                   >
-                    <Button
+                    <TransactionButton
                       color="primary"
                       onClick={() => {
                         navigate(-1)
                       }}
                     >
                       Cancel
-                    </Button>
+                    </TransactionButton>
 
-                    <Button
+                    <TransactionButton
                       color="primary"
                       variant="contained"
                       type="submit"
@@ -252,7 +254,7 @@ const Retire = () => {
                       endIcon={<ChevronRightIcon />}
                     >
                       Review
-                    </Button>
+                    </TransactionButton>
                   </Stack>
                 </form>
               </TransactionBody>
@@ -293,15 +295,15 @@ const Retire = () => {
                   sx={{ mt: 2 }}
                   spacing={1}
                 >
-                  <Button
+                  <TransactionButton
                     color="primary"
                     onClick={() => navigate(-1)}
                     disabled={isRetirementLoading}
                   >
                     <Trans>Cancel</Trans>
-                  </Button>
+                  </TransactionButton>
 
-                  <LoadingButton
+                  <TransactionLoadingButton
                     color="primary"
                     variant="contained"
                     onClick={handleSubmit}
@@ -310,7 +312,7 @@ const Retire = () => {
                     loading={isRetirementLoading}
                   >
                     <Trans>Submit</Trans>
-                  </LoadingButton>
+                  </TransactionLoadingButton>
                 </Stack>
               </TransactionBody>
             </Stack>

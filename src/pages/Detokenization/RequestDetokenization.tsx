@@ -1,7 +1,9 @@
 import {
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
+  TransactionLoadingButton,
   TransactionPrompt,
 } from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
@@ -260,7 +262,7 @@ const RequestDetokenization = () => {
               sx={{ mt: 1 }}
               spacing={1}
             >
-              <Button
+              <TransactionButton
                 color="primary"
                 onClick={() => {
                   navigate(-1)
@@ -268,9 +270,9 @@ const RequestDetokenization = () => {
                 disabled={isDetokenzationLoading}
               >
                 <Trans>Cancel</Trans>
-              </Button>
+              </TransactionButton>
 
-              <LoadingButton
+              <TransactionLoadingButton
                 color="primary"
                 variant="contained"
                 type="submit"
@@ -278,7 +280,7 @@ const RequestDetokenization = () => {
                 loading={isDetokenzationLoading}
               >
                 <Trans>Save request</Trans>
-              </LoadingButton>
+              </TransactionLoadingButton>
             </Stack>
           </TransactionBody>
         </TransactionContent>
