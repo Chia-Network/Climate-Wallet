@@ -1,3 +1,4 @@
+import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useWallet } from '@/hooks/wallet'
 import { useGetRetireKeysQuery } from '@/services/climateService'
@@ -19,7 +20,12 @@ import { useFormContext } from 'react-hook-form'
 const RetireInput = () => {
   const { data: retireKey } = useGetRetireKeysQuery('')
 
-  const { register, setValue, trigger } = useFormContext<InputType>()
+  const {
+    register,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useFormContext<InputType>()
   const { unit } = useWallet(1)
 
   const theme = useTheme()
@@ -32,7 +38,9 @@ const RetireInput = () => {
           fullWidth
           {...register('amount', {
             required: true,
+            pattern: TOKEN_AMOUNT_REGEX,
           })}
+          error={Boolean(errors['amount'])}
           required
           InputProps={{
             endAdornment: (
@@ -112,6 +120,9 @@ const RetireInput = () => {
                   </Button>
                 </InputAdornment>
               ),
+            }}
+            InputLabelProps={{
+              shrink: Boolean(getValues().publicKey),
             }}
           />
         </Stack>

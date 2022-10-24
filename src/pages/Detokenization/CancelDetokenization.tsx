@@ -1,7 +1,9 @@
 import {
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
+  TransactionLoadingButton,
   TransactionResult,
   TransactionReviewList,
   TransactionStep,
@@ -221,7 +223,7 @@ const CancelDetokenization = () => {
                 sx={{ mt: 1 }}
                 spacing={1}
               >
-                <Button
+                <TransactionButton
                   color="primary"
                   disabled={isDeleteUnconfirmedTransactionsLoading}
                   onClick={() => {
@@ -229,9 +231,9 @@ const CancelDetokenization = () => {
                   }}
                 >
                   <Trans>Cancel</Trans>
-                </Button>
+                </TransactionButton>
 
-                <LoadingButton
+                <TransactionLoadingButton
                   color="primary"
                   variant="contained"
                   type="submit"
@@ -242,7 +244,7 @@ const CancelDetokenization = () => {
                   }
                 >
                   <Trans>Confirm</Trans>
-                </LoadingButton>
+                </TransactionLoadingButton>
               </Stack>
             </form>
           </TransactionBody>

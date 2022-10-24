@@ -1,5 +1,5 @@
 export interface RequestInput {
-  amount: number
+  amount: string
   passphrase: string
   fee: string
 }

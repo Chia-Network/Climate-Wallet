@@ -2,8 +2,10 @@ import {
   TransactionBackButton,
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
   TransactionContentWidth,
+  TransactionLoadingButton,
   TransactionPrompt,
   TransactionResult,
   TransactionReviewList,
@@ -16,6 +18,7 @@ import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreateRetirementTxMutation } from '@/services/climateService'
 import { InputType, RetireStep } from '@/types/RetireType'
+import transactionValidCheck from '@/util/transactionValidCheck'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -44,6 +47,7 @@ const Retire = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
   const { wallet, unit, loading } = useWallet(walletId)
+  const { state } = useWalletState()
 
   const [creacteRetirement, { isLoading: isRetirementLoading }] =
     useCreateRetirementTxMutation()
@@ -107,7 +111,11 @@ const Retire = () => {
   const [transactionId, setTransactionId] = useState<string>('')
 
   const handlePrview = (data: InputType) => {
-    setStep(RetireStep.Review)
+    if (data.amount > walletBalance?.confirmedWalletBalance) {
+      alert('Retire tokens is more then hold tokens')
+    } else {
+      setStep(RetireStep.Review)
+    }
   }
 
   const handleChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +124,8 @@ const Retire = () => {
 
   const handleSubmit = async () => {
     const data = methods.getValues()
-    if (cwAsset) {
+
+    if (cwAsset && transactionValidCheck(data, state)) {
       try {
         const response = await creacteRetirement({
           data: {
@@ -141,8 +150,8 @@ const Retire = () => {
         }).unwrap()
         setTransactionId(response?.tx?.id)
         setStep(RetireStep.Result)
-      } catch ({ message }) {
-        alert(message)
+      } catch (e) {
+        alert(JSON.stringify(e))
       }
     }
   }
@@ -228,16 +237,16 @@ const Retire = () => {
                     sx={{ mt: 1 }}
                     spacing={1}
                   >
-                    <Button
+                    <TransactionButton
                       color="primary"
                       onClick={() => {
                         navigate(-1)
                       }}
                     >
                       Cancel
-                    </Button>
+                    </TransactionButton>
 
-                    <Button
+                    <TransactionButton
                       color="primary"
                       variant="contained"
                       type="submit"
@@ -245,7 +254,7 @@ const Retire = () => {
                       endIcon={<ChevronRightIcon />}
                     >
                       Review
-                    </Button>
+                    </TransactionButton>
                   </Stack>
                 </form>
               </TransactionBody>
@@ -286,15 +295,15 @@ const Retire = () => {
                   sx={{ mt: 2 }}
                   spacing={1}
                 >
-                  <Button
+                  <TransactionButton
                     color="primary"
                     onClick={() => navigate(-1)}
                     disabled={isRetirementLoading}
                   >
                     <Trans>Cancel</Trans>
-                  </Button>
+                  </TransactionButton>
 
-                  <LoadingButton
+                  <TransactionLoadingButton
                     color="primary"
                     variant="contained"
                     onClick={handleSubmit}
@@ -303,7 +312,7 @@ const Retire = () => {
                     loading={isRetirementLoading}
                   >
                     <Trans>Submit</Trans>
-                  </LoadingButton>
+                  </TransactionLoadingButton>
                 </Stack>
               </TransactionBody>
             </Stack>

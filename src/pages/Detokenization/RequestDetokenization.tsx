@@ -1,14 +1,17 @@
 import {
   TransactionBasicInfo,
   TransactionBody,
+  TransactionButton,
   TransactionContent,
+  TransactionLoadingButton,
   TransactionPrompt,
 } from '@/components/transaction'
+import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
-import { useWallet, useWalletHumanValue } from '@/hooks/wallet'
+import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import { useCreatDetokenizationTxMutation } from '@/services/climateService'
 import {
   BlockingList,
@@ -16,6 +19,7 @@ import {
   RequestInput,
 } from '@/types/DetokenizationType'
 import createDetokenFile from '@/util/createDetokenFile'
+import transactionValidCheck from '@/util/transactionValidCheck'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -47,6 +51,7 @@ const RequestDetokenization = () => {
   const { wallet } = useWallet(walletId)
   const { unit } = useWallet(1)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
+  const { state } = useWalletState()
 
   const [creacteDetokenzation, { isLoading: isDetokenzationLoading }] =
     useCreatDetokenizationTxMutation()
@@ -110,7 +115,11 @@ const RequestDetokenization = () => {
   }
 
   const handleSave = async (data: RequestInput) => {
-    if (cwAsset) {
+    if (data.amount > walletBalance?.confirmedWalletBalance) {
+      alert('Detokenization tokens is more then hold tokens')
+      return
+    }
+    if (cwAsset && transactionValidCheck(data, state)) {
       try {
         const response = await creacteDetokenzation({
           data: {
@@ -183,7 +192,9 @@ const RequestDetokenization = () => {
                   fullWidth
                   {...register('amount', {
                     required: true,
+                    pattern: TOKEN_AMOUNT_REGEX,
                   })}
+                  error={Boolean(formState.errors['amount'])}
                   required
                   InputProps={{
                     endAdornment: (
@@ -251,7 +262,7 @@ const RequestDetokenization = () => {
               sx={{ mt: 1 }}
               spacing={1}
             >
-              <Button
+              <TransactionButton
                 color="primary"
                 onClick={() => {
                   navigate(-1)
@@ -259,9 +270,9 @@ const RequestDetokenization = () => {
                 disabled={isDetokenzationLoading}
               >
                 <Trans>Cancel</Trans>
-              </Button>
+              </TransactionButton>
 
-              <LoadingButton
+              <TransactionLoadingButton
                 color="primary"
                 variant="contained"
                 type="submit"
@@ -269,7 +280,7 @@ const RequestDetokenization = () => {
                 loading={isDetokenzationLoading}
               >
                 <Trans>Save request</Trans>
-              </LoadingButton>
+              </TransactionLoadingButton>
             </Stack>
           </TransactionBody>
         </TransactionContent>

@@ -365,10 +365,10 @@ ipcMain.handle('setLocale', (_event, locale: string) => {
 const getMenuTemplate = () => {
   let template = [
     {
-      label: i18n._(/* i18n */ { id: 'Chia' }),
+      label: i18n._(/* i18n */ { id: 'Climate' }),
       submenu: [
         {
-          label: i18n._(/* i18n */ { id: 'About Chia Blockchain' }),
+          label: i18n._(/* i18n */ { id: 'About Climate Wallet' }),
           click: () => {
             openAbout()
           },
@@ -399,14 +399,7 @@ const getMenuTemplate = () => {
         },
       ],
     },
-    {
-      label: i18n._(/* i18n */ { id: 'File' }),
-      submenu: [
-        {
-          role: 'quit',
-        },
-      ],
-    },
+
     {
       label: i18n._(/* i18n */ { id: 'Edit' }),
       submenu: [
@@ -499,59 +492,11 @@ const getMenuTemplate = () => {
     },
     {
       label: i18n._(/* i18n */ { id: 'Help' }),
-      role: 'help',
       submenu: [
         {
-          label: i18n._(/* i18n */ { id: 'Chia Blockchain Wiki' }),
+          label: i18n._(/* i18n */ { id: 'About Climate Wallet' }),
           click: () => {
-            openExternal('https://github.com/Chia-Network/chia-blockchain/wiki')
-          },
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Frequently Asked Questions' }),
-          click: () => {
-            openExternal(
-              'https://github.com/Chia-Network/chia-blockchain/wiki/FAQ'
-            )
-          },
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Release Notes' }),
-          click: () => {
-            openExternal(
-              'https://github.com/Chia-Network/chia-blockchain/releases'
-            )
-          },
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Contribute on GitHub' }),
-          click: () => {
-            openExternal(
-              'https://github.com/Chia-Network/chia-blockchain/blob/main/CONTRIBUTING.md'
-            )
-          },
-        },
-        {
-          type: 'separator',
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Report an Issue...' }),
-          click: () => {
-            openExternal(
-              'https://github.com/Chia-Network/chia-blockchain/issues'
-            )
-          },
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Chat on KeyBase' }),
-          click: () => {
-            openExternal('https://keybase.io/team/chia_network.public')
-          },
-        },
-        {
-          label: i18n._(/* i18n */ { id: 'Follow on Twitter' }),
-          click: () => {
-            openExternal('https://twitter.com/chia_project')
+            // openExternal('url')
           },
         },
       ],

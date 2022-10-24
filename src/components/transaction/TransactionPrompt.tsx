@@ -11,12 +11,12 @@ import { ReactNode } from 'react'
 
 interface TransactionPrompt {
   when: boolean
-  content?: string | ReactNode
+  content?: string
 }
 
 const TransactionPrompt = ({
   when,
-  content = <Trans>Are you sure to leave?</Trans>,
+  content = 'Are you sure to leave?',
 }: TransactionPrompt) => {
   const [showPrompt, setShowPrompt, next] = usePrompt(when)
 
@@ -26,7 +26,7 @@ const TransactionPrompt = ({
 
   return (
     <Dialog open={showPrompt} onClose={handleClose}>
-      <DialogContent>
+      <DialogContent sx={{ width: 300 }}>
         <DialogContentText>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
