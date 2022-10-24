@@ -1,4 +1,5 @@
 import usePrompt from '@/hooks/usePrompt'
+import { Trans } from '@lingui/macro'
 import {
   Button,
   Dialog,
@@ -10,13 +11,11 @@ import {
 
 interface TransactionPrompt {
   when: boolean
-  title?: string
   content?: string
 }
 
 const TransactionPrompt = ({
   when,
-  title = 'Alert',
   content = 'Are you sure to leave?',
 }: TransactionPrompt) => {
   const [showPrompt, setShowPrompt, next] = usePrompt(when)
@@ -27,18 +26,19 @@ const TransactionPrompt = ({
 
   return (
     <Dialog open={showPrompt} onClose={handleClose}>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ width: 300 }}>
         <DialogContentText>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose}>
+          <Trans>No</Trans>
+        </Button>
         <Button
           onClick={() => {
             next()
           }}
         >
-          Agree
+          <Trans>Yes</Trans>
         </Button>
       </DialogActions>
     </Dialog>
