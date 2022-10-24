@@ -1,4 +1,5 @@
-import { useWallet, useWalletHumanValue } from '@/hooks/wallet'
+import SyncingStatus from '@/constants/SyncingStatus'
+import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import {
   useGetCurrentAddressQuery,
   useGetLoggedInFingerprintQuery,
@@ -66,6 +67,8 @@ const BoldTypography = ({
 )
 
 export default function AppStatusHeader() {
+  const { state } = useWalletState()
+
   // address
   const { data: address } = useGetCurrentAddressQuery({
     walletId: chiaWalletId, // always show chia wallet's address
@@ -139,11 +142,8 @@ export default function AppStatusHeader() {
 
   // style
   const theme = useTheme()
-
-  const colorW =
-    connectionsW?.length >= 1
-      ? StateColor.SUCCESS
-      : theme.palette.text.secondary
+  const isSynced = state === SyncingStatus.SYNCED
+  const colorW = isSynced ? StateColor.SUCCESS : theme.palette.text.secondary
 
   return (
     <Stack
@@ -251,11 +251,7 @@ export default function AppStatusHeader() {
               <StateIndicatorDot color={colorW} />
             </Stack>
             <Stack color="black">
-              {connectionsW?.length >= 3 ? (
-                <Trans>Synced</Trans>
-              ) : (
-                <Trans>Not Synced</Trans>
-              )}
+              {isSynced ? <Trans>Synced</Trans> : <Trans>Syncing</Trans>}
             </Stack>
           </Stack>
         </BorderButton>

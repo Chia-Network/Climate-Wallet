@@ -1,4 +1,4 @@
-import { SyncingStatus } from '@chia/api'
+import SyncingStatus from '@/constants/SyncingStatus'
 import { toast } from 'react-toastify'
 import isNumeric from 'validator/es/lib/isNumeric'
 interface ValidType {
