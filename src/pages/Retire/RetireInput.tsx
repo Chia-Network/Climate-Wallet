@@ -23,6 +23,7 @@ const RetireInput = () => {
   const {
     register,
     setValue,
+    getValues,
     formState: { errors },
   } = useFormContext<InputType>()
   const { unit } = useWallet(1)
@@ -119,6 +120,9 @@ const RetireInput = () => {
                   </Button>
                 </InputAdornment>
               ),
+            }}
+            InputLabelProps={{
+              shrink: Boolean(getValues().publicKey),
             }}
           />
         </Stack>
