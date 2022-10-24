@@ -64,7 +64,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     },
     {
       key: 'status',
-      value: (
+      value: isConfirmed ? (
         <Box
           sx={{
             border: '1px solid #BFBFBF',
@@ -72,9 +72,23 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
             px: 1,
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            fontWeight: '500',
           }}
         >
-          {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+          <Trans>Confirmed</Trans>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            borderRadius: '30px',
+            backgroundColor: '#FCE5D1',
+            px: 1,
+            textAlign: 'center',
+            color: '#ED6C02',
+            fontWeight: '500',
+          }}
+        >
+          <Trans>Pending</Trans>{' '}
         </Box>
       ),
     },

@@ -38,6 +38,9 @@ const StyledWhiteTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledHeaderTableCell = styled(StyledWhiteTableCell)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.text.secondary} `,
+  height: '40px',
+  paddingTop: '10px',
+  paddingBottom: '10px',
 }))
 
 const StyledHeaderSmallTableCell = styled(StyledHeaderTableCell)({
@@ -125,7 +128,9 @@ const TokenHistory = () => {
                       width: head.width ?? 'auto',
                     }}
                   >
-                    {head.node}
+                    <Typography variant="body2" fontWeight={500}>
+                      {head.node}
+                    </Typography>
                   </StyledHeaderTableCell>
                 ))}
               </TableRow>
