@@ -251,6 +251,14 @@ const Send = () => {
               </Typography>
 
               <TransactionBody>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    mb: '20px',
+                  }}
+                >
+                  <Trans>Transaction information</Trans>
+                </Typography>
                 <TransactionReviewList infos={reviewInfo} />
                 <Alert severity="info">
                   <AlertTitle>
