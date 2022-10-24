@@ -95,6 +95,6 @@ export const checkMarketplaceIdentifier = (
   return marketplaceIdentifier === null
     ? ''
     : marketplaceIdentifier.startsWith('0x')
-    ? marketplaceIdentifier
-    : `0x${marketplaceIdentifier}`
+    ? marketplaceIdentifier.substr(2)
+    : marketplaceIdentifier
 }

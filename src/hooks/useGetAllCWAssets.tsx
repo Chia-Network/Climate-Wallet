@@ -77,7 +77,7 @@ export function useGetAllCWAssetsById(assetId: string) {
   const data = useMemo(() => {
     if (asset && project && metadata) {
       let json = {}
-      const key = `meta_${checkMarketplaceIdentifier(
+      const key = `meta_0x${checkMarketplaceIdentifier(
         asset?.marketplaceIdentifier
       )}`
 
