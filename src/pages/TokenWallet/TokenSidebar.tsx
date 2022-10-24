@@ -110,11 +110,15 @@ export default function TokenSidebar() {
         return [...filteredWallets].sort((a, b) => {
           var aName =
             allCWAssets.find(
-              (asset) => asset.marketplaceIdentifier === a.assetId
+              (asset) =>
+                checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+                a.assetId
             )?.projectName ?? ''
           var bName =
             allCWAssets.find(
-              (asset) => asset.marketplaceIdentifier === b.assetId
+              (asset) =>
+                checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+                b.assetId
             )?.projectName ?? ''
           return aName.localeCompare(bName)
         })
@@ -122,11 +126,15 @@ export default function TokenSidebar() {
         return [...filteredWallets].sort((a, b) => {
           var aName =
             allCWAssets.find(
-              (asset) => asset.marketplaceIdentifier === a.assetId
+              (asset) =>
+                checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+                a.assetId
             )?.projectName ?? ''
           var bName =
             allCWAssets.find(
-              (asset) => asset.marketplaceIdentifier === b.assetId
+              (asset) =>
+                checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+                b.assetId
             )?.projectName ?? ''
           return bName.localeCompare(aName)
         })
@@ -163,7 +171,9 @@ export default function TokenSidebar() {
           <Typography variant="h5">
             <Trans>My Wallet</Trans>
           </Typography>
-          <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
+          {!isLoading && filteredWallets.length > 0 && (
+            <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
+          )}
         </Stack>
       </Stack>
 
