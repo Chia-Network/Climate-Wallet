@@ -1,3 +1,4 @@
+import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useWallet } from '@/hooks/wallet'
 import { useGetRetireKeysQuery } from '@/services/climateService'
@@ -12,8 +13,14 @@ const RetireInput = () => {
 
   const { data: retireKey } = useGetRetireKeysQuery('')
 
-  const { register, setValue, trigger } = useFormContext<InputType>()
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext<InputType>()
   const { unit } = useWallet(1)
+
+  console.log('errors', errors)
 
   return (
     <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
@@ -23,7 +30,9 @@ const RetireInput = () => {
           fullWidth
           {...register('amount', {
             required: true,
+            pattern: TOKEN_AMOUNT_REGEX,
           })}
+          error={Boolean(errors['amount'])}
           required
           InputProps={{
             endAdornment: (

@@ -4,6 +4,7 @@ import {
   TransactionContent,
   TransactionPrompt,
 } from '@/components/transaction'
+import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
@@ -182,7 +183,9 @@ const RequestDetokenization = () => {
                   fullWidth
                   {...register('amount', {
                     required: true,
+                    pattern: TOKEN_AMOUNT_REGEX,
                   })}
+                  error={Boolean(formState.errors['amount'])}
                   required
                   InputProps={{
                     endAdornment: (

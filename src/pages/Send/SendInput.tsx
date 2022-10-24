@@ -1,3 +1,4 @@
+import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useWallet } from '@/hooks/wallet'
 import { InputType, SendStep } from '@/types/SendType'
@@ -8,7 +9,10 @@ import { useParams } from 'react-router-dom'
 const SendInput = () => {
   const { walletId } = useParams()
   const { unit } = useWallet(1)
-  const { register } = useFormContext<InputType>()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<InputType>()
 
   return (
     <Grid sx={{ mb: 5 }} container spacing={3}>
@@ -28,7 +32,9 @@ const SendInput = () => {
           fullWidth
           {...register('amount', {
             required: true,
+            pattern: TOKEN_AMOUNT_REGEX,
           })}
+          error={Boolean(errors['amount'])}
           required
           InputProps={{
             endAdornment: (
