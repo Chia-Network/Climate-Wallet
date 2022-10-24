@@ -7,7 +7,6 @@ import {
   useSelectedWallet,
   useWalletsList,
 } from '@/hooks/wallet'
-import { useGetAllCWAssetsQuery } from '@/services/climateWarehouse'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
 import {

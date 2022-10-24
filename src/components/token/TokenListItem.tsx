@@ -4,7 +4,6 @@ import {
   useWallet,
   useWalletHumanValue,
 } from '@/hooks/wallet'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,

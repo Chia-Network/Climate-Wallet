@@ -1,8 +1,8 @@
 import {
   useGetAllCWAssetQuery,
-  useGetAllCWProjectByIdQuery,
   useGetAllOrganizationsQuery,
   useGetCWMetaDataQuery,
+  useGetCWProjectByIdQuery,
 } from '@/services/climateWarehouseService'
 import { useMemo, useState } from 'react'
 
@@ -58,7 +58,7 @@ export function useGetAllCWAssetsById(assetId: string) {
     data: project,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetAllCWProjectByIdQuery(asset?.issuance?.warehouseProjectId, {
+  } = useGetCWProjectByIdQuery(asset?.issuance?.warehouseProjectId, {
     skip: !asset?.issuance?.warehouseProjectId,
   })
 
