@@ -1,5 +1,5 @@
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import { useWallet } from '@/hooks/wallet'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import { useAppDispatch, useTypedSelector } from '@/store'
 import { setWalletId as slicesSetWalletId } from '@/store/slices/wallet'
 import { useGetCATAssetIdQuery } from '@chia/api-react'
@@ -12,7 +12,7 @@ const useSelectedWallet = () => {
     data: asset,
     isLoading: isLoadingAsset,
     error: errorAsset,
-  } = useGetCWAssetByIdQuery(assetId ?? '')
+  } = useGetAllCWAssetsById(assetId)
 
   const dispatch = useAppDispatch()
   const setWalletId = (newWalletId: string | number | undefined) => {

@@ -5,6 +5,7 @@ import {
   TransactionPrompt,
 } from '@/components/transaction'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
@@ -63,7 +64,7 @@ const RequestDetokenization = () => {
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
   const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetCWAssetByIdQuery(assetId)
+    useGetAllCWAssetsById(assetId)
   const { data: walletBalance, isLoading: isLoadingWalletBalance } =
     useGetWalletBalanceQuery(
       {
@@ -115,10 +116,14 @@ const RequestDetokenization = () => {
         const response = await creacteDetokenzation({
           data: {
             token: {
-              ...cwAsset,
               org_uid: cwAsset.orgUid,
-              warehouse_project_id: cwAsset.projectId,
+              warehouse_project_id: cwAsset.warehouse_project_id,
               vintage_year: cwAsset.vintageYear,
+              sequence_num: cwAsset.sequence_num,
+              index: cwAsset.index,
+              public_key: cwAsset.public_key,
+              asset_id: cwAsset.asset_id,
+              detokenization: cwAsset.detokenization,
             },
             payment: {
               amount: catToMojo(data.amount),

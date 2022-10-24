@@ -1,10 +1,10 @@
 import GreySkeleton from '@/components/common/GreySkeleton'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import {
   useSelectedWallet,
   useWallet,
   useWalletHumanValue,
 } from '@/hooks/wallet'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -15,7 +15,6 @@ import {
   Box,
   Button,
   Divider,
-  Skeleton,
   Stack,
   styled,
   Typography,
@@ -62,7 +61,8 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
     data: asset,
     isLoading: isLoadingAsset,
     error: errorAsset,
-  } = useGetCWAssetByIdQuery(assetId ?? '')
+  } = useGetAllCWAssetsById(assetId)
+
   const { data: walletBalance } = useGetWalletBalanceQuery(
     { walletId },
     { pollingInterval: 10000 }

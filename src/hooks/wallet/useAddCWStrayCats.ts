@@ -1,4 +1,4 @@
-import { useGetAllCWAssetsQuery } from '@/services/climateWarehouse'
+import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { WalletType } from '@chia/api'
 import { useGetStrayCatsQuery } from '@chia/api-react'
 import { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ export default function useCWAddStrayCats(): {
     useState<boolean>(true)
 
   const { show: addStrayCat } = useWalletsList([WalletType.CAT], '')
-  const { data: allCWAssets } = useGetAllCWAssetsQuery('')
+  const { data: allCWAssets } = useGetAllCWAssets()
   const { data: strayCats } = useGetStrayCatsQuery(undefined, {
     pollingInterval: 10000,
   })
