@@ -75,8 +75,6 @@ export default function TokenSidebar() {
   const { isLoading: isLoadingWalletsBalance, data: walletsBalance } =
     useWalletsBalance(filteredWallets)
 
-  console.log('walletsBalance', walletsBalance)
-
   useEffect(() => {
     if (!walletId && filteredWallets.length > 0) {
       setWalletId(filteredWallets[0].walletId)
@@ -171,7 +169,7 @@ export default function TokenSidebar() {
           <Typography variant="h5">
             <Trans>My Wallet</Trans>
           </Typography>
-          {!isLoading && filteredWallets.length > 0 && (
+          {!isLoading && sortedWallets.length > 0 && (
             <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
           )}
         </Stack>
@@ -179,7 +177,7 @@ export default function TokenSidebar() {
 
       {isLoading ? (
         <Loading center />
-      ) : filteredWallets.length > 0 ? (
+      ) : sortedWallets.length > 0 ? (
         <Stack spacing={1} direction="column">
           <Stack
             direction="row"
