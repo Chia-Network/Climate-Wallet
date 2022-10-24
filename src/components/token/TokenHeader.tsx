@@ -34,11 +34,13 @@ const TokenHeader = () => {
     return null
   }
 
-  const handleViewDetails = () => {
-    // TODO : open climate warehouse web
-  }
-
   const openExternal = useOpenExternal()
+
+  const handleViewDetails = () => {
+    openExternal(
+      `https://app.climatewarehouse.chia.net/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
+    )
+  }
 
   const handleProjectLinkClick = (url: string) => {
     const prefix = url.includes('https://') ? '' : 'https://'
