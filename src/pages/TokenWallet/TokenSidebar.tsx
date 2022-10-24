@@ -75,12 +75,6 @@ export default function TokenSidebar() {
   const { isLoading: isLoadingWalletsBalance, data: walletsBalance } =
     useWalletsBalance(filteredWallets)
 
-  useEffect(() => {
-    if (!walletId && filteredWallets.length > 0) {
-      setWalletId(filteredWallets[0].walletId)
-    }
-  }, [filteredWallets])
-
   // TODO : can refactor
   const sortedWallets = useMemo<WalletListItem[]>(() => {
     if (filteredWallets.length !== walletsBalance.length) {
@@ -161,6 +155,12 @@ export default function TokenSidebar() {
     isLoadingWalletsBalance
 
   const theme = useTheme()
+
+  useEffect(() => {
+    if (!walletId && sortedWallets.length > 0) {
+      setWalletId(sortedWallets[0].walletId)
+    }
+  }, [sortedWallets])
 
   return (
     <StyledRoot direction="column" gap={3}>
