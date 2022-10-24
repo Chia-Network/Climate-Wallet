@@ -17,7 +17,7 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
       </Typography>
       <TransactionBody>
         <Typography gutterBottom variant={'body1'}>
-          <Trans>Transaction information</Trans>
+          <Trans>Transaction Completed</Trans>
         </Typography>
         <Typography gutterBottom color={'gray'} variant={'body1'}>
           <Trans>
@@ -41,14 +41,6 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
         <Divider sx={{ mb: 3, mt: 3 }} />
         <Typography gutterBottom variant={'body1'}>
           <Trans>Transaction information</Trans>
-        </Typography>
-        <Typography
-          gutterBottom
-          color={'gray'}
-          sx={{ mb: 3 }}
-          variant={'body1'}
-        >
-          <Trans>Please fill in your transaction information.</Trans>
         </Typography>
         {children}
       </TransactionBody>
