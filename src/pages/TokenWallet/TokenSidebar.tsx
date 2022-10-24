@@ -96,7 +96,14 @@ export default function TokenSidebar() {
     if (!allCWAssets) return []
     return allCWAssets.map((asset) => {
       // TODO : check data
-      return { projectName: asset.projectName }
+      return {
+        Registry: asset.currentRegistry,
+        'Project Name': asset.projectName,
+        'Project ID': asset.projectId,
+        'Vintage Year': asset.vintageYear,
+        'Project Link': asset.projectLink,
+        'CW Link': '',
+      }
     })
   }, [allCWAssets])
 

@@ -1,12 +1,5 @@
-import { CARBON_TOKEN_UNIT as unit } from '@/constants/unit'
+import { TransactionHistory } from '@/hooks/wallet'
 import { getMemosDescription } from '@/util/token'
-import { Transaction, TransactionType } from '@chia/api'
-import {
-  FormatLargeNumber,
-  mojoToCAT,
-  mojoToChia,
-  useCurrencyCode,
-} from '@chia/core'
 import { Trans } from '@lingui/macro'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -15,6 +8,7 @@ import {
   Collapse,
   IconButton,
   Stack,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -22,114 +16,88 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import moment from 'moment'
 import React, { Fragment, ReactNode, useMemo } from 'react'
 import { tableAlignLeft } from './TokenHistory'
 import { TokenType } from './TokenType'
 
 interface TokenHistoryRowProps {
-  transaction: Transaction
+  transactionHistory: TransactionHistory
 }
 
 type RowType = {
+  width?: string
   key: string
+  title?: ReactNode
   value: ReactNode
 }
 
-const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
+const StyledTableCellWithoutBorder = styled(TableCell)({
+  borderBottom: 'none',
+  height: '24px',
+  paddingBottom: 0,
+  paddingTop: 0,
+})
+
+const StyledTableCell = styled(TableCell)({
+  width: 'auto',
+})
+
+const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   const [open, setOpen] = React.useState(false)
-  const feeUnit = useCurrencyCode()
   const theme = useTheme()
 
   const {
     confirmed: isConfirmed,
-    createdAtTime,
-    type,
-    amount,
-    feeAmount,
     toAddress,
     memos: memoHexs,
-  } = transaction
+    historyType,
+  } = transactionHistory
 
-  const isOutgoing = [
-    TransactionType.OUTGOING,
-    TransactionType.OUTGOING_TRADE,
-  ].includes(type)
-
-  const historyType: TokenType =
-    type === TokenType.Default
-      ? isOutgoing
-        ? TokenType.Send
-        : TokenType.Receive
-      : type
-
-  const rows = useMemo<RowType[]>(
-    () => [
-      {
-        key: 'type',
-        value: (
-          <Typography variant="inherit">
-            {TokenType[historyType].toString()}
-          </Typography>
-        ),
-      },
-      {
-        key: 'status',
-        value: (
-          <Box
-            sx={{
-              border: '1px solid #BFBFBF',
-              borderRadius: '30px',
-              px: 1,
-              textAlign: 'center',
-              color: theme.palette.text.secondary,
-            }}
-          >
-            {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
-          </Box>
-        ),
-      },
-      {
-        key: 'date',
-        value: <Box>{moment(createdAtTime * 1000).format('LLL')}</Box>,
-      },
-      {
-        key: 'unit count',
-        value: (
-          <>
-            {isOutgoing ? <Trans>-</Trans> : <Trans>+</Trans>}
-            &nbsp;
-            <FormatLargeNumber value={mojoToCAT(amount)} />
-            &nbsp;
-            {unit}
-          </>
-        ),
-      },
-      {
-        key: 'fee',
-        value: (
-          <>
-            <FormatLargeNumber value={mojoToChia(feeAmount)} />
-            &nbsp;
-            {feeUnit}
-          </>
-        ),
-      },
-    ],
-    [transaction, open]
-  )
-
-  // TODO : refine
-  const fakePublicKey = useMemo(() => 'XXXXXXXXXXXX', [transaction])
-  const fakeBeneficiary = useMemo(
-    () => 'Lorem ipsum dolor sit amet, eos susci',
-    [transaction]
-  )
+  const rows: RowType[] = [
+    {
+      key: 'type',
+      value: (
+        <Typography variant="inherit">
+          {transactionHistory.historyTypeString}
+        </Typography>
+      ),
+    },
+    {
+      key: 'status',
+      value: (
+        <Box
+          sx={{
+            border: '1px solid #BFBFBF',
+            borderRadius: '30px',
+            px: 1,
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+          }}
+        >
+          {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+        </Box>
+      ),
+    },
+    {
+      width: '100%',
+      key: 'date',
+      value: <Box>{transactionHistory.date}</Box>,
+    },
+    {
+      key: 'unit count',
+      value: <>{transactionHistory.unitCount}</>,
+    },
+    {
+      key: 'fee',
+      value: <>{transactionHistory.fee}</>,
+    },
+  ]
 
   const memosNode = useMemo<RowType>(() => {
     const memos = getMemosDescription(memoHexs)
     return {
       key: 'Memos',
+      title: <Trans>{'Memos'}</Trans>,
       value: memos.state ? (
         <Stack direction="row" spacing={1}>
           {memos.value.map((memo, index) => (
@@ -147,28 +115,20 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
   const collapseRows = useMemo<RowType[]>(() => {
     switch (historyType) {
       case TokenType.Send:
-        return [
-          {
-            key: 'To',
-            value: <Typography variant="inherit">{toAddress}</Typography>,
-          },
-          memosNode,
-        ]
       case TokenType.Retire:
         return [
           {
-            key: 'Beneficiary',
-            value: <Typography variant="inherit">{fakeBeneficiary}</Typography>,
+            key: 'To',
+            title: <Trans>{'To'}</Trans>,
+            value: <Typography variant="inherit">{toAddress}</Typography>,
           },
-          {
-            key: 'Public Key',
-            value: <Typography variant="inherit">{fakePublicKey}</Typography>,
-          },
+          memosNode,
         ]
       case TokenType.Receive:
         return [
           {
             key: 'From',
+            title: <Trans>{'From'}</Trans>,
             value: <Typography variant="inherit">{toAddress}</Typography>,
           },
           memosNode,
@@ -178,13 +138,13 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
       default:
         return []
     }
-  }, [transaction])
+  }, [transactionHistory])
 
   return (
     <Fragment>
       <TableRow>
         {/* first cell is arrow icon */}
-        <TableCell>
+        <StyledTableCell>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -192,13 +152,16 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
+        </StyledTableCell>
         {rows.map((row, index) => (
-          <TableCell
+          <StyledTableCell
             align={tableAlignLeft(index)}
             key={row.key}
             component="th"
             scope="row"
+            sx={{
+              width: row.width ?? 'auto',
+            }}
           >
             <Typography
               component="div"
@@ -208,38 +171,45 @@ const TokenHistoryRow = ({ transaction }: TokenHistoryRowProps) => {
             >
               {row.value}
             </Typography>
-          </TableCell>
+          </StyledTableCell>
         ))}
       </TableRow>
-      <TableRow>
+      <TableRow sx={{ py: 2 }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table size="small">
-              <TableBody>
-                {collapseRows.map((row) => (
-                  <TableRow key={row.key}>
-                    <TableCell>
-                      <Typography
-                        component="div"
-                        variant="body2"
-                        color="textSecondary"
-                        noWrap
+            <Box
+              sx={{
+                py: '12px',
+              }}
+            >
+              <Table>
+                <TableBody>
+                  {collapseRows.map((row) => (
+                    <TableRow key={row.key}>
+                      <StyledTableCellWithoutBorder align="right">
+                        <Typography
+                          component="div"
+                          variant="body2"
+                          color="textSecondary"
+                          noWrap
+                        >
+                          {row.title}
+                        </Typography>
+                      </StyledTableCellWithoutBorder>
+                      <StyledTableCellWithoutBorder
+                        sx={{
+                          width: '100%',
+                        }}
                       >
-                        <Trans>{row.key}</Trans>
-                        {':'}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Box maxWidth="100%">
                         <Typography component="div" variant="body2" noWrap>
                           {row.value}
                         </Typography>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                      </StyledTableCellWithoutBorder>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
           </Collapse>
         </TableCell>
       </TableRow>

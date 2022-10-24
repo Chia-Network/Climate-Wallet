@@ -3,6 +3,7 @@ import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
 import { useGetTransactionByIdQuery } from '@/services/climateService'
 import { BlockingList } from '@/types/DetokenizationType'
+import createDetokenFile from '@/util/createDetokenFile'
 import {
   useDeleteUnconfirmedTransactionsMutation,
   useGetWalletBalanceQuery,
@@ -112,9 +113,11 @@ const TokenContent = () => {
     navigate(`/dashboard/wallets/detokenization/cancel/${walletId}`)
   }
 
-  const handleDownloadRequest = () => {}
+  const handleDownloadRequest = () => {
+    if (detokenizationInfo) createDetokenFile(detokenizationInfo)
+  }
 
-  const onRemoveBlockingList = () => {
+  function onRemoveBlockingList() {
     const oldList: BlockingList = blockingList || []
     setBlockingList(oldList.filter((item) => item.walletId !== walletId))
   }
@@ -172,7 +175,7 @@ const TokenContent = () => {
           />
           <TokenContentButton
             text={<Trans>Download request file</Trans>}
-            onClick={() => {}}
+            onClick={handleDownloadRequest}
           />
           <Stack
             direction="row"

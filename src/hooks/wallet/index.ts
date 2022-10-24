@@ -8,3 +8,7 @@ export { default as useWalletHumanValue } from './useWalletHumanValue'
 export { default as useWalletsList } from './useWalletsList'
 export { default as useWalletState } from './useWalletState'
 export { default as useWalletTransactions } from './useWalletTransactions'
+export {
+  default as useWalletTransactionsHistory,
+  type TransactionHistory,
+} from './useWalletTransactionsHistory'
