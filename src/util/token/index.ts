@@ -51,7 +51,7 @@ export const FormatLargeNumber = (
 
 const complexNumber = 1234567.0123456789
 
-export default function bigNumberToLocaleString(
+export function bigNumberToLocaleString(
   value: BigNumber,
   locale?: string
 ): string {
@@ -87,4 +87,14 @@ export default function bigNumberToLocaleString(
   }
 
   return value.toFormat(format)
+}
+
+export const checkMarketplaceIdentifier = (
+  marketplaceIdentifier: string | null
+) => {
+  return marketplaceIdentifier === null
+    ? ''
+    : marketplaceIdentifier.startsWith('0x')
+    ? marketplaceIdentifier.substr(2)
+    : marketplaceIdentifier
 }
