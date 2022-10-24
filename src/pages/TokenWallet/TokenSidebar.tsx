@@ -93,15 +93,15 @@ export default function TokenSidebar() {
       case TokeSortEnum.QuentyHL:
         return [...filteredWallets].sort((a, b) => {
           return (
-            walletsBalance[filteredWallets.indexOf(a)] -
-            walletsBalance[filteredWallets.indexOf(b)]
+            walletsBalance[filteredWallets.indexOf(b)] -
+            walletsBalance[filteredWallets.indexOf(a)]
           )
         })
       case TokeSortEnum.QuentyLH:
         return [...filteredWallets].sort((a, b) => {
           return (
-            walletsBalance[filteredWallets.indexOf(b)] -
-            walletsBalance[filteredWallets.indexOf(a)]
+            walletsBalance[filteredWallets.indexOf(a)] -
+            walletsBalance[filteredWallets.indexOf(b)]
           )
         })
       case TokeSortEnum.NameAZ:
