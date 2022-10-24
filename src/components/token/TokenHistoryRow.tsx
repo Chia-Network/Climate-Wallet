@@ -88,7 +88,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
             fontWeight: '500',
           }}
         >
-          <Trans>Pending</Trans>{' '}
+          <Trans>Pending</Trans>
         </Box>
       ),
     },
