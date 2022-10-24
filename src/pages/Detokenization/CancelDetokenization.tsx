@@ -11,8 +11,7 @@ import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
-import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
-import { useGetCWAssetByIdQuery } from '@/services/climateWarehouse'
+import { useWallet, useWalletHumanValue } from '@/hooks/wallet'
 import {
   BlockingList,
   CancelInput,

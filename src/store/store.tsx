@@ -1,5 +1,4 @@
 import { climateServiceApi } from '@/services/climateService'
-import { climateWarehouseApi } from '@/services/climateWarehouse'
 import { climateWarehouseServiceApi } from '@/services/climateWarehouseService'
 import { chiaApi, createStore } from '@chia/api-react'
 import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit'
@@ -10,7 +9,6 @@ import walletReducer from './slices/wallet'
 export const store = configureStore({
   reducer: {
     [chiaApi.reducerPath]: chiaApi.reducer,
-    [climateWarehouseApi.reducerPath]: climateWarehouseApi.reducer,
     [climateWarehouseServiceApi.reducerPath]:
       climateWarehouseServiceApi.reducer,
     [climateServiceApi.reducerPath]: climateServiceApi.reducer,
@@ -22,7 +20,6 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(
       chiaApi.middleware,
-      climateWarehouseApi.middleware,
       climateServiceApi.middleware,
       climateWarehouseServiceApi.middleware
     ),
