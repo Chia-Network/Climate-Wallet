@@ -6,8 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
 } from '@mui/material'
+import { ReactNode } from 'react'
 
 interface TransactionPrompt {
   when: boolean

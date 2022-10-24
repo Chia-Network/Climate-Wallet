@@ -1,3 +1,4 @@
+import LanguageSelect from '@/components/common/LanguageSelect'
 import SyncingStatus from '@/constants/SyncingStatus'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
 import {
@@ -7,23 +8,26 @@ import {
   useGetWalletBalanceQuery,
   useGetWalletConnectionsQuery,
 } from '@chia/api-react'
-import { Flex, StateColor, StateIndicatorDot } from '@chia/core'
+import { StateColor, StateIndicatorDot } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import { Help as HelpIcon } from '@mui/icons-material'
+import CloseIcon from '@mui/icons-material/Close'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import LanguageIcon from '@mui/icons-material/Language'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import {
   alpha,
   Button,
   ButtonProps,
   Dialog,
+  IconButton,
   Stack,
+  SxProps,
+  Theme,
   Tooltip,
   Typography,
   TypographyProps,
+  useTheme,
 } from '@mui/material'
-import { SxProps, Theme, useTheme } from '@mui/material/styles'
-import { spacing } from '@mui/system'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import { useCopyToClipboard } from 'react-use'
@@ -31,10 +35,10 @@ import { useCopyToClipboard } from 'react-use'
 const chiaWalletId: number = 1
 
 const borderStyle: SxProps<Theme> = {
-  // TODO : add this border color to the theme ?
   border: '1px solid #E0E0E0',
-  borderRadius: '8px',
+  borderRadius: '4px',
 }
+
 const iconStyle: SxProps<Theme> = {
   width: '20px',
   height: '20px',
@@ -136,23 +140,21 @@ export default function AppStatusHeader() {
     {},
     { pollingInterval: 10000 }
   )
-  const [anchorElW, setAnchorElW] = React.useState<HTMLButtonElement | null>(
-    null
-  )
 
   // style
   const theme = useTheme()
+
   const isSynced = state === SyncingStatus.SYNCED
-  const colorW = isSynced ? StateColor.SUCCESS : theme.palette.text.secondary
+  const colorW = isSynced ? StateColor.SUCCESS : '#F37C22'
 
   return (
     <Stack
       direction="row"
       justifyContent="space-between"
-      alignItems="center"
+      alignItems="flex-end"
       flex={1}
     >
-      <Typography color="textSecondary" variant="body2">
+      <Typography color="textSecondary" variant="body2" sx={{ mb: '5px' }}>
         {fingerprint ?? ''}
       </Typography>
       <Stack direction="row" spacing={1}>
@@ -161,7 +163,11 @@ export default function AppStatusHeader() {
           <Stack direction="row" spacing={1} alignItems="center" px={2}>
             <BoldTypography>{spendableBalanceValue}</BoldTypography>
             <Tooltip
-              title={<Trans>This is your spendable balance</Trans>}
+              title={
+                <Trans>
+                  This is your balance available to pay blockchain fees.
+                </Trans>
+              }
               arrow
             >
               <HelpIcon
@@ -176,7 +182,7 @@ export default function AppStatusHeader() {
             sx={{
               textTransform: 'none',
               paddingX: 2,
-              borderRadius: '7px',
+              borderRadius: '3px',
               fontWeight: '500',
               backgroundColor: theme.palette['other'].lightBackground,
               color: theme.palette.text.primary,
@@ -188,24 +194,46 @@ export default function AppStatusHeader() {
           >
             <Stack direction="row" spacing={1}>
               <BoldTypography>{shortAddress}</BoldTypography>
-              <ContentCopyIcon sx={iconStyle} />
+              <MoreHorizIcon
+                sx={{
+                  ...iconStyle,
+                  color: theme.palette['other'].buttonTextGreen,
+                }}
+              />
             </Stack>
           </Button>
           {/* new address dialog */}
           <Dialog open={openView} onClose={handleCloseView}>
-            <Stack sx={{ p: 3 }} spacing={2}>
-              <Typography sx={{ textAlign: 'center', mt: 3 }} variant="h5">
+            <Stack sx={{ px: '24px', py: '16px' }} spacing={'24px'}>
+              <IconButton
+                aria-label="close"
+                onClick={handleCloseView}
+                sx={{
+                  position: 'absolute',
+                  right: 15,
+                  top: 8,
+                  color: theme.palette.text.primary,
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography
+                sx={{ textAlign: 'center', mt: 3 }}
+                variant="h6"
+                fontWeight={500}
+              >
                 <Trans>Address</Trans>
               </Typography>
               <Typography
                 sx={{
                   textAlign: 'center',
                   wordBreak: 'break-all',
-                  py: 2,
+                  py: '30px',
                   px: 3,
-                  backgroundColor: '#EBF5EB',
+                  backgroundColor: '#EDF6F1',
                 }}
-                variant="body1"
+                variant="body2"
+                fontWeight={500}
               >
                 {address ?? ''}
               </Typography>
@@ -215,9 +243,16 @@ export default function AppStatusHeader() {
                 justifyContent="space-between"
                 sx={{
                   width: '100%',
+                  pt: '16px',
                 }}
               >
-                <Button onClick={handleNewAddress} variant="outlined">
+                <Button
+                  onClick={handleNewAddress}
+                  variant="outlined"
+                  sx={{
+                    textTransform: 'uppercase',
+                  }}
+                >
                   <Trans>New Address</Trans>
                 </Button>
                 <Button onClick={handleCopy} variant="contained">
@@ -234,16 +269,7 @@ export default function AppStatusHeader() {
           </Dialog>
         </Stack>
         {/* language */}
-        <BorderButton
-          sx={{
-            width: '36px',
-            height: '36px',
-            minWidth: 'unset',
-            color: 'black', // TODO : use theme color like icon color
-          }}
-        >
-          <LanguageIcon />
-        </BorderButton>
+        <LanguageSelect />
         {/* synced */}
         <BorderButton sx={{ minWidth: 105, textTransform: 'uppercase' }}>
           <Stack direction="row" gap={1} alignItems="center">

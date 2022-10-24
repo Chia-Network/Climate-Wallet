@@ -1,3 +1,4 @@
+import GreySkeleton from '@/components/common/GreySkeleton'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import {
   useSelectedWallet,
@@ -14,7 +15,6 @@ import {
   Box,
   Button,
   Divider,
-  Skeleton,
   Stack,
   styled,
   Typography,
@@ -42,7 +42,7 @@ const StyledButton = styled(Button, {
   textAlign: 'left',
 }))
 
-const StyledSkeleton = styled(Skeleton)({
+const StyledSkeleton = styled(GreySkeleton)({
   width: '270px',
   height: '30px',
 })
@@ -108,7 +108,7 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
             <Trans>Requesting Detokenization</Trans>
           </Box>
         )}
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" spacing="4px" alignItems="flex-end">
           <Typography
             variant="h6"
             sx={{
@@ -120,7 +120,11 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
           </Typography>
           <Typography
             variant="caption"
-            sx={{ color: theme.palette.text.secondary, textAlign: 'bottom' }}
+            sx={{
+              color: theme.palette.text.secondary,
+              textAlign: 'bottom',
+              pb: '2px',
+            }}
           >
             tCO2e
           </Typography>
@@ -140,8 +144,6 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
               <Typography
                 variant="body1"
                 sx={{
-                  lineHeight: '24px',
-                  paddingBottom: '8px',
                   color: selectedColor,
                 }}
               >
@@ -154,13 +156,18 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
                 &nbsp;
                 <Typography variant="body2">{asset.vintageYear}</Typography>
               </Stack>
-              <Divider />
+              <Divider
+                sx={{
+                  backgroundColor: '#BFBFBF',
+                }}
+              />
               <Stack
                 direction="row"
-                spacing={1}
+                spacing="12px"
                 alignItems="center"
                 sx={{
                   mt: '6px',
+                  pl: '3px',
                 }}
               >
                 <Avatar

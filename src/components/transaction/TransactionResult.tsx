@@ -17,12 +17,13 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
       </Typography>
       <TransactionBody>
         <Typography gutterBottom variant={'body1'}>
-          <Trans>Transaction information</Trans>
+          <Trans>Transaction Completed</Trans>
         </Typography>
         <Typography gutterBottom color={'gray'} variant={'body1'}>
           <Trans>
-            You have completed the transaction, this is your transaction ID, you
-            can go to space scan to check the transaction history.
+            This transaction has been submitted to the blockchain with this
+            transaction ID. It should be confirmed within a few minutes. Until
+            then, it will appear in your transaction history as ‘Pending’.
           </Trans>
         </Typography>
         <TransactionID transactionId={transactionId} />
@@ -40,14 +41,6 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
         <Divider sx={{ mb: 3, mt: 3 }} />
         <Typography gutterBottom variant={'body1'}>
           <Trans>Transaction information</Trans>
-        </Typography>
-        <Typography
-          gutterBottom
-          color={'gray'}
-          sx={{ mb: 3 }}
-          variant={'body1'}
-        >
-          <Trans>Please fill in your transaction information.</Trans>
         </Typography>
         {children}
       </TransactionBody>

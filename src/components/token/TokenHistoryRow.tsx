@@ -64,7 +64,7 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     },
     {
       key: 'status',
-      value: (
+      value: isConfirmed ? (
         <Box
           sx={{
             border: '1px solid #BFBFBF',
@@ -72,9 +72,23 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
             px: 1,
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            fontWeight: '500',
           }}
         >
-          {isConfirmed ? <Trans>Confirmed</Trans> : <Trans>Pending</Trans>}
+          <Trans>Confirmed</Trans>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            borderRadius: '30px',
+            backgroundColor: '#FCE5D1',
+            px: 1,
+            textAlign: 'center',
+            color: '#ED6C02',
+            fontWeight: '500',
+          }}
+        >
+          <Trans>Pending</Trans>
         </Box>
       ),
     },
@@ -98,17 +112,20 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
     return {
       key: 'Memos',
       title: <Trans>{'Memos'}</Trans>,
-      value: memos.state ? (
-        <Stack direction="row" spacing={1}>
-          {memos.value.map((memo, index) => (
-            <Typography variant="inherit" key={index}>
-              {memo ?? ''}
-            </Typography>
-          ))}
-        </Stack>
-      ) : (
-        <Typography variant="inherit">{memos.value[0]}</Typography>
-      ),
+      value:
+        Object.values(memoHexs).length === 0 ? (
+          <Typography variant="inherit">{''}</Typography>
+        ) : memos.state ? (
+          <Stack direction="row" spacing={1}>
+            {memos.value.map((memo, index) => (
+              <Typography variant="inherit" key={index}>
+                {memo ?? ''}
+              </Typography>
+            ))}
+          </Stack>
+        ) : (
+          <Typography variant="inherit">{memos.value[0]}</Typography>
+        ),
     }
   }, [memoHexs])
 
@@ -186,7 +203,10 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
                 <TableBody>
                   {collapseRows.map((row) => (
                     <TableRow key={row.key}>
-                      <StyledTableCellWithoutBorder align="right">
+                      <StyledTableCellWithoutBorder
+                        align="right"
+                        sx={{ verticalAlign: 'top' }}
+                      >
                         <Typography
                           component="div"
                           variant="body2"
@@ -201,7 +221,13 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
                           width: '100%',
                         }}
                       >
-                        <Typography component="div" variant="body2" noWrap>
+                        <Typography
+                          component="div"
+                          variant="body2"
+                          sx={{
+                            wordBreak: 'break-all',
+                          }}
+                        >
                           {row.value}
                         </Typography>
                       </StyledTableCellWithoutBorder>

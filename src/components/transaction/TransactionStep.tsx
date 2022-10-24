@@ -1,6 +1,5 @@
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Stack, Step, StepLabel, Stepper } from '@mui/material'
-import { makeStyles, styled } from '@mui/material/styles'
 import { ReactNode } from 'react'
 
 interface Props {

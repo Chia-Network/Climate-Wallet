@@ -1,13 +1,19 @@
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useWallet } from '@/hooks/wallet'
-import { InputType, SendStep } from '@/types/SendType'
+import { InputType } from '@/types/SendType'
 import { Trans } from '@lingui/macro'
-import { Grid, InputAdornment, TextField } from '@mui/material'
+import {
+  Grid,
+  InputAdornment,
+  styled,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+
 const SendInput = () => {
-  const { walletId } = useParams()
   const { unit } = useWallet(1)
   const {
     register,
@@ -39,7 +45,13 @@ const SendInput = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {CARBON_TOKEN_UNIT}
+                <Typography
+                  color="textSecondary"
+                  variant="body1"
+                  fontWeight={400}
+                >
+                  {CARBON_TOKEN_UNIT}
+                </Typography>
               </InputAdornment>
             ),
           }}
@@ -52,7 +64,13 @@ const SendInput = () => {
           {...register('fee', { required: true })}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">{unit}</InputAdornment>
+              <InputAdornment position="end">
+                <Typography
+                  color="textSecondary"
+                  variant="body1"
+                  fontWeight={400}
+                >{`${unit} Fee`}</Typography>
+              </InputAdornment>
             ),
           }}
           required

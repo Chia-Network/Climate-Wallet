@@ -16,7 +16,7 @@ const StyledStackRoot = styled(Stack)({
 })
 
 const StyledContainer = styled(Stack)({
-  padding: '32px 40px 40px 30px',
+  padding: '32px 40px 40px 32px',
 })
 
 const TokenWallet = () => {
@@ -25,7 +25,19 @@ const TokenWallet = () => {
   const isDetoken = isDetokenWallet(walletId)
 
   if (loading) {
-    return <Loading center />
+    return (
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Loading sx={{ mt: '32px' }} />
+      </Stack>
+    )
   }
 
   if (!wallet) {
@@ -37,9 +49,7 @@ const TokenWallet = () => {
       {isDetoken && <TokenAlert />}
       <StyledContainer spacing={3}>
         <TokenHeader />
-        <Divider />
         <TokenContent />
-        <Divider />
         <TokenHistory />
       </StyledContainer>
     </StyledStackRoot>
