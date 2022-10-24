@@ -135,8 +135,8 @@ const Send = () => {
         const response = await spendCAT(queryData).unwrap()
         setTransactionId(response.transactionId)
         setStep(SendStep.Result)
-      } catch (e) {
-        alert(JSON.stringify(e))
+      } catch (e: any) {
+        alert(e?.message || JSON.stringify(e))
       }
     }
   }
