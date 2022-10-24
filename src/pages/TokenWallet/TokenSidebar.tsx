@@ -7,6 +7,7 @@ import {
   useSelectedWallet,
   useWalletsList,
 } from '@/hooks/wallet'
+import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
 import {
@@ -65,7 +66,9 @@ export default function TokenSidebar() {
     }
     return wallets.filter((wallet) =>
       allCWAssets.some(
-        (asset) => asset.marketplaceIdentifier === wallet.assetId
+        (asset) =>
+          checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+          wallet.assetId
       )
     )
   }, [wallets, allCWAssets])

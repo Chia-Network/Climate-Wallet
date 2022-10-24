@@ -1,4 +1,5 @@
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
+import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletType } from '@chia/api'
 import { useGetStrayCatsQuery } from '@chia/api-react'
 import { useEffect, useState } from 'react'
@@ -21,7 +22,12 @@ export default function useCWAddStrayCats(): {
       Promise.all(
         strayCats.map((strayCat) => {
           const { assetId } = strayCat
-          if (allCWAssets.some((cw) => cw.marketplaceIdentifier === assetId)) {
+          if (
+            allCWAssets.some(
+              (cw) =>
+                checkMarketplaceIdentifier(cw.marketplaceIdentifier) === assetId
+            )
+          ) {
             return addStrayCat(assetId)
           } else {
             return Promise.resolve()

@@ -4,7 +4,8 @@ import {
   useGetCWMetaDataQuery,
   useGetCWProjectByIdQuery,
 } from '@/services/climateWarehouseService'
-import { useMemo, useState } from 'react'
+import { checkMarketplaceIdentifier } from '@/util/token'
+import { useMemo } from 'react'
 
 export function useGetAllCWAssets() {
   const {
@@ -49,7 +50,10 @@ export function useGetAllCWAssetsById(assetId: string) {
 
   const asset = useMemo(() => {
     if (assets && assetId) {
-      return assets.find((item) => item.marketplaceIdentifier === assetId)
+      return assets.find(
+        (item) =>
+          checkMarketplaceIdentifier(item.marketplaceIdentifier) === assetId
+      )
     }
     return null
   }, [assets, assetId])
@@ -73,7 +77,9 @@ export function useGetAllCWAssetsById(assetId: string) {
   const data = useMemo(() => {
     if (asset && project && metadata) {
       let json = {}
-      const key = `meta_0x${asset?.marketplaceIdentifier}`
+      const key = `meta_${checkMarketplaceIdentifier(
+        asset?.marketplaceIdentifier
+      )}`
 
       try {
         if (metadata[key]) {
