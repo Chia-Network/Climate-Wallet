@@ -59,12 +59,20 @@ const TokenHeader = () => {
         )}
         <Button
           variant="outlined"
-          startIcon={<OpenInNewIcon />}
           onClick={handleViewDetails}
           sx={{
             textTransform: 'uppercase',
+            px: 1,
+            py: '4px',
           }}
         >
+          <OpenInNewIcon
+            sx={{
+              width: '18px',
+              height: '18px',
+              marginRight: '6px',
+            }}
+          />
           <Trans>View Details</Trans>
         </Button>
       </Stack>
