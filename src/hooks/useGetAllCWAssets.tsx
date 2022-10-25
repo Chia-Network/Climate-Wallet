@@ -35,7 +35,7 @@ export function useGetAllCWAssets() {
       return assets.map((asset) => {
         const orgInfo = organizations[asset.orgUid]
         const project = projects.find(
-          (p) => p.warehouseProjectId === asset.issuance.warehouseProjectId
+          (p) => p.warehouseProjectId === asset?.issuance?.warehouseProjectId
         )
 
         return {
