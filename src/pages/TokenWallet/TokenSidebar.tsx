@@ -134,8 +134,12 @@ export default function TokenSidebar() {
   }, [tokenSort, filteredWallets, walletsBalance])
 
   const allCWAssetsCSVData = useMemo(() => {
-    if (!allCWAssets) return []
-    return allCWAssets.map((asset) => {
+    if (!allCWAssets || !filteredWallets) return []
+    return filteredWallets.map((wallet) => {
+      const asset = allCWAssets.find(
+        (a) =>
+          checkMarketplaceIdentifier(a.marketplaceIdentifier) === wallet.assetId
+      )
       // TODO : check data
       return {
         Registry: asset.currentRegistry,
@@ -146,7 +150,7 @@ export default function TokenSidebar() {
         'CW Link': '',
       }
     })
-  }, [allCWAssets])
+  }, [allCWAssets, filteredWallets])
 
   const isLoading =
     isLoadingWallets ||

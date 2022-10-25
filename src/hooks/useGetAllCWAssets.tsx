@@ -1,8 +1,8 @@
 import {
   useGetAllCWAssetQuery,
+  useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
   useGetCWMetaDataQuery,
-  useGetCWProjectByIdQuery,
 } from '@/services/climateWarehouseService'
 import { checkMarketplaceIdentifier } from '@/util/token'
 import { useMemo } from 'react'
@@ -20,16 +20,27 @@ export function useGetAllCWAssets() {
     error: errorOrganizations,
   } = useGetAllOrganizationsQuery('')
 
-  const isLoading = isLoadingAssets || isLoadingOrganizations
-  const error = errorAssets || errorOrganizations
+  const {
+    data: projects,
+    isLoading: isLoadingProjects,
+    error: errorProjects,
+  } = useGetAllCWProjectQuery('')
+
+  const isLoading =
+    isLoadingAssets || isLoadingOrganizations || isLoadingProjects
+  const error = errorAssets || errorOrganizations || errorProjects
 
   const data = useMemo(() => {
-    if (assets && organizations) {
+    if (assets && organizations && projects) {
       return assets.map((asset) => {
         const orgInfo = organizations[asset.orgUid]
+        const project = projects.find(
+          (p) => p.warehouseProjectId === asset?.issuance?.warehouseProjectId
+        )
 
         return {
           ...asset,
+          ...project,
           registryLogo: orgInfo?.icon,
           currentRegistry: orgInfo?.name,
         }
@@ -59,14 +70,6 @@ export function useGetAllCWAssetsById(assetId: string) {
   }, [assets, assetId])
 
   const {
-    data: project,
-    isLoading: isLoadingProjects,
-    error: errorProjects,
-  } = useGetCWProjectByIdQuery(asset?.issuance?.warehouseProjectId, {
-    skip: !asset?.issuance?.warehouseProjectId,
-  })
-
-  const {
     data: metadata,
     isLoading: isLoadingMetadata,
     error: errorMetadata,
@@ -75,7 +78,7 @@ export function useGetAllCWAssetsById(assetId: string) {
   })
 
   const data = useMemo(() => {
-    if (asset && project && metadata) {
+    if (asset && metadata) {
       let json = {}
       const key = `meta_0x${checkMarketplaceIdentifier(
         asset?.marketplaceIdentifier
@@ -87,12 +90,12 @@ export function useGetAllCWAssetsById(assetId: string) {
         }
       } catch (error) {}
 
-      return { ...asset, ...project, ...json }
+      return { ...asset, ...json }
     }
-  }, [asset, project, metadata])
+  }, [asset, metadata])
 
-  const isLoading = isLoadingAssets || isLoadingProjects || isLoadingMetadata
-  const error = errorAssets || errorProjects || errorMetadata
+  const isLoading = isLoadingAssets || isLoadingMetadata
+  const error = errorAssets || errorMetadata
 
   return { data, isLoading, error }
 }
