@@ -1,5 +1,6 @@
 import {
   useGetAllCWAssetQuery,
+  useGetAllCWProjectQuery,
   useGetAllOrganizationsQuery,
   useGetCWMetaDataQuery,
   useGetCWProjectByIdQuery,
@@ -20,16 +21,27 @@ export function useGetAllCWAssets() {
     error: errorOrganizations,
   } = useGetAllOrganizationsQuery('')
 
-  const isLoading = isLoadingAssets || isLoadingOrganizations
-  const error = errorAssets || errorOrganizations
+  const {
+    data: projects,
+    isLoading: isLoadingProjects,
+    error: errorProjects,
+  } = useGetAllCWProjectQuery('')
+
+  const isLoading =
+    isLoadingAssets || isLoadingOrganizations || isLoadingProjects
+  const error = errorAssets || errorOrganizations || errorProjects
 
   const data = useMemo(() => {
-    if (assets && organizations) {
+    if (assets && organizations && projects) {
       return assets.map((asset) => {
         const orgInfo = organizations[asset.orgUid]
+        const project = projects.find(
+          (p) => p.warehouseProjectId === asset.issuance.warehouseProjectId
+        )
 
         return {
           ...asset,
+          ...project,
           registryLogo: orgInfo?.icon,
           currentRegistry: orgInfo?.name,
         }
