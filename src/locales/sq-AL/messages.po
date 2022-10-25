@@ -933,7 +933,7 @@ msgstr "Copy"
 #~ msgid "Current Points Balance"
 #~ msgstr "Bilanci aktual i pikëve"
 
-#: src/components/token/TokenHeader.tsx:80
+#: src/components/token/TokenHeader.tsx:88
 #: src/hooks/useGetTransactionInfos.tsx:14
 msgid "Current Registry"
 msgstr ""
@@ -2096,7 +2096,7 @@ msgstr ""
 msgid "My Public Key"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:170
+#: src/pages/TokenWallet/TokenSidebar.tsx:174
 msgid "My Wallet"
 msgstr ""
 
@@ -2193,11 +2193,11 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:215
+#: src/pages/TokenWallet/TokenSidebar.tsx:219
 msgid "Name - A to Z"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:218
+#: src/pages/TokenWallet/TokenSidebar.tsx:222
 msgid "Name - Z to A"
 msgstr ""
 
@@ -3058,11 +3058,11 @@ msgstr ""
 #~ msgid "Profiles"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:73
+#: src/components/token/TokenHeader.tsx:81
 msgid "Project Details"
 msgstr ""
 
-#: src/components/token/TokenHeader.tsx:99
+#: src/components/token/TokenHeader.tsx:107
 msgid "Project Link"
 msgstr ""
 
@@ -3125,11 +3125,11 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:209
+#: src/pages/TokenWallet/TokenSidebar.tsx:213
 msgid "Quantity - high to low"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:212
+#: src/pages/TokenWallet/TokenSidebar.tsx:216
 msgid "Quantity - low to high"
 msgstr ""
 
@@ -3630,7 +3630,7 @@ msgstr ""
 #~ msgid "Something went wrong"
 #~ msgstr "Something went wrong"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:192
+#: src/pages/TokenWallet/TokenSidebar.tsx:196
 msgid "Sort by"
 msgstr ""
 
@@ -4118,7 +4118,7 @@ msgstr ""
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:119
+#: src/components/token/TokenHeader.tsx:127
 msgid "Token Asset ID"
 msgstr ""
 
@@ -4424,7 +4424,7 @@ msgstr ""
 msgid "View"
 msgstr "Shiko"
 
-#: src/components/token/TokenHeader.tsx:68
+#: src/components/token/TokenHeader.tsx:76
 msgid "View Details"
 msgstr ""
 
@@ -4496,7 +4496,7 @@ msgstr ""
 #~ msgid "Viewing offer: {offerFileName}"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:76
+#: src/components/token/TokenHeader.tsx:84
 #: src/components/token/TokenListItem.tsx:154
 #: src/hooks/useGetTransactionInfos.tsx:12
 msgid "Vintage Year"

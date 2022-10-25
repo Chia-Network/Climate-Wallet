@@ -933,7 +933,7 @@ msgstr "Copy"
 #~ msgid "Current Points Balance"
 #~ msgstr "Current Points Balance"
 
-#: src/components/token/TokenHeader.tsx:80
+#: src/components/token/TokenHeader.tsx:88
 #: src/hooks/useGetTransactionInfos.tsx:14
 msgid "Current Registry"
 msgstr "Current Registry"
@@ -2100,7 +2100,7 @@ msgstr "Memos"
 msgid "My Public Key"
 msgstr "My Public Key"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:170
+#: src/pages/TokenWallet/TokenSidebar.tsx:174
 msgid "My Wallet"
 msgstr "My Wallet"
 
@@ -2197,11 +2197,11 @@ msgstr "My Wallet"
 #~ msgid "Name"
 #~ msgstr "Name"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:215
+#: src/pages/TokenWallet/TokenSidebar.tsx:219
 msgid "Name - A to Z"
 msgstr "Name - A to Z"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:218
+#: src/pages/TokenWallet/TokenSidebar.tsx:222
 msgid "Name - Z to A"
 msgstr "Name - Z to A"
 
@@ -3062,11 +3062,11 @@ msgstr "Please open your Chia wallet to be logged into your Climate wallet."
 #~ msgid "Profiles"
 #~ msgstr "Profiles"
 
-#: src/components/token/TokenHeader.tsx:73
+#: src/components/token/TokenHeader.tsx:81
 msgid "Project Details"
 msgstr "Project Details"
 
-#: src/components/token/TokenHeader.tsx:99
+#: src/components/token/TokenHeader.tsx:107
 msgid "Project Link"
 msgstr "Project Link"
 
@@ -3129,11 +3129,11 @@ msgstr "Public key of the beneficiary to be recorded on the blockchain. Can be u
 msgid "Quantity"
 msgstr "Quantity"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:209
+#: src/pages/TokenWallet/TokenSidebar.tsx:213
 msgid "Quantity - high to low"
 msgstr "Quantity - high to low"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:212
+#: src/pages/TokenWallet/TokenSidebar.tsx:216
 msgid "Quantity - low to high"
 msgstr "Quantity - low to high"
 
@@ -3634,7 +3634,7 @@ msgstr "Send Quantity"
 #~ msgid "Something went wrong"
 #~ msgstr "Something went wrong"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:192
+#: src/pages/TokenWallet/TokenSidebar.tsx:196
 msgid "Sort by"
 msgstr "Sort by"
 
@@ -4122,7 +4122,7 @@ msgstr "This transaction has been submitted to the blockchain with this transact
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:119
+#: src/components/token/TokenHeader.tsx:127
 msgid "Token Asset ID"
 msgstr "Token Asset ID"
 
@@ -4428,7 +4428,7 @@ msgstr "Unlock Keyring"
 msgid "View"
 msgstr "View"
 
-#: src/components/token/TokenHeader.tsx:68
+#: src/components/token/TokenHeader.tsx:76
 msgid "View Details"
 msgstr "View Details"
 
@@ -4500,7 +4500,7 @@ msgstr "View Details"
 #~ msgid "Viewing offer: {offerFileName}"
 #~ msgstr "Viewing offer: {offerFileName}"
 
-#: src/components/token/TokenHeader.tsx:76
+#: src/components/token/TokenHeader.tsx:84
 #: src/components/token/TokenListItem.tsx:154
 #: src/hooks/useGetTransactionInfos.tsx:12
 msgid "Vintage Year"
