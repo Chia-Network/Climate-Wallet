@@ -32,7 +32,7 @@ const TokenContentButton = ({
       onClick={onClick}
       sx={{
         flex: 1,
-        height: '100%',
+        height: '64px',
         textTransform: 'uppercase',
       }}
       {...props}
