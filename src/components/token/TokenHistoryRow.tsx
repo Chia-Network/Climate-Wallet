@@ -40,6 +40,9 @@ const StyledTableCellWithoutBorder = styled(TableCell)({
 
 const StyledTableCell = styled(TableCell)({
   width: 'auto',
+  height: '50px',
+  paddingTop: 0,
+  paddingBottom: 0,
 })
 
 const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
@@ -162,13 +165,18 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
       <TableRow>
         {/* first cell is arrow icon */}
         <StyledTableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          {historyType !== TokenType.Detokenize && (
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+              sx={{
+                p: 0,
+              }}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          )}
         </StyledTableCell>
         {rows.map((row, index) => (
           <StyledTableCell
