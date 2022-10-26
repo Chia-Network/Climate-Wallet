@@ -195,7 +195,7 @@ const CancelDetokenization = () => {
                 sx={{ mt: 3, mb: 3 }}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">{unit} Free</InputAdornment>
+                    <InputAdornment position="end">{unit} Fee</InputAdornment>
                   ),
                 }}
               />

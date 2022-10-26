@@ -76,7 +76,7 @@ export default function useWalletTransactionsHistory(
         historyTypeString: TokenType[historyType].toString(),
         status: isConfirmed ? 'Confirmed' : 'Pending',
         date: moment(createdAtTime * 1000).format('LLL'),
-        unitCount: `${isOutgoing ? '+' : '-'} ${FormatLargeNumber(
+        unitCount: `${isOutgoing ? '-' : '+'} ${FormatLargeNumber(
           mojoToCAT(amount)
         )} ${unit}`,
         fee: `${FormatLargeNumber(mojoToChia(feeAmount))} ${feeUnit}`,

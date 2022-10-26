@@ -40,6 +40,7 @@ const StyledButton = styled(Button, {
   height: '100%',
   p: 0,
   textAlign: 'left',
+  boxSizing: 'border-box',
 }))
 
 const StyledSkeleton = styled(GreySkeleton)({

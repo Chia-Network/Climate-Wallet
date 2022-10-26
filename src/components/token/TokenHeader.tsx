@@ -16,11 +16,22 @@ interface TokenHeaderDescProps {
 const TokenHeaderDesc = ({ title, value }: TokenHeaderDescProps) => {
   return (
     <Stack direction="row" spacing={1}>
-      <Typography variant="body1" fontWeight={400}>
+      <Typography
+        variant="body1"
+        fontWeight={400}
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
         {title}
         {' : '}
       </Typography>
-      <Typography variant="body1" fontWeight={400} color="textPrimary">
+      <Typography
+        variant="body1"
+        fontWeight={400}
+        color="textPrimary"
+        sx={{ overflowWrap: 'anywhere' }}
+      >
         {value}
       </Typography>
     </Stack>

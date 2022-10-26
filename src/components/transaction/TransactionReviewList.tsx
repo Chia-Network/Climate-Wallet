@@ -28,7 +28,7 @@ const TransactionReviewList = ({ infos }: Props) => {
           <Typography
             variant="body2"
             fontWeight={500}
-            sx={{ wordBreak: 'break-all' }}
+            sx={{ overflowWrap: 'anywhere', flex: 1 }}
           >
             {item.value}
           </Typography>
