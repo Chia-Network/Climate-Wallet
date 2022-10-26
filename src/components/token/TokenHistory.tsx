@@ -138,8 +138,11 @@ const TokenHistory = () => {
             <TableBody>
               {/* NOTE : if there is no transitions, then show the empty text */}
               {transactionsHistory && transactionsHistory.length > 0 ? (
-                transactionsHistory.map((transaction) => (
-                  <TokenHistoryRow transactionHistory={transaction} />
+                transactionsHistory.map((transaction, index) => (
+                  <TokenHistoryRow
+                    transactionHistory={transaction}
+                    key={index}
+                  />
                 ))
               ) : (
                 <TableRow>
