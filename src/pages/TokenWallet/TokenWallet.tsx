@@ -12,7 +12,6 @@ import { Divider, Stack, styled } from '@mui/material'
 const StyledStackRoot = styled(Stack)({
   width: '100%',
   height: '100%',
-  overflowY: 'auto',
 })
 
 const StyledContainer = styled(Stack)({
