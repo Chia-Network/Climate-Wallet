@@ -1,20 +1,12 @@
+import { TransactionFeeInput } from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
-import { useWallet } from '@/hooks/wallet'
 import { InputType } from '@/types/SendType'
 import { Trans } from '@lingui/macro'
-import {
-  Grid,
-  InputAdornment,
-  styled,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { useFormContext } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
 
 const SendInput = () => {
-  const { unit } = useWallet(1)
   const {
     register,
     formState: { errors },
@@ -58,23 +50,7 @@ const SendInput = () => {
         />
       </Grid>
       <Grid xs={6} item>
-        <TextField
-          label={<Trans>Fee</Trans>}
-          fullWidth
-          {...register('fee', { required: true })}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                  fontWeight={400}
-                >{`${unit} Fee`}</Typography>
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+        <TransactionFeeInput />
       </Grid>
       <Grid xs={12} item>
         <TextField

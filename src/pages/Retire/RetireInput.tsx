@@ -1,6 +1,6 @@
+import { TransactionFeeInput } from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
-import { useWallet } from '@/hooks/wallet'
 import { useGetRetireKeysQuery } from '@/services/climateService'
 import { InputType } from '@/types/RetireType'
 import { Trans } from '@lingui/macro'
@@ -26,7 +26,6 @@ const RetireInput = () => {
     getValues,
     formState: { errors },
   } = useFormContext<InputType>()
-  const { unit } = useWallet(1)
 
   const theme = useTheme()
 
@@ -52,17 +51,7 @@ const RetireInput = () => {
         />
       </Grid>
       <Grid xs={6} item>
-        <TextField
-          label={<Trans>Fee</Trans>}
-          fullWidth
-          {...register('fee', { required: true })}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">{unit}</InputAdornment>
-            ),
-          }}
-          required
-        />
+        <TransactionFeeInput />
       </Grid>
       <Grid xs={12} item>
         <TextField

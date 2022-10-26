@@ -3,6 +3,7 @@ import {
   TransactionBody,
   TransactionButton,
   TransactionContent,
+  TransactionFeeInput,
   TransactionLoadingButton,
   TransactionResult,
   TransactionReviewList,
@@ -39,14 +40,12 @@ import {
   Divider,
   FormControlLabel,
   Grid,
-  IconButton,
-  InputAdornment,
   Stack,
   TextField,
   Typography,
 } from '@mui/material'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const CancelDetokenization = () => {
@@ -74,14 +73,12 @@ const CancelDetokenization = () => {
   const [checked, setChecked] = useState<boolean>(false)
   const [transactionId, setTransactionId] = useState<string>('')
 
-  const { handleSubmit, formState, register, getValues } = useForm<CancelInput>(
-    {
-      defaultValues: {
-        fee: '0.001 ',
-      },
-      mode: 'onChange',
-    }
-  )
+  const methods = useForm<CancelInput>({
+    defaultValues: {
+      fee: '0.001',
+    },
+    mode: 'onChange',
+  })
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
 
@@ -112,7 +109,6 @@ const CancelDetokenization = () => {
   const reviewInfo = [
     ...carbonTokenInfo,
     {
-      //TODO: Add real detokenzation quantity
       subtitle: <Trans>Detokenization Quantity</Trans>,
       value: `${detokenizationInfo?.amount ?? 0} ${CARBON_TOKEN_UNIT}`,
     },
@@ -153,124 +149,121 @@ const CancelDetokenization = () => {
 
   return (
     <Box sx={{ overflow: 'auto', pb: 20, height: '100%' }}>
-      <Grid container sx={{ mt: 2 }} justifyContent={'center'}>
-        <Grid item sx={{ width: 800 }}>
-          <TransactionStep
-            steps={[
-              {
-                subtitle: <Trans>Confirm transaction details</Trans>,
-              },
-              {
-                subtitle: <Trans>Transaction result</Trans>,
-              },
-            ]}
-            selected={step}
-          />
+      <FormProvider {...methods}>
+        <Grid container sx={{ mt: 2 }} justifyContent={'center'}>
+          <Grid item sx={{ width: 800 }}>
+            <TransactionStep
+              steps={[
+                {
+                  subtitle: <Trans>Confirm transaction details</Trans>,
+                },
+                {
+                  subtitle: <Trans>Transaction result</Trans>,
+                },
+              ]}
+              selected={step}
+            />
+          </Grid>
         </Grid>
-      </Grid>
 
-      <TransactionContent>
-        <TabPanel value={step} index={CancelStep.Input}>
-          <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
-            <Trans>Cancel</Trans>
-          </Typography>
-          <TransactionBody>
-            <Typography gutterBottom>
-              <Trans>Information of request detokenization</Trans>
+        <TransactionContent>
+          <TabPanel value={step} index={CancelStep.Input}>
+            <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
+              <Trans>Cancel</Trans>
             </Typography>
-            <Typography gutterBottom color={'gray'} marginBottom={2}>
-              <Trans>Please confirm your request detokenization details.</Trans>
-            </Typography>
-
-            <form onSubmit={handleSubmit(handleConfirm)}>
-              <TransactionBasicInfo infos={reviewInfo} />
-
-              <TextField
-                label={<Trans>fee</Trans>}
-                fullWidth
-                {...register('fee', {
-                  required: true,
-                })}
-                required
-                sx={{ mt: 3, mb: 3 }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">{unit} Fee</InputAdornment>
-                  ),
-                }}
-              />
-              <Alert severity="info">
-                <AlertTitle>
-                  <Trans>Irrevocable once submitted</Trans>
-                </AlertTitle>
+            <TransactionBody>
+              <Typography gutterBottom>
+                <Trans>Information of request detokenization</Trans>
+              </Typography>
+              <Typography gutterBottom color={'gray'} marginBottom={2}>
                 <Trans>
-                  This action is irreversible once submitted, please ensure the
-                  details here are correct.
+                  Please confirm your request detokenization details.
                 </Trans>
-              </Alert>
-              <Stack sx={{ m: 1, mb: 3 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox checked={checked} onChange={handleChangeCheck} />
-                  }
-                  label="Yes, I want to cancel the detokenization requirement."
-                />
-              </Stack>
+              </Typography>
 
-              <Stack
-                direction={'row'}
-                justifyContent={'flex-end'}
-                sx={{ mt: 1 }}
-                spacing={1}
+              <form onSubmit={methods.handleSubmit(handleConfirm)}>
+                <TransactionBasicInfo infos={reviewInfo} />
+                <TransactionFeeInput />
+                <Alert severity="info">
+                  <AlertTitle>
+                    <Trans>Irrevocable once submitted</Trans>
+                  </AlertTitle>
+                  <Trans>
+                    This action is irreversible once submitted, please ensure
+                    the details here are correct.
+                  </Trans>
+                </Alert>
+                <Stack sx={{ m: 1, mb: 3 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checked}
+                        onChange={handleChangeCheck}
+                      />
+                    }
+                    label={
+                      <Trans>
+                        Yes, I want to cancel the detokenization requirement.
+                      </Trans>
+                    }
+                  />
+                </Stack>
+                <Stack
+                  direction={'row'}
+                  justifyContent={'flex-end'}
+                  sx={{ mt: 1 }}
+                  spacing={1}
+                >
+                  <TransactionButton
+                    color="primary"
+                    disabled={isDeleteUnconfirmedTransactionsLoading}
+                    onClick={() => {
+                      navigate(-1)
+                    }}
+                  >
+                    <Trans>Cancel</Trans>
+                  </TransactionButton>
+
+                  <TransactionLoadingButton
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    disabled={!methods.formState.isValid || !checked}
+                    endIcon={<ChevronRightIcon />}
+                    loading={
+                      isDeleteUnconfirmedTransactionsLoading ||
+                      isSpendCatLoading
+                    }
+                  >
+                    <Trans>Confirm</Trans>
+                  </TransactionLoadingButton>
+                </Stack>
+              </form>
+            </TransactionBody>
+          </TabPanel>
+          <TabPanel value={step} index={CancelStep.Result}>
+            <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
+              <Trans>Result</Trans>
+            </Typography>
+            <TransactionBody>
+              <TransactionResult
+                transactionId={transactionId}
+                onFinish={handleFinish}
               >
-                <TransactionButton
-                  color="primary"
-                  disabled={isDeleteUnconfirmedTransactionsLoading}
-                  onClick={() => {
-                    navigate(-1)
-                  }}
-                >
-                  <Trans>Cancel</Trans>
-                </TransactionButton>
-
-                <TransactionLoadingButton
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  disabled={!formState.isValid || !checked}
-                  endIcon={<ChevronRightIcon />}
-                  loading={
-                    isDeleteUnconfirmedTransactionsLoading || isSpendCatLoading
-                  }
-                >
-                  <Trans>Confirm</Trans>
-                </TransactionLoadingButton>
-              </Stack>
-            </form>
-          </TransactionBody>
-        </TabPanel>
-        <TabPanel value={step} index={CancelStep.Result}>
-          <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
-            <Trans>Result</Trans>
-          </Typography>
-          <TransactionBody>
-            <TransactionResult
-              transactionId={transactionId}
-              onFinish={handleFinish}
-            >
-              <TransactionReviewList
-                infos={[
-                  ...reviewInfo,
-                  {
-                    subtitle: <Trans>Transaction fee</Trans>,
-                    value: `${getValues().fee} ${unit}`,
-                  },
-                ]}
-              />
-            </TransactionResult>
-          </TransactionBody>
-        </TabPanel>
-      </TransactionContent>
+                <TransactionReviewList
+                  infos={[
+                    ...reviewInfo,
+                    {
+                      subtitle: <Trans>Transaction fee</Trans>,
+                      value: `${methods.getValues().fee} ${unit}`,
+                    },
+                  ]}
+                />
+              </TransactionResult>
+            </TransactionBody>
+          </TabPanel>
+        </TransactionContent>
+      </FormProvider>
     </Box>
   )
 }
