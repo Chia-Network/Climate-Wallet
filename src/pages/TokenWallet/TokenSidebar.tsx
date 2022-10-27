@@ -147,7 +147,7 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': '',
+        'CW Link': `https://app.climatewarehouse.chia.net/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`,
       }
     })
   }, [allCWAssets, filteredWallets])
