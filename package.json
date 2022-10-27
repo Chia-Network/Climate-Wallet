@@ -143,6 +143,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-loader": "3.1.0",
     "html-webpack-plugin": "5.5.0",
+    "keytar": "^7.9.0",
     "lodash-webpack-plugin": "0.11.6",
     "minizip-asm.js": "^1.0.10",
     "prettier": "^2.7.1",
@@ -178,6 +179,10 @@
   "build": {
     "appId": "com.app.climatewallet",
     "productName": "Climate Wallet",
+    "asarUnpack": [
+      "node_modules/node-mac-permissions",
+      "node_modules/keytar"
+    ],
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -185,7 +190,7 @@
     "publish": {
       "provider": "github",
       "repo": "climate-wallet",
-      "owner": "hashgreen"
+      "owner": "chia"
     },
     "mac": {
       "icon": "src/assets/img/logo-512.png",
