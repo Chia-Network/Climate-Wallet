@@ -3,6 +3,7 @@ import {
   TransactionBody,
   TransactionButton,
   TransactionContent,
+  TransactionFeeInput,
   TransactionLoadingButton,
   TransactionPrompt,
 } from '@/components/transaction'
@@ -26,13 +27,13 @@ import {
 } from '@chia/api-react'
 import { catToMojo, chiaToMojo } from '@chia/core'
 import { Trans } from '@lingui/macro'
-import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Alert,
   AlertTitle,
   Box,
   Button,
   Checkbox,
+  FormControlLabel,
   Grid,
   InputAdornment,
   Stack,
@@ -41,7 +42,7 @@ import {
 } from '@mui/material'
 import moment from 'moment'
 import { ChangeEvent, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import RequestDetokenizationDialog from './RequestDetokenizationDialog'
 
@@ -49,7 +50,6 @@ const RequestDetokenization = () => {
   const navigate = useNavigate()
   const { walletId } = useParams()
   const { wallet } = useWallet(walletId)
-  const { unit } = useWallet(1)
   const { blockingList, setBlockingList } = useDetokenzationBlockingList()
   const { state } = useWalletState()
 
@@ -58,13 +58,13 @@ const RequestDetokenization = () => {
 
   const [checked, setChecked] = useState<boolean>(false)
 
-  const { register, formState, handleSubmit, reset, getValues } =
-    useForm<RequestInput>({
-      defaultValues: {
-        fee: '0.001 ',
-      },
-      mode: 'onChange',
-    })
+  const methods = useForm<RequestInput>({
+    defaultValues: {
+      fee: '0.001',
+    },
+    mode: 'onChange',
+  })
+  const { register, formState, handleSubmit, reset, getValues } = methods
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
   const { data: cwAsset, isLoading: isLoadingAsset } =
@@ -153,138 +153,132 @@ const RequestDetokenization = () => {
 
   return (
     <Box sx={{ overflow: 'auto', pb: 20, height: '100%' }}>
-      <form onSubmit={handleSubmit(handleSave)}>
-        <TransactionPrompt when={formState.isDirty} />
-        <TransactionContent>
-          <Stack
-            justifyContent={'center'}
-            direction={'row'}
-            alignItems={'center'}
-            sx={{ position: 'relative' }}
-          >
-            <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
-              <Trans>Request Detokenization</Trans>
-            </Typography>
-
-            <RequestDetokenizationDialog />
-          </Stack>
-          <TransactionBody>
-            <Typography
-              sx={{
-                mb: '20px',
-              }}
-            >
-              <Trans>Project information</Trans>
-            </Typography>
-            <TransactionBasicInfo infos={carbonTokenInfo} />
-            <Typography
-              sx={{
-                mb: '20px',
-              }}
-            >
-              <Trans>Request Detokenization</Trans>
-            </Typography>
-
-            <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
-              <Grid xs={6} item>
-                <TextField
-                  label={<Trans>Quantity</Trans>}
-                  fullWidth
-                  {...register('amount', {
-                    required: true,
-                    pattern: TOKEN_AMOUNT_REGEX,
-                  })}
-                  error={Boolean(formState.errors['amount'])}
-                  required
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        {CARBON_TOKEN_UNIT}
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid xs={6} item>
-                <TextField
-                  label={<Trans>fee</Trans>}
-                  fullWidth
-                  {...register('fee', {
-                    required: true,
-                  })}
-                  required
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">{unit}</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid xs={12} item>
-                <TextField
-                  label={<Trans>Passphrase</Trans>}
-                  fullWidth
-                  {...register('passphrase', {
-                    required: true,
-                  })}
-                  required
-                />
-              </Grid>
-            </Grid>
-
-            <Alert severity="info" sx={{ mt: 1, mb: 3 }}>
-              <AlertTitle>
-                <Trans>Detokenization cannot be undone</Trans>
-              </AlertTitle>
-              <Trans>
-                The detokenization request file is valid from the moment it is
-                created until it is successfully canceled or executed.
-              </Trans>
-            </Alert>
-
-            <Stack alignItems={'flex-start'} direction={'row'}>
-              <Checkbox
-                checked={checked}
-                onChange={handleChangeCheck}
-                sx={{ paddingTop: 0 }}
-              />
-              <Typography>
-                <Trans>
-                  I have confirmed that the detokenization details are correct
-                  and I want to request detokenization.
-                </Trans>
-              </Typography>
-            </Stack>
-
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleSave)}>
+          <TransactionPrompt when={formState.isDirty} />
+          <TransactionContent>
             <Stack
+              justifyContent={'center'}
               direction={'row'}
-              justifyContent={'flex-end'}
-              sx={{ mt: 1 }}
-              spacing={1}
+              alignItems={'center'}
+              sx={{ position: 'relative' }}
             >
-              <TransactionButton
-                color="primary"
-                onClick={() => {
-                  navigate(-1)
-                }}
-                disabled={isDetokenzationLoading}
-              >
-                <Trans>Cancel</Trans>
-              </TransactionButton>
+              <Typography variant="h4" sx={{ m: 2 }} textAlign={'center'}>
+                <Trans>Request Detokenization</Trans>
+              </Typography>
 
-              <TransactionLoadingButton
-                color="primary"
-                variant="contained"
-                type="submit"
-                disabled={!formState.isValid || !checked}
-                loading={isDetokenzationLoading}
-              >
-                <Trans>Save request</Trans>
-              </TransactionLoadingButton>
+              <RequestDetokenizationDialog />
             </Stack>
-          </TransactionBody>
-        </TransactionContent>
-      </form>
+            <TransactionBody>
+              <Typography
+                sx={{
+                  mb: '20px',
+                }}
+              >
+                <Trans>Project information</Trans>
+              </Typography>
+              <TransactionBasicInfo infos={carbonTokenInfo} />
+              <Typography
+                sx={{
+                  mb: '20px',
+                }}
+              >
+                <Trans>Request Detokenization</Trans>
+              </Typography>
+
+              <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
+                <Grid xs={6} item>
+                  <TextField
+                    label={<Trans>Quantity</Trans>}
+                    fullWidth
+                    {...register('amount', {
+                      required: true,
+                      pattern: TOKEN_AMOUNT_REGEX,
+                    })}
+                    error={Boolean(formState.errors['amount'])}
+                    required
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {CARBON_TOKEN_UNIT}
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid xs={6} item>
+                  <TransactionFeeInput />
+                </Grid>
+                <Grid xs={12} item>
+                  <TextField
+                    label={<Trans>Passphrase</Trans>}
+                    fullWidth
+                    {...register('passphrase', {
+                      required: true,
+                    })}
+                    required
+                  />
+                </Grid>
+              </Grid>
+
+              <Alert severity="info" sx={{ mt: 1, mb: 3 }}>
+                <AlertTitle>
+                  <Trans>Detokenization cannot be undone</Trans>
+                </AlertTitle>
+                <Trans>
+                  The detokenization request file is valid from the moment it is
+                  created until it is successfully canceled or executed.
+                </Trans>
+              </Alert>
+
+              <Stack alignItems={'flex-start'} direction={'row'}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked}
+                      onChange={handleChangeCheck}
+                      sx={{ paddingTop: 0 }}
+                    />
+                  }
+                  label={
+                    <Trans>
+                      I have confirmed that the detokenization details are
+                      correct and I want to request detokenization.
+                    </Trans>
+                  }
+                />
+              </Stack>
+
+              <Stack
+                direction={'row'}
+                justifyContent={'flex-end'}
+                sx={{ mt: 1 }}
+                spacing={1}
+              >
+                <TransactionButton
+                  color="primary"
+                  onClick={() => {
+                    navigate(-1)
+                  }}
+                  disabled={isDetokenzationLoading}
+                >
+                  <Trans>Cancel</Trans>
+                </TransactionButton>
+
+                <TransactionLoadingButton
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  disabled={!methods.formState.isValid || !checked}
+                  loading={isDetokenzationLoading}
+                >
+                  <Trans>Save request</Trans>
+                </TransactionLoadingButton>
+              </Stack>
+            </TransactionBody>
+          </TransactionContent>
+        </form>
+      </FormProvider>
     </Box>
   )
 }

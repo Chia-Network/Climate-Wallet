@@ -29,12 +29,10 @@ import {
   Alert,
   AlertTitle,
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
   Stack,
-  styled,
   Typography,
 } from '@mui/material'
 import { ChangeEvent, useState } from 'react'
@@ -271,7 +269,12 @@ const Send = () => {
                         onChange={handleChangeCheck}
                       />
                     }
-                    label="I have confirmed that the transaction details are correct."
+                    label={
+                      <Trans>
+                        I have confirmed that the transaction details are
+                        correct.
+                      </Trans>
+                    }
                   />
                 </Stack>
 
