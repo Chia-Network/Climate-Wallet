@@ -1,7 +1,9 @@
-import { ApiRes, CWAsset, CWAssetIds } from '@/types/ClimateWarehouseType'
+import { CWAsset } from '@/types/ClimateWarehouseType'
+import { getConfig } from '@/util/yamlConfigLoader'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const serviceURL = process.env.CLIMATE_WAREHOUSE
+export const serviceURL =
+  getConfig().climateWarehouses[0] || process.env.CLIMATE_WAREHOUSE
 
 export const climateWarehouseServiceApi = createApi({
   reducerPath: 'climateWarehouseServiceApi',
