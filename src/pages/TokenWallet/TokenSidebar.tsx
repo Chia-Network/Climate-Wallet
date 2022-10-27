@@ -161,10 +161,14 @@ export default function TokenSidebar() {
   const theme = useTheme()
 
   useEffect(() => {
-    if (!walletId && sortedWallets.length > 0) {
+    if (
+      !walletId &&
+      sortedWallets.length > 0 &&
+      filteredWallets.length === walletsBalance.length
+    ) {
       setWalletId(sortedWallets[0].walletId)
     }
-  }, [sortedWallets])
+  }, [sortedWallets, filteredWallets, walletsBalance])
 
   return (
     <StyledRoot direction="column" gap={3}>
