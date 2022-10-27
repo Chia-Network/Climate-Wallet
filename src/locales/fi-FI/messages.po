@@ -332,12 +332,12 @@ msgstr "Back"
 #~ msgstr ""
 
 #: src/pages/Retire/Retire.tsx:100
-#: src/pages/Retire/RetireInput.tsx:69
+#: src/pages/Retire/RetireInput.tsx:58
 msgid "Beneficiary Name"
 msgstr ""
 
 #: src/pages/Retire/Retire.tsx:104
-#: src/pages/Retire/RetireInput.tsx:77
+#: src/pages/Retire/RetireInput.tsx:66
 msgid "Beneficiary Public Key"
 msgstr ""
 
@@ -422,12 +422,12 @@ msgstr ""
 #~ msgstr "Can be backed up to mnemonic seed"
 
 #: src/components/app/AppPassPrompt.tsx:204
-#: src/pages/Detokenization/CancelDetokenization.tsx:175
-#: src/pages/Detokenization/CancelDetokenization.tsx:233
-#: src/pages/Detokenization/RequestDetokenization.tsx:272
+#: src/pages/Detokenization/CancelDetokenization.tsx:172
+#: src/pages/Detokenization/CancelDetokenization.tsx:224
+#: src/pages/Detokenization/RequestDetokenization.tsx:265
 #: src/pages/Retire/Retire.tsx:303
-#: src/pages/Send/Send.tsx:225
-#: src/pages/Send/Send.tsx:289
+#: src/pages/Send/Send.tsx:223
+#: src/pages/Send/Send.tsx:292
 msgid "Cancel"
 msgstr "Peru"
 
@@ -643,7 +643,7 @@ msgstr ""
 #~ msgid "Commit"
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:246
+#: src/pages/Detokenization/CancelDetokenization.tsx:238
 msgid "Confirm"
 msgstr "Vahvista"
 
@@ -669,7 +669,7 @@ msgstr "Vahvista"
 #~ msgid "Confirm Passphrase"
 #~ msgstr "Vahvista Salasana"
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:161
+#: src/pages/Detokenization/CancelDetokenization.tsx:158
 msgid "Confirm transaction details"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgstr ""
 #~ msgid "Confirmation"
 #~ msgstr "Vahvista"
 
-#: src/components/token/TokenHistoryRow.tsx:78
+#: src/components/token/TokenHistoryRow.tsx:81
 msgid "Confirmed"
 msgstr ""
 
@@ -933,7 +933,7 @@ msgstr "Copy"
 #~ msgid "Current Points Balance"
 #~ msgstr "Tämänhetkinen Pistesaldo"
 
-#: src/components/token/TokenHeader.tsx:88
+#: src/components/token/TokenHeader.tsx:99
 #: src/hooks/useGetTransactionInfos.tsx:14
 msgid "Current Registry"
 msgstr ""
@@ -1043,8 +1043,8 @@ msgstr "Poistetaan avainta"
 #~ msgid "Destination"
 #~ msgstr ""
 
-#: src/pages/Send/Send.tsx:88
-#: src/pages/Send/SendInput.tsx:27
+#: src/pages/Send/Send.tsx:86
+#: src/pages/Send/SendInput.tsx:19
 msgid "Destination address"
 msgstr ""
 
@@ -1057,11 +1057,11 @@ msgstr ""
 #~ msgid "Details"
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:116
+#: src/pages/Detokenization/CancelDetokenization.tsx:112
 msgid "Detokenization Quantity"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:237
+#: src/pages/Detokenization/RequestDetokenization.tsx:226
 msgid "Detokenization cannot be undone"
 msgstr ""
 
@@ -1388,8 +1388,7 @@ msgstr ""
 #~ msgstr "Farmituotannon Tila"
 
 #: src/components/token/TokenHistory.tsx:29
-#: src/pages/Retire/RetireInput.tsx:56
-#: src/pages/Send/SendInput.tsx:62
+#: src/components/transaction/TransactionFeeInput.tsx:19
 msgid "Fee"
 msgstr "Veloitus"
 
@@ -1463,7 +1462,7 @@ msgstr ""
 #~ msgid "Frequently Asked Questions"
 #~ msgstr "Usein Kysytyt Kysymykset"
 
-#: src/components/token/TokenHistoryRow.tsx:148
+#: src/components/token/TokenHistoryRow.tsx:151
 msgid "From"
 msgstr ""
 
@@ -1595,8 +1594,12 @@ msgstr "Vihje"
 #~ msgid "I Understand, Create Offer"
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:252
+#: src/pages/Detokenization/RequestDetokenization.tsx:244
 msgid "I have confirmed that the detokenization details are correct and I want to request detokenization."
+msgstr ""
+
+#: src/pages/Send/Send.tsx:273
+msgid "I have confirmed that the transaction details are correct."
 msgstr ""
 
 #: src/components/fullNode/FullNodeConnections.tsx:29
@@ -1692,7 +1695,7 @@ msgstr ""
 #~ msgid "Info Packet"
 #~ msgstr "Info Packet"
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:179
+#: src/pages/Detokenization/CancelDetokenization.tsx:176
 msgid "Information of request detokenization"
 msgstr ""
 
@@ -1736,9 +1739,9 @@ msgstr ""
 #~ msgid "Invalid state"
 #~ msgstr "Virheellinen tila"
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:204
+#: src/pages/Detokenization/CancelDetokenization.tsx:189
 #: src/pages/Retire/Retire.tsx:273
-#: src/pages/Send/Send.tsx:259
+#: src/pages/Send/Send.tsx:257
 msgid "Irrevocable once submitted"
 msgstr ""
 
@@ -1997,11 +2000,11 @@ msgstr ""
 #~ msgid "Manage token list"
 #~ msgstr ""
 
-#: src/pages/Send/Send.tsx:99
+#: src/pages/Send/Send.tsx:97
 msgid "Memo"
 msgstr ""
 
-#: src/components/token/TokenHistoryRow.tsx:114
+#: src/components/token/TokenHistoryRow.tsx:117
 msgid "Memos"
 msgstr ""
 
@@ -2092,7 +2095,7 @@ msgstr ""
 #~ msgid "My Pubkey"
 #~ msgstr "My Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:118
+#: src/pages/Retire/RetireInput.tsx:107
 msgid "My Public Key"
 msgstr ""
 
@@ -2237,7 +2240,7 @@ msgstr "New Address"
 #~ msgid "New passphrase is the same as your current passphrase"
 #~ msgstr "New passphrase is the same as your current passphrase"
 
-#: src/pages/Send/Send.tsx:234
+#: src/pages/Send/Send.tsx:232
 msgid "Next"
 msgstr "Seuraava"
 
@@ -2279,7 +2282,7 @@ msgstr "Ei"
 #~ msgid "No private keys for one or both addresses. Safe only if you are sending rewards to another wallet."
 #~ msgstr "Jompaan kumpaan tai kumpaankaan osoitteeseen ei ole yksitysiä avaimia. Turvallista vain, jos lähetät palkkiot toiseen lompakkoon."
 
-#: src/components/token/TokenHistory.tsx:155
+#: src/components/token/TokenHistory.tsx:158
 msgid "No transaction history"
 msgstr ""
 
@@ -2485,7 +2488,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/app/AppPassPrompt.tsx:153
-#: src/pages/Detokenization/RequestDetokenization.tsx:225
+#: src/pages/Detokenization/RequestDetokenization.tsx:214
 msgid "Passphrase"
 msgstr "Salasana"
 
@@ -2551,7 +2554,7 @@ msgstr "Salasana"
 #~ msgid "Peak Time"
 #~ msgstr "Peak Time"
 
-#: src/components/token/TokenHistoryRow.tsx:91
+#: src/components/token/TokenHistoryRow.tsx:94
 msgid "Pending"
 msgstr "Odottaa"
 
@@ -2612,7 +2615,7 @@ msgstr "Odottaa"
 #~ msgid "Please confirm project details."
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:182
+#: src/pages/Detokenization/CancelDetokenization.tsx:179
 msgid "Please confirm your request detokenization details."
 msgstr ""
 
@@ -3058,11 +3061,11 @@ msgstr ""
 #~ msgid "Profiles"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:81
+#: src/components/token/TokenHeader.tsx:92
 msgid "Project Details"
 msgstr ""
 
-#: src/components/token/TokenHeader.tsx:107
+#: src/components/token/TokenHeader.tsx:118
 msgid "Project Link"
 msgstr ""
 
@@ -3070,9 +3073,9 @@ msgstr ""
 msgid "Project Name"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:177
+#: src/pages/Detokenization/RequestDetokenization.tsx:178
 #: src/pages/Retire/Retire.tsx:220
-#: src/pages/Send/Send.tsx:200
+#: src/pages/Send/Send.tsx:198
 msgid "Project information"
 msgstr ""
 
@@ -3097,7 +3100,7 @@ msgstr ""
 #~ msgid "Pubkey"
 #~ msgstr "Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:86
+#: src/pages/Retire/RetireInput.tsx:75
 msgid "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 msgstr ""
 
@@ -3119,9 +3122,9 @@ msgstr ""
 #~ msgstr "Puzzlehash"
 
 #: src/components/token/TokenHistory.tsx:28
-#: src/pages/Detokenization/RequestDetokenization.tsx:191
-#: src/pages/Retire/RetireInput.tsx:37
-#: src/pages/Send/SendInput.tsx:37
+#: src/pages/Detokenization/RequestDetokenization.tsx:192
+#: src/pages/Retire/RetireInput.tsx:36
+#: src/pages/Send/SendInput.tsx:29
 msgid "Quantity"
 msgstr ""
 
@@ -3278,8 +3281,8 @@ msgstr ""
 #~ msgstr "Raportoi Ongelma..."
 
 #: src/components/token/TokenContent.tsx:201
-#: src/pages/Detokenization/RequestDetokenization.tsx:166
-#: src/pages/Detokenization/RequestDetokenization.tsx:185
+#: src/pages/Detokenization/RequestDetokenization.tsx:167
+#: src/pages/Detokenization/RequestDetokenization.tsx:186
 msgid "Request Detokenization"
 msgstr ""
 
@@ -3287,7 +3290,7 @@ msgstr ""
 #~ msgid "Requested"
 #~ msgstr ""
 
-#: src/components/token/TokenListItem.tsx:108
+#: src/components/token/TokenListItem.tsx:109
 msgid "Requesting Detokenization"
 msgstr ""
 
@@ -3308,9 +3311,9 @@ msgstr ""
 #~ msgid "Restore Smart Wallets From Backup"
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:254
+#: src/pages/Detokenization/CancelDetokenization.tsx:246
 #: src/pages/Retire/Retire.tsx:197
-#: src/pages/Send/Send.tsx:179
+#: src/pages/Send/Send.tsx:177
 msgid "Result"
 msgstr ""
 
@@ -3328,8 +3331,8 @@ msgstr ""
 
 #: src/pages/Retire/Retire.tsx:194
 #: src/pages/Retire/Retire.tsx:266
-#: src/pages/Send/Send.tsx:176
-#: src/pages/Send/Send.tsx:244
+#: src/pages/Send/Send.tsx:174
+#: src/pages/Send/Send.tsx:242
 msgid "Review"
 msgstr ""
 
@@ -3365,7 +3368,7 @@ msgstr ""
 #~ msgid "Save passphrase"
 #~ msgstr "Tallenna salasana"
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:282
+#: src/pages/Detokenization/RequestDetokenization.tsx:275
 msgid "Save request"
 msgstr ""
 
@@ -3490,11 +3493,11 @@ msgstr ""
 #~ msgstr "Sell"
 
 #: src/components/token/TokenContent.tsx:195
-#: src/pages/Send/Send.tsx:191
+#: src/pages/Send/Send.tsx:189
 msgid "Send"
 msgstr "Send"
 
-#: src/pages/Send/Send.tsx:92
+#: src/pages/Send/Send.tsx:90
 msgid "Send Quantity"
 msgstr ""
 
@@ -3723,7 +3726,7 @@ msgstr "Tila"
 
 #: src/components/app/AppPassPrompt.tsx:128
 #: src/pages/Retire/Retire.tsx:314
-#: src/pages/Send/Send.tsx:299
+#: src/pages/Send/Send.tsx:302
 msgid "Submit"
 msgstr "Lähetä"
 
@@ -3825,7 +3828,7 @@ msgstr "Synkronoi...."
 #~ msgid "The derivation index sets the range of wallet addresses that the wallet scans the blockchain for. This number is generally higher if you have a lot of transactions or canceled offers for XCH, CATs, or NFTs. If you believe your balance is incorrect because it’s missing coins, then increasing the derivation index could help the wallet include the missing coins in the balance total."
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:239
+#: src/pages/Detokenization/RequestDetokenization.tsx:228
 msgid "The detokenization request file is valid from the moment it is created until it is successfully canceled or executed."
 msgstr ""
 
@@ -3944,9 +3947,9 @@ msgstr ""
 #~ msgid "They will receive"
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:206
+#: src/pages/Detokenization/CancelDetokenization.tsx:191
 #: src/pages/Retire/Retire.tsx:275
-#: src/pages/Send/Send.tsx:261
+#: src/pages/Send/Send.tsx:259
 msgid "This action is irreversible once submitted, please ensure the details here are correct."
 msgstr ""
 
@@ -4114,11 +4117,11 @@ msgstr ""
 #~ msgid "Title Not Available"
 #~ msgstr ""
 
-#: src/components/token/TokenHistoryRow.tsx:139
+#: src/components/token/TokenHistoryRow.tsx:142
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:127
+#: src/components/token/TokenHeader.tsx:138
 msgid "Token Asset ID"
 msgstr ""
 
@@ -4242,7 +4245,7 @@ msgid "Transaction ID"
 msgstr ""
 
 #: src/pages/Retire/Retire.tsx:191
-#: src/pages/Send/Send.tsx:173
+#: src/pages/Send/Send.tsx:171
 msgid "Transaction Information"
 msgstr ""
 
@@ -4250,9 +4253,9 @@ msgstr ""
 #~ msgid "Transaction completed"
 #~ msgstr ""
 
-#: src/pages/Detokenization/CancelDetokenization.tsx:265
+#: src/pages/Detokenization/CancelDetokenization.tsx:257
 #: src/pages/Retire/Retire.tsx:95
-#: src/pages/Send/Send.tsx:96
+#: src/pages/Send/Send.tsx:94
 msgid "Transaction fee"
 msgstr ""
 
@@ -4262,13 +4265,13 @@ msgstr ""
 
 #: src/components/transaction/TransactionResult.tsx:43
 #: src/pages/Retire/Retire.tsx:230
-#: src/pages/Send/Send.tsx:209
-#: src/pages/Send/Send.tsx:254
+#: src/pages/Send/Send.tsx:207
+#: src/pages/Send/Send.tsx:252
 msgid "Transaction information"
 msgstr ""
 
 #: src/components/transaction/TransactionResult.tsx:16
-#: src/pages/Detokenization/CancelDetokenization.tsx:164
+#: src/pages/Detokenization/CancelDetokenization.tsx:161
 msgid "Transaction result"
 msgstr ""
 
@@ -4424,7 +4427,7 @@ msgstr "Avaa Avainrengas"
 msgid "View"
 msgstr "Näkymä"
 
-#: src/components/token/TokenHeader.tsx:76
+#: src/components/token/TokenHeader.tsx:87
 msgid "View Details"
 msgstr ""
 
@@ -4496,8 +4499,8 @@ msgstr ""
 #~ msgid "Viewing offer: {offerFileName}"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:84
-#: src/components/token/TokenListItem.tsx:154
+#: src/components/token/TokenHeader.tsx:95
+#: src/components/token/TokenListItem.tsx:155
 #: src/hooks/useGetTransactionInfos.tsx:12
 msgid "Vintage Year"
 msgstr ""
@@ -4694,6 +4697,10 @@ msgstr "Kyllä"
 #~ msgid "Yes, Accept Offer"
 #~ msgstr ""
 
+#: src/pages/Detokenization/CancelDetokenization.tsx:205
+msgid "Yes, I want to cancel the detokenization requirement."
+msgstr ""
+
 #: src/components/nfts/NFTMoveToProfileDialog.tsx:64
 #~ msgid "Yes, move"
 #~ msgstr ""
@@ -4881,15 +4888,15 @@ msgstr "Avainrenkaasi on lukittu"
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:189
 #: src/pages/Detokenization/RequestDetokenization.tsx:210
-msgid "fee"
-msgstr ""
+#~ msgid "fee"
+#~ msgstr ""
 
 #: src/components/_wallet_old/WalletStatusCard.tsx:33
 #: src/components/_wallet_old/Wallets.tsx:67
 #~ msgid "height:"
 #~ msgstr "height:"
 
-#: src/pages/Send/SendInput.tsx:81
+#: src/pages/Send/SendInput.tsx:57
 msgid "memo"
 msgstr ""
 
