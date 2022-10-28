@@ -61,6 +61,8 @@ export default function useWalletTransactionsHistory(
       const isOutgoing = [
         TransactionType.OUTGOING,
         TransactionType.OUTGOING_TRADE,
+        TokenType.Detokenize,
+        TokenType.Retire,
       ].includes(type)
 
       const historyType: TokenType =

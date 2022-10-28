@@ -30,7 +30,7 @@ const historyTableHeads = [
 ]
 
 export const tableAlignLeft = (index: number) =>
-  [1, 2].includes(index) ? 'left' : 'right'
+  [0, 1, 2].includes(index) ? 'left' : 'right'
 
 const StyledWhiteTableCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,

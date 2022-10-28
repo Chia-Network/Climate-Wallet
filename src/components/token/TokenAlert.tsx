@@ -8,7 +8,7 @@ const TokenAlert = () => {
       sx={{ paddingTop: '32px', paddingLeft: '32px', paddingBottom: '26px' }}
     >
       <AlertTitle>
-        <Trans>This token is Requesting detokenization</Trans>
+        <Trans>This token is requesting detokenization</Trans>
       </AlertTitle>
       <Trans>
         Once a detokenization request file has been created, the tokens included

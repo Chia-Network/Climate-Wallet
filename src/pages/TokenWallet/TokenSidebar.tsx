@@ -1,5 +1,6 @@
 import { Loading } from '@/components/loading'
 import { ExportButton, TokenListItem } from '@/components/token'
+import { CW_LINK } from '@/constants/link'
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
@@ -147,7 +148,7 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': '',
+        'CW Link': `${CW_LINK}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`,
       }
     })
   }, [allCWAssets, filteredWallets])
@@ -161,10 +162,14 @@ export default function TokenSidebar() {
   const theme = useTheme()
 
   useEffect(() => {
-    if (!walletId && sortedWallets.length > 0) {
+    if (
+      !walletId &&
+      sortedWallets.length > 0 &&
+      filteredWallets.length === walletsBalance.length
+    ) {
       setWalletId(sortedWallets[0].walletId)
     }
-  }, [sortedWallets])
+  }, [sortedWallets, filteredWallets, walletsBalance])
 
   return (
     <StyledRoot direction="column" gap={3}>

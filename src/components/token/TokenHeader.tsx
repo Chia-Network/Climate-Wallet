@@ -1,4 +1,5 @@
 import GreySkeleton from '@/components/common/GreySkeleton'
+import { CW_LINK } from '@/constants/link'
 import useOpenExternal from '@/hooks/useOpenExternal'
 import { useSelectedWallet } from '@/hooks/wallet'
 import { Trans } from '@lingui/macro'
@@ -49,7 +50,7 @@ const TokenHeader = () => {
 
   const handleViewDetails = () => {
     openExternal(
-      `https://app.climatewarehouse.chia.net/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
+      `${CW_LINK}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
     )
   }
 
