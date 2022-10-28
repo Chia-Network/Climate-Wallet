@@ -1,5 +1,6 @@
 import { Loading } from '@/components/loading'
 import { ExportButton, TokenListItem } from '@/components/token'
+import { CW_LINK } from '@/constants/link'
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
@@ -147,7 +148,7 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': `https://app.climatewarehouse.chia.net/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`,
+        'CW Link': `${CW_LINK}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`,
       }
     })
   }, [allCWAssets, filteredWallets])
