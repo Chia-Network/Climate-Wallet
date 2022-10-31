@@ -94,7 +94,7 @@ const TokenHeader = () => {
       >
         <TokenHeaderDesc
           title={<Trans>Vintage Year</Trans>}
-          value={asset?.vintageYear.toString() ?? ''}
+          value={asset?.vintageYear ?? ''}
         />
         <TokenHeaderDesc
           title={<Trans>Current Registry</Trans>}
@@ -137,7 +137,7 @@ const TokenHeader = () => {
         />
         <TokenHeaderDesc
           title={<Trans>Token Asset ID</Trans>}
-          value={asset?.asset_id.toString() ?? ''}
+          value={asset?.asset_id ?? ''}
         />
       </TokenCard>
     </Stack>
