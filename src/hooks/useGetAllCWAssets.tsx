@@ -31,7 +31,7 @@ export function useGetAllCWAssets() {
   const error = errorAssets || errorOrganizations || errorProjects
 
   const data = useMemo(() => {
-    if (assets && organizations && projects) {
+    if (assets && Array.isArray(assets) && organizations && projects) {
       return assets.map((asset) => {
         const orgInfo = organizations[asset.orgUid]
         const project = projects.find(
