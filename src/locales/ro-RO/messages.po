@@ -933,7 +933,7 @@ msgstr "Copy"
 #~ msgid "Current Points Balance"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:99
+#: src/components/token/TokenHeader.tsx:100
 #: src/hooks/useGetTransactionInfos.tsx:14
 msgid "Current Registry"
 msgstr ""
@@ -2099,7 +2099,7 @@ msgstr ""
 msgid "My Public Key"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:174
+#: src/pages/TokenWallet/TokenSidebar.tsx:180
 msgid "My Wallet"
 msgstr ""
 
@@ -2196,11 +2196,11 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:219
+#: src/pages/TokenWallet/TokenSidebar.tsx:225
 msgid "Name - A to Z"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:222
+#: src/pages/TokenWallet/TokenSidebar.tsx:228
 msgid "Name - Z to A"
 msgstr ""
 
@@ -3061,11 +3061,11 @@ msgstr ""
 #~ msgid "Profiles"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:92
+#: src/components/token/TokenHeader.tsx:93
 msgid "Project Details"
 msgstr ""
 
-#: src/components/token/TokenHeader.tsx:118
+#: src/components/token/TokenHeader.tsx:119
 msgid "Project Link"
 msgstr ""
 
@@ -3128,11 +3128,11 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:213
+#: src/pages/TokenWallet/TokenSidebar.tsx:219
 msgid "Quantity - high to low"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:216
+#: src/pages/TokenWallet/TokenSidebar.tsx:222
 msgid "Quantity - low to high"
 msgstr ""
 
@@ -3633,7 +3633,7 @@ msgstr ""
 #~ msgid "Something went wrong"
 #~ msgstr "Something went wrong"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:196
+#: src/pages/TokenWallet/TokenSidebar.tsx:202
 msgid "Sort by"
 msgstr ""
 
@@ -4075,7 +4075,11 @@ msgstr ""
 #~ msgstr "Acest tabel vă arată ultima dată când ferma dvs. a încercat să câștige o provocare de bloc."
 
 #: src/components/token/TokenAlert.tsx:11
-msgid "This token is Requesting detokenization"
+#~ msgid "This token is Requesting detokenization"
+#~ msgstr ""
+
+#: src/components/token/TokenAlert.tsx:11
+msgid "This token is requesting detokenization"
 msgstr ""
 
 #: src/components/trading/TradingOverview.jsx:188
@@ -4121,7 +4125,7 @@ msgstr ""
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:138
+#: src/components/token/TokenHeader.tsx:139
 msgid "Token Asset ID"
 msgstr ""
 
@@ -4427,7 +4431,7 @@ msgstr ""
 msgid "View"
 msgstr "Afișare"
 
-#: src/components/token/TokenHeader.tsx:87
+#: src/components/token/TokenHeader.tsx:88
 msgid "View Details"
 msgstr ""
 
@@ -4499,7 +4503,7 @@ msgstr ""
 #~ msgid "Viewing offer: {offerFileName}"
 #~ msgstr ""
 
-#: src/components/token/TokenHeader.tsx:95
+#: src/components/token/TokenHeader.tsx:96
 #: src/components/token/TokenListItem.tsx:155
 #: src/hooks/useGetTransactionInfos.tsx:12
 msgid "Vintage Year"
