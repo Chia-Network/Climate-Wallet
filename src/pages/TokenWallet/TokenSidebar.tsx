@@ -64,12 +64,13 @@ export default function TokenSidebar() {
     if (!wallets || !allCWAssets) {
       return []
     }
-    return wallets.filter((wallet) =>
-      allCWAssets.some(
-        (asset) =>
-          checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
-          wallet.assetId
-      )
+    return wallets.filter(
+      (wallet) =>
+        allCWAssets.some(
+          (asset) =>
+            checkMarketplaceIdentifier(asset.marketplaceIdentifier) ===
+            wallet.assetId
+        ) && wallet.assetId !== undefined
     )
   }, [wallets, allCWAssets])
 
