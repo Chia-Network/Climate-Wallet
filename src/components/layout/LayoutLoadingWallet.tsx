@@ -13,11 +13,11 @@ import {
 import { PropsWithChildren, ReactNode } from 'react'
 
 const StyledLogoContainer = styled(Box)({
-  width: '120px',
-  height: '120px',
-  marginBottom: '24px',
+  width: '100px',
+  height: '100px',
+  marginBottom: '48px',
   '& img': {
-    height: '120px',
+    height: '100px',
   },
 })
 

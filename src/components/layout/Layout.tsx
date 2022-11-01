@@ -12,10 +12,10 @@ interface Props {
 }
 
 const StyledLogoContainer = styled(Box)({
-  width: '40px',
-  height: '40px',
+  width: '30px',
+  height: '30px',
   '& img': {
-    height: '40px',
+    height: '30px',
   },
 })
 
