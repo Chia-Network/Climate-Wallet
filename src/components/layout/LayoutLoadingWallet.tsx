@@ -1,7 +1,25 @@
+import logo from '@/assets/img/climate_wallet-green.png'
 import { Loading } from '@/components/loading'
 import { Trans } from '@lingui/macro'
-import { Alert, AlertTitle, Stack, Typography, useTheme } from '@mui/material'
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Stack,
+  styled,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import { PropsWithChildren, ReactNode } from 'react'
+
+const StyledLogoContainer = styled(Box)({
+  width: '100px',
+  height: '100px',
+  marginBottom: '48px',
+  '& img': {
+    height: '100px',
+  },
+})
 
 export const LoginAlert = () => {
   return (
@@ -50,6 +68,9 @@ const LayoutLoadingWallet = ({
     >
       {alertComponent}
       {/* TODO : add logo */}
+      <StyledLogoContainer>
+        <img src={logo} alt="logo" />
+      </StyledLogoContainer>
       <Typography variant="h4">
         <Trans>Climate Wallet</Trans>
       </Typography>
