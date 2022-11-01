@@ -194,7 +194,7 @@
       "owner": "chia"
     },
     "mac": {
-      "icon": "src/assets/img/logo-512.png",
+      "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
           "target": "default",
@@ -206,7 +206,7 @@
       ]
     },
     "win": {
-      "icon": "src/assets/img/logo-512.png",
+      "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
           "target": "nsis",
@@ -218,7 +218,7 @@
       ]
     },
     "linux": {
-      "icon": "src/assets/img/logo-512.png",
+      "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
           "target": "AppImage",
