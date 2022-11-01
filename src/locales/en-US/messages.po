@@ -933,7 +933,7 @@ msgstr "Copy"
 #~ msgid "Current Points Balance"
 #~ msgstr "Current Points Balance"
 
-#: src/components/token/TokenHeader.tsx:99
+#: src/components/token/TokenHeader.tsx:100
 #: src/hooks/useGetTransactionInfos.tsx:14
 msgid "Current Registry"
 msgstr "Current Registry"
@@ -2103,7 +2103,7 @@ msgstr "Memos"
 msgid "My Public Key"
 msgstr "My Public Key"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:174
+#: src/pages/TokenWallet/TokenSidebar.tsx:180
 msgid "My Wallet"
 msgstr "My Wallet"
 
@@ -2200,11 +2200,11 @@ msgstr "My Wallet"
 #~ msgid "Name"
 #~ msgstr "Name"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:219
+#: src/pages/TokenWallet/TokenSidebar.tsx:225
 msgid "Name - A to Z"
 msgstr "Name - A to Z"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:222
+#: src/pages/TokenWallet/TokenSidebar.tsx:228
 msgid "Name - Z to A"
 msgstr "Name - Z to A"
 
@@ -3065,11 +3065,11 @@ msgstr "Please open your Chia wallet to be logged into your Climate wallet."
 #~ msgid "Profiles"
 #~ msgstr "Profiles"
 
-#: src/components/token/TokenHeader.tsx:92
+#: src/components/token/TokenHeader.tsx:93
 msgid "Project Details"
 msgstr "Project Details"
 
-#: src/components/token/TokenHeader.tsx:118
+#: src/components/token/TokenHeader.tsx:119
 msgid "Project Link"
 msgstr "Project Link"
 
@@ -3132,11 +3132,11 @@ msgstr "Public key of the beneficiary to be recorded on the blockchain. Can be u
 msgid "Quantity"
 msgstr "Quantity"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:213
+#: src/pages/TokenWallet/TokenSidebar.tsx:219
 msgid "Quantity - high to low"
 msgstr "Quantity - high to low"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:216
+#: src/pages/TokenWallet/TokenSidebar.tsx:222
 msgid "Quantity - low to high"
 msgstr "Quantity - low to high"
 
@@ -3637,7 +3637,7 @@ msgstr "Send Quantity"
 #~ msgid "Something went wrong"
 #~ msgstr "Something went wrong"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:196
+#: src/pages/TokenWallet/TokenSidebar.tsx:202
 msgid "Sort by"
 msgstr "Sort by"
 
@@ -4079,8 +4079,12 @@ msgstr "This is your balance available to pay blockchain fees."
 #~ msgstr "This table shows you the last time your farm attempted to win a block challenge. <0>Learn more</0>"
 
 #: src/components/token/TokenAlert.tsx:11
-msgid "This token is Requesting detokenization"
-msgstr "This token is Requesting detokenization"
+#~ msgid "This token is Requesting detokenization"
+#~ msgstr "This token is Requesting detokenization"
+
+#: src/components/token/TokenAlert.tsx:11
+msgid "This token is requesting detokenization"
+msgstr "This token is requesting detokenization"
 
 #: src/components/trading/TradingOverview.jsx:188
 #~ msgid "This trade was created at this time"
@@ -4125,7 +4129,7 @@ msgstr "This transaction has been submitted to the blockchain with this transact
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:138
+#: src/components/token/TokenHeader.tsx:139
 msgid "Token Asset ID"
 msgstr "Token Asset ID"
 
@@ -4431,7 +4435,7 @@ msgstr "Unlock Keyring"
 msgid "View"
 msgstr "View"
 
-#: src/components/token/TokenHeader.tsx:87
+#: src/components/token/TokenHeader.tsx:88
 msgid "View Details"
 msgstr "View Details"
 
@@ -4503,7 +4507,7 @@ msgstr "View Details"
 #~ msgid "Viewing offer: {offerFileName}"
 #~ msgstr "Viewing offer: {offerFileName}"
 
-#: src/components/token/TokenHeader.tsx:95
+#: src/components/token/TokenHeader.tsx:96
 #: src/components/token/TokenListItem.tsx:155
 #: src/hooks/useGetTransactionInfos.tsx:12
 msgid "Vintage Year"

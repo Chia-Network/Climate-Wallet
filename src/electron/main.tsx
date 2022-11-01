@@ -23,7 +23,7 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import url from 'url'
 import packageJson from '../../package.json'
 
-const AppIcon = require('@/assets/img/chia64x64.png')
+const AppIcon = require('@/assets/img/climate_wallet-green.png')
 
 const NET = 'mainnet'
 
