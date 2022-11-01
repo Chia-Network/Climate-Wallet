@@ -1,14 +1,23 @@
+import logo from '@/assets/img/climate_wallet-green.png'
 import { Loading } from '@chia/core'
 import { Trans } from '@lingui/macro'
-import { Box, Grid, Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import React, { FC, ReactNode, Suspense } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Box, Grid, styled, Typography, useTheme } from '@mui/material'
+import { FC, ReactNode, Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
+
 interface Props {
   children?: ReactNode
   outlet?: boolean
   actions?: ReactNode
 }
+
+const StyledLogoContainer = styled(Box)({
+  width: '40px',
+  height: '40px',
+  '& img': {
+    height: '40px',
+  },
+})
 
 const Layout: FC<Props> = ({ children, outlet, actions }) => {
   const theme = useTheme()
@@ -31,14 +40,9 @@ const Layout: FC<Props> = ({ children, outlet, actions }) => {
             sx={{ paddingX: 3, paddingY: 1.5 }}
           >
             <Grid item>
-              <Box
-                sx={{
-                  backgroundColor: '#D9D9D9',
-                  borderRadius: '4px',
-                  width: '40px',
-                  height: '40px',
-                }}
-              />
+              <StyledLogoContainer>
+                <img src={logo} alt="logo" />
+              </StyledLogoContainer>
             </Grid>
             <Grid item>
               <Typography variant="h5" color="secondary" fontWeight="500">
