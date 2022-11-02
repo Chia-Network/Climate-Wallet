@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "Rreth zinxhirit Chia"
 
-#: src/electron/main.tsx:362
-#: src/electron/main.tsx:488
+#: src/electron/main.tsx:359
+#: src/electron/main.tsx:485
 msgid "About Climate Wallet"
 msgstr ""
 
@@ -550,7 +550,7 @@ msgstr ""
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr ""
 
-#: src/electron/main.tsx:359
+#: src/electron/main.tsx:356
 msgid "Climate"
 msgstr ""
 
@@ -1069,11 +1069,11 @@ msgstr ""
 msgid "Detokenized Quantity"
 msgstr ""
 
-#: src/electron/main.tsx:436
+#: src/electron/main.tsx:433
 msgid "Developer"
 msgstr "Programuesi"
 
-#: src/electron/main.tsx:439
+#: src/electron/main.tsx:436
 msgid "Developer Tools"
 msgstr "Veglat e Programuesit"
 
@@ -1185,7 +1185,7 @@ msgstr ""
 #~ msgid "Duplicate Plots"
 #~ msgstr ""
 
-#: src/electron/main.tsx:395
+#: src/electron/main.tsx:392
 msgid "Edit"
 msgstr "Modifiko"
 
@@ -1482,7 +1482,7 @@ msgstr ""
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:464
+#: src/electron/main.tsx:461
 msgid "Full Screen"
 msgstr "Ekran i plotë"
 
@@ -1555,7 +1555,7 @@ msgstr "Ekran i plotë"
 #~ msgid "Height"
 #~ msgstr "Lartësia"
 
-#: src/electron/main.tsx:485
+#: src/electron/main.tsx:482
 msgid "Help"
 msgstr "Ndihmë"
 
@@ -4427,7 +4427,7 @@ msgstr ""
 #~ msgid "Verify Pool Details"
 #~ msgstr "Verifikoni detajet e pollit"
 
-#: src/electron/main.tsx:427
+#: src/electron/main.tsx:424
 msgid "View"
 msgstr "Shiko"
 
@@ -4669,7 +4669,7 @@ msgstr ""
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:471
+#: src/electron/main.tsx:468
 msgid "Window"
 msgstr "Dritare"
 
