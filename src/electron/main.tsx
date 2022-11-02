@@ -105,7 +105,7 @@ const onRunService = () => {
   }
 
   const script = path.join(__dirname, `../${productionRunApp}`)
-  return require('child_process').execFile(script)
+  return require('child_process').spawn(script)
 }
 
 // @ts-ignore
@@ -309,10 +309,9 @@ const createWindow = async () => {
   require('@electron/remote/main').enable(mainWindow.webContents)
 }
 
-const exitProc = () => {
-  pyProc?.kill('SIGINT')
-
-  process.kill(pyProc?.pid)
+const exitPyProc = () => {
+  pyProc.kill()
+  console.log('child process exit')
   pyProc = null
 }
 
@@ -330,11 +329,11 @@ app.on('ready', () => {
 })
 
 app.on('will-quit', (e) => {
-  exitProc()
+  exitPyProc()
 })
 //app quit+
 app.on('window-all-closed', () => {
-  exitProc()
+  exitPyProc()
   app.quit()
 })
 
