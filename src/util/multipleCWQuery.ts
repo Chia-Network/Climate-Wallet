@@ -12,14 +12,19 @@ interface AxiosQuery {
 
 const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
   try {
-    const result = await axios({ url: url, method, data, params })
+    const result = await axios({
+      url: url,
+      method,
+      data,
+      params,
+      timeout: getConfig().apiTimeout || 20 * 1000,
+    })
     return { data: result.data }
   } catch (axiosError) {
     let err = axiosError as AxiosError
     return {
       error: {
         status: err.response?.status,
-        data: err.response?.data || err.message,
       },
     }
   }
