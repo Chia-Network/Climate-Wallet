@@ -309,30 +309,17 @@ const createWindow = async () => {
   require('@electron/remote/main').enable(mainWindow.webContents)
 }
 
-app.on('will-quit', (e) => {
-  if (!isDev && pyProc) {
-    pyProc.kill('SIGINT')
-    if (process.platform === 'win32') {
-      process.kill(pyProc?.pid)
-    }
-    pyProc = null
-  }
-})
+const exitProc = () => {
+  pyProc?.kill('SIGINT')
+
+  process.kill(pyProc?.pid)
+  pyProc = null
+}
 
 //app start here
 app.on('ready', () => {
   const startUp = function () {
-    if (isDev) {
-      //need to load python venv
-      pyProc = onRunService()
-    } else {
-      pyProc = onRunService()
-    }
-
-    const pythonUri = process.env.CLIMATE_SERVICE
-    if (pyProc) {
-      console.log('climate service:', pythonUri)
-    }
+    pyProc = onRunService()
 
     createWindow()
   }
@@ -342,8 +329,12 @@ app.on('ready', () => {
   app.applicationMenu = createMenu()
 })
 
+app.on('will-quit', (e) => {
+  exitProc()
+})
 //app quit+
 app.on('window-all-closed', () => {
+  exitProc()
   app.quit()
 })
 
