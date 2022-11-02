@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "Acerca de Chia Blockchain"
 
-#: src/electron/main.tsx:371
-#: src/electron/main.tsx:497
+#: src/electron/main.tsx:362
+#: src/electron/main.tsx:488
 msgid "About Climate Wallet"
 msgstr ""
 
@@ -550,7 +550,7 @@ msgstr ""
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr ""
 
-#: src/electron/main.tsx:368
+#: src/electron/main.tsx:359
 msgid "Climate"
 msgstr ""
 
@@ -1069,11 +1069,11 @@ msgstr ""
 msgid "Detokenized Quantity"
 msgstr ""
 
-#: src/electron/main.tsx:445
+#: src/electron/main.tsx:436
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: src/electron/main.tsx:448
+#: src/electron/main.tsx:439
 msgid "Developer Tools"
 msgstr "Herramientas de Desarrollador"
 
@@ -1185,7 +1185,7 @@ msgstr ""
 #~ msgid "Duplicate Plots"
 #~ msgstr "Parcelas Duplicadas"
 
-#: src/electron/main.tsx:404
+#: src/electron/main.tsx:395
 msgid "Edit"
 msgstr "Editar"
 
@@ -1482,7 +1482,7 @@ msgstr ""
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:473
+#: src/electron/main.tsx:464
 msgid "Full Screen"
 msgstr "Pantalla Completa"
 
@@ -1555,7 +1555,7 @@ msgstr "Pantalla Completa"
 #~ msgid "Height"
 #~ msgstr "Altura"
 
-#: src/electron/main.tsx:494
+#: src/electron/main.tsx:485
 msgid "Help"
 msgstr "Ayuda"
 
@@ -4427,7 +4427,7 @@ msgstr ""
 #~ msgid "Verify Pool Details"
 #~ msgstr ""
 
-#: src/electron/main.tsx:436
+#: src/electron/main.tsx:427
 msgid "View"
 msgstr "Vista"
 
@@ -4669,7 +4669,7 @@ msgstr ""
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:480
+#: src/electron/main.tsx:471
 msgid "Window"
 msgstr "Ventana"
 

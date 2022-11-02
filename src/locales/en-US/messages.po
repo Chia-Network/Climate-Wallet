@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "About Chia Blockchain"
 
-#: src/electron/main.tsx:371
-#: src/electron/main.tsx:497
+#: src/electron/main.tsx:362
+#: src/electron/main.tsx:488
 msgid "About Climate Wallet"
 msgstr "About Climate Wallet"
 
@@ -550,7 +550,7 @@ msgstr "Cancel request"
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr "Click here to download an older version of the wallet"
 
-#: src/electron/main.tsx:368
+#: src/electron/main.tsx:359
 msgid "Climate"
 msgstr "Climate"
 
@@ -1069,11 +1069,11 @@ msgstr "Detokenization cannot be undone"
 msgid "Detokenized Quantity"
 msgstr "Detokenized Quantity"
 
-#: src/electron/main.tsx:445
+#: src/electron/main.tsx:436
 msgid "Developer"
 msgstr "Developer"
 
-#: src/electron/main.tsx:448
+#: src/electron/main.tsx:439
 msgid "Developer Tools"
 msgstr "Developer Tools"
 
@@ -1185,7 +1185,7 @@ msgstr "Download request file"
 #~ msgid "Duplicate Plots"
 #~ msgstr "Duplicate Plots"
 
-#: src/electron/main.tsx:404
+#: src/electron/main.tsx:395
 msgid "Edit"
 msgstr "Edit"
 
@@ -1482,7 +1482,7 @@ msgstr "From"
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:473
+#: src/electron/main.tsx:464
 msgid "Full Screen"
 msgstr "Full Screen"
 
@@ -1555,7 +1555,7 @@ msgstr "Full Screen"
 #~ msgid "Height"
 #~ msgstr "Height"
 
-#: src/electron/main.tsx:494
+#: src/electron/main.tsx:485
 msgid "Help"
 msgstr "Help"
 
@@ -4431,7 +4431,7 @@ msgstr "Unlock Keyring"
 #~ msgid "Verify Pool Details"
 #~ msgstr "Verify Pool Details"
 
-#: src/electron/main.tsx:436
+#: src/electron/main.tsx:427
 msgid "View"
 msgstr "View"
 
@@ -4673,7 +4673,7 @@ msgstr "What is request detokenization?"
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:480
+#: src/electron/main.tsx:471
 msgid "Window"
 msgstr "Window"
 
