@@ -558,8 +558,8 @@ msgstr ""
 msgid "Climate"
 msgstr ""
 
-#: src/components/layout/Layout.tsx:45
-#: src/components/layout/LayoutLoadingWallet.tsx:54
+#: src/components/layout/Layout.tsx:49
+#: src/components/layout/LayoutLoadingWallet.tsx:75
 msgid "Climate Wallet"
 msgstr ""
 
@@ -1935,7 +1935,7 @@ msgstr ""
 #~ msgid "Login"
 #~ msgstr ""
 
-#: src/components/layout/LayoutLoadingWallet.tsx:19
+#: src/components/layout/LayoutLoadingWallet.tsx:37
 msgid "Login info"
 msgstr ""
 
@@ -2736,7 +2736,7 @@ msgstr ""
 #~ msgid "Please finish syncing before making a transaction"
 #~ msgstr "Please finish syncing before making a transaction"
 
-#: src/components/layout/LayoutLoadingWallet.tsx:22
+#: src/components/layout/LayoutLoadingWallet.tsx:40
 msgid "Please open your Chia wallet to be logged into your Climate wallet."
 msgstr ""
 
