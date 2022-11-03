@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "About Chia Blockchain"
 
-#: src/electron/main.tsx:359
-#: src/electron/main.tsx:485
+#: src/electron/main.tsx:383
+#: src/electron/main.tsx:509
 msgid "About Climate Wallet"
 msgstr "About Climate Wallet"
 
@@ -331,13 +331,13 @@ msgstr "Back"
 #~ msgid "Beneficiary"
 #~ msgstr "Beneficiary"
 
-#: src/pages/Retire/Retire.tsx:100
-#: src/pages/Retire/RetireInput.tsx:58
+#: src/pages/Retire/Retire.tsx:104
+#: src/pages/Retire/RetireInput.tsx:69
 msgid "Beneficiary Name"
 msgstr "Beneficiary Name"
 
-#: src/pages/Retire/Retire.tsx:104
-#: src/pages/Retire/RetireInput.tsx:66
+#: src/pages/Retire/Retire.tsx:108
+#: src/pages/Retire/RetireInput.tsx:77
 msgid "Beneficiary Public Key"
 msgstr "Beneficiary Public Key"
 
@@ -425,7 +425,7 @@ msgstr "Beneficiary Public Key"
 #: src/pages/Detokenization/CancelDetokenization.tsx:172
 #: src/pages/Detokenization/CancelDetokenization.tsx:224
 #: src/pages/Detokenization/RequestDetokenization.tsx:265
-#: src/pages/Retire/Retire.tsx:303
+#: src/pages/Retire/Retire.tsx:314
 #: src/pages/Send/Send.tsx:223
 #: src/pages/Send/Send.tsx:292
 msgid "Cancel"
@@ -550,7 +550,7 @@ msgstr "Cancel request"
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr "Click here to download an older version of the wallet"
 
-#: src/electron/main.tsx:356
+#: src/electron/main.tsx:380
 msgid "Climate"
 msgstr "Climate"
 
@@ -1069,11 +1069,11 @@ msgstr "Detokenization cannot be undone"
 msgid "Detokenized Quantity"
 msgstr "Detokenized Quantity"
 
-#: src/electron/main.tsx:433
+#: src/electron/main.tsx:457
 msgid "Developer"
 msgstr "Developer"
 
-#: src/electron/main.tsx:436
+#: src/electron/main.tsx:460
 msgid "Developer Tools"
 msgstr "Developer Tools"
 
@@ -1185,7 +1185,7 @@ msgstr "Download request file"
 #~ msgid "Duplicate Plots"
 #~ msgstr "Duplicate Plots"
 
-#: src/electron/main.tsx:392
+#: src/electron/main.tsx:416
 msgid "Edit"
 msgstr "Edit"
 
@@ -1482,7 +1482,7 @@ msgstr "From"
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:461
+#: src/electron/main.tsx:485
 msgid "Full Screen"
 msgstr "Full Screen"
 
@@ -1555,7 +1555,7 @@ msgstr "Full Screen"
 #~ msgid "Height"
 #~ msgstr "Height"
 
-#: src/electron/main.tsx:482
+#: src/electron/main.tsx:506
 msgid "Help"
 msgstr "Help"
 
@@ -1744,7 +1744,7 @@ msgstr "Information of request detokenization"
 #~ msgstr "Invalid state"
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:189
-#: src/pages/Retire/Retire.tsx:273
+#: src/pages/Retire/Retire.tsx:284
 #: src/pages/Send/Send.tsx:257
 msgid "Irrevocable once submitted"
 msgstr "Irrevocable once submitted"
@@ -2099,7 +2099,7 @@ msgstr "Memos"
 #~ msgid "My Pubkey"
 #~ msgstr "My Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:107
+#: src/pages/Retire/RetireInput.tsx:112
 msgid "My Public Key"
 msgstr "My Public Key"
 
@@ -3078,7 +3078,7 @@ msgid "Project Name"
 msgstr "Project Name"
 
 #: src/pages/Detokenization/RequestDetokenization.tsx:178
-#: src/pages/Retire/Retire.tsx:220
+#: src/pages/Retire/Retire.tsx:231
 #: src/pages/Send/Send.tsx:198
 msgid "Project information"
 msgstr "Project information"
@@ -3104,7 +3104,7 @@ msgstr "Project information"
 #~ msgid "Pubkey"
 #~ msgstr "Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:75
+#: src/pages/Retire/RetireInput.tsx:86
 msgid "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 msgstr "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 
@@ -3127,7 +3127,7 @@ msgstr "Public key of the beneficiary to be recorded on the blockchain. Can be u
 
 #: src/components/token/TokenHistory.tsx:28
 #: src/pages/Detokenization/RequestDetokenization.tsx:192
-#: src/pages/Retire/RetireInput.tsx:36
+#: src/pages/Retire/RetireInput.tsx:47
 #: src/pages/Send/SendInput.tsx:29
 msgid "Quantity"
 msgstr "Quantity"
@@ -3316,7 +3316,7 @@ msgstr "Requesting Detokenization"
 #~ msgstr ""
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:246
-#: src/pages/Retire/Retire.tsx:197
+#: src/pages/Retire/Retire.tsx:208
 #: src/pages/Send/Send.tsx:177
 msgid "Result"
 msgstr "Result"
@@ -3325,7 +3325,7 @@ msgstr "Result"
 msgid "Retire"
 msgstr "Retire"
 
-#: src/pages/Retire/Retire.tsx:91
+#: src/pages/Retire/Retire.tsx:95
 msgid "Retire Quantity"
 msgstr "Retire Quantity"
 
@@ -3333,8 +3333,8 @@ msgstr "Retire Quantity"
 #~ msgid "Retirement result"
 #~ msgstr "Retirement result"
 
-#: src/pages/Retire/Retire.tsx:194
-#: src/pages/Retire/Retire.tsx:266
+#: src/pages/Retire/Retire.tsx:205
+#: src/pages/Retire/Retire.tsx:277
 #: src/pages/Send/Send.tsx:174
 #: src/pages/Send/Send.tsx:242
 msgid "Review"
@@ -3729,7 +3729,7 @@ msgstr "Status"
 #~ msgstr "Sub Block at height {0} in the Chia blockchain"
 
 #: src/components/app/AppPassPrompt.tsx:128
-#: src/pages/Retire/Retire.tsx:314
+#: src/pages/Retire/Retire.tsx:325
 #: src/pages/Send/Send.tsx:302
 msgid "Submit"
 msgstr "Submit"
@@ -3952,7 +3952,7 @@ msgstr "The detokenization request file is valid from the moment it is created u
 #~ msgstr "They will receive"
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:191
-#: src/pages/Retire/Retire.tsx:275
+#: src/pages/Retire/Retire.tsx:286
 #: src/pages/Send/Send.tsx:259
 msgid "This action is irreversible once submitted, please ensure the details here are correct."
 msgstr "This action is irreversible once submitted, please ensure the details here are correct."
@@ -4137,7 +4137,7 @@ msgstr "Token Asset ID"
 #~ msgid "Token Offer"
 #~ msgstr "Token Offer"
 
-#: src/pages/Retire/Retire.tsx:209
+#: src/pages/Retire/Retire.tsx:220
 msgid "Token Retirement"
 msgstr "Token Retirement"
 
@@ -4252,7 +4252,7 @@ msgstr "Transaction History"
 msgid "Transaction ID"
 msgstr "Transaction ID"
 
-#: src/pages/Retire/Retire.tsx:191
+#: src/pages/Retire/Retire.tsx:202
 #: src/pages/Send/Send.tsx:171
 msgid "Transaction Information"
 msgstr "Transaction Information"
@@ -4262,7 +4262,7 @@ msgstr "Transaction Information"
 #~ msgstr "Transaction completed"
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:257
-#: src/pages/Retire/Retire.tsx:95
+#: src/pages/Retire/Retire.tsx:99
 #: src/pages/Send/Send.tsx:94
 msgid "Transaction fee"
 msgstr "Transaction fee"
@@ -4272,7 +4272,7 @@ msgstr "Transaction fee"
 #~ msgstr "Transaction has successfully been sent to a full node and included in the mempool."
 
 #: src/components/transaction/TransactionResult.tsx:43
-#: src/pages/Retire/Retire.tsx:230
+#: src/pages/Retire/Retire.tsx:241
 #: src/pages/Send/Send.tsx:207
 #: src/pages/Send/Send.tsx:252
 msgid "Transaction information"
@@ -4431,7 +4431,7 @@ msgstr "Unlock Keyring"
 #~ msgid "Verify Pool Details"
 #~ msgstr "Verify Pool Details"
 
-#: src/electron/main.tsx:424
+#: src/electron/main.tsx:448
 msgid "View"
 msgstr "View"
 
@@ -4673,7 +4673,7 @@ msgstr "What is request detokenization?"
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:468
+#: src/electron/main.tsx:492
 msgid "Window"
 msgstr "Window"
 
