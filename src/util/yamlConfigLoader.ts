@@ -11,10 +11,12 @@ declare const process: {
 
 interface Config {
   climateWarehouses: string[]
+  apiTimeout: number
 }
 
 const defaultConfig: Config = {
   climateWarehouses: [process.env.CLIMATE_WAREHOUSE],
+  apiTimeout: 20 * 1000,
 }
 const homeDir = os.homedir()
 const persistanceFolderPath = `${homeDir}/.chia/mainnet/climate-wallet`

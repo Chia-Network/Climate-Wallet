@@ -16,7 +16,10 @@ import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
 import { useWallet, useWalletHumanValue, useWalletState } from '@/hooks/wallet'
-import { useCreateRetirementTxMutation } from '@/services/climateService'
+import {
+  useCreateRetirementTxMutation,
+  useGetRetireKeysParseMutation,
+} from '@/services/climateService'
 import { InputType, RetireStep } from '@/types/RetireType'
 import transactionValidCheck from '@/util/transactionValidCheck'
 import {
@@ -26,7 +29,6 @@ import {
 import { catToMojo, chiaToMojo } from '@chia/core'
 import { Trans } from '@lingui/macro'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Alert,
   AlertTitle,
@@ -51,6 +53,8 @@ const Retire = () => {
 
   const [creacteRetirement, { isLoading: isRetirementLoading }] =
     useCreateRetirementTxMutation()
+
+  const [getRetireKeysParse] = useGetRetireKeysParseMutation()
 
   const methods = useForm<InputType>({
     defaultValues: {
@@ -110,11 +114,18 @@ const Retire = () => {
   const [checked, setChecked] = useState<boolean>(false)
   const [transactionId, setTransactionId] = useState<string>('')
 
-  const handlePrview = (data: InputType) => {
+  const handlePrview = async (data: InputType) => {
     if (data.amount > walletBalance?.confirmedWalletBalance) {
       alert('Retire tokens is more then hold tokens')
     } else {
-      setStep(RetireStep.Review)
+      const retireKey = await getRetireKeysParse({
+        address: data?.publicKey,
+      }).unwrap()
+      if (retireKey) {
+        setStep(RetireStep.Review)
+      } else {
+        alert('Your input public key is error!!')
+      }
     }
   }
 

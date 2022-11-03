@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "О программе Chia Blockchain"
 
-#: src/electron/main.tsx:371
-#: src/electron/main.tsx:497
+#: src/electron/main.tsx:383
+#: src/electron/main.tsx:509
 msgid "About Climate Wallet"
 msgstr ""
 
@@ -331,13 +331,13 @@ msgstr "Back"
 #~ msgid "Beneficiary"
 #~ msgstr ""
 
-#: src/pages/Retire/Retire.tsx:100
-#: src/pages/Retire/RetireInput.tsx:58
+#: src/pages/Retire/Retire.tsx:104
+#: src/pages/Retire/RetireInput.tsx:69
 msgid "Beneficiary Name"
 msgstr ""
 
-#: src/pages/Retire/Retire.tsx:104
-#: src/pages/Retire/RetireInput.tsx:66
+#: src/pages/Retire/Retire.tsx:108
+#: src/pages/Retire/RetireInput.tsx:77
 msgid "Beneficiary Public Key"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 #: src/pages/Detokenization/CancelDetokenization.tsx:172
 #: src/pages/Detokenization/CancelDetokenization.tsx:224
 #: src/pages/Detokenization/RequestDetokenization.tsx:265
-#: src/pages/Retire/Retire.tsx:303
+#: src/pages/Retire/Retire.tsx:314
 #: src/pages/Send/Send.tsx:223
 #: src/pages/Send/Send.tsx:292
 msgid "Cancel"
@@ -722,12 +722,12 @@ msgstr ""
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr ""
 
-#: src/electron/main.tsx:368
+#: src/electron/main.tsx:380
 msgid "Climate"
 msgstr ""
 
-#: src/components/layout/Layout.tsx:45
-#: src/components/layout/LayoutLoadingWallet.tsx:54
+#: src/components/layout/Layout.tsx:49
+#: src/components/layout/LayoutLoadingWallet.tsx:75
 msgid "Climate Wallet"
 msgstr ""
 
@@ -1241,11 +1241,11 @@ msgstr ""
 msgid "Detokenized Quantity"
 msgstr ""
 
-#: src/electron/main.tsx:445
+#: src/electron/main.tsx:457
 msgid "Developer"
 msgstr "Разработчик"
 
-#: src/electron/main.tsx:448
+#: src/electron/main.tsx:460
 msgid "Developer Tools"
 msgstr "Инструменты разработчика"
 
@@ -1357,7 +1357,7 @@ msgstr ""
 #~ msgid "Duplicate Plots"
 #~ msgstr "Повторяющиеся участки"
 
-#: src/electron/main.tsx:404
+#: src/electron/main.tsx:416
 msgid "Edit"
 msgstr "Правка"
 
@@ -1654,7 +1654,7 @@ msgstr ""
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:473
+#: src/electron/main.tsx:485
 msgid "Full Screen"
 msgstr "Полный экран"
 
@@ -1727,7 +1727,7 @@ msgstr "Полный экран"
 #~ msgid "Height"
 #~ msgstr "Высота"
 
-#: src/electron/main.tsx:494
+#: src/electron/main.tsx:506
 msgid "Help"
 msgstr "Помощь"
 
@@ -1912,7 +1912,7 @@ msgstr ""
 #~ msgstr "Некорректное состояние"
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:189
-#: src/pages/Retire/Retire.tsx:273
+#: src/pages/Retire/Retire.tsx:284
 #: src/pages/Send/Send.tsx:257
 msgid "Irrevocable once submitted"
 msgstr ""
@@ -2103,7 +2103,7 @@ msgstr "Загрузка..."
 #~ msgid "Login"
 #~ msgstr ""
 
-#: src/components/layout/LayoutLoadingWallet.tsx:19
+#: src/components/layout/LayoutLoadingWallet.tsx:37
 msgid "Login info"
 msgstr ""
 
@@ -2267,7 +2267,7 @@ msgstr ""
 #~ msgid "My Pubkey"
 #~ msgstr "My Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:107
+#: src/pages/Retire/RetireInput.tsx:112
 msgid "My Public Key"
 msgstr ""
 
@@ -2904,7 +2904,7 @@ msgstr "Чтобы продолжить, введите ваш пароль"
 #~ msgid "Please finish syncing before making a transaction"
 #~ msgstr "Please finish syncing before making a transaction"
 
-#: src/components/layout/LayoutLoadingWallet.tsx:22
+#: src/components/layout/LayoutLoadingWallet.tsx:40
 msgid "Please open your Chia wallet to be logged into your Climate wallet."
 msgstr ""
 
@@ -3246,7 +3246,7 @@ msgid "Project Name"
 msgstr ""
 
 #: src/pages/Detokenization/RequestDetokenization.tsx:178
-#: src/pages/Retire/Retire.tsx:220
+#: src/pages/Retire/Retire.tsx:231
 #: src/pages/Send/Send.tsx:198
 msgid "Project information"
 msgstr ""
@@ -3272,7 +3272,7 @@ msgstr ""
 #~ msgid "Pubkey"
 #~ msgstr "Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:75
+#: src/pages/Retire/RetireInput.tsx:86
 msgid "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 msgstr ""
 
@@ -3295,7 +3295,7 @@ msgstr ""
 
 #: src/components/token/TokenHistory.tsx:28
 #: src/pages/Detokenization/RequestDetokenization.tsx:192
-#: src/pages/Retire/RetireInput.tsx:36
+#: src/pages/Retire/RetireInput.tsx:47
 #: src/pages/Send/SendInput.tsx:29
 msgid "Quantity"
 msgstr ""
@@ -3484,7 +3484,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:246
-#: src/pages/Retire/Retire.tsx:197
+#: src/pages/Retire/Retire.tsx:208
 #: src/pages/Send/Send.tsx:177
 msgid "Result"
 msgstr ""
@@ -3493,7 +3493,7 @@ msgstr ""
 msgid "Retire"
 msgstr ""
 
-#: src/pages/Retire/Retire.tsx:91
+#: src/pages/Retire/Retire.tsx:95
 msgid "Retire Quantity"
 msgstr ""
 
@@ -3501,8 +3501,8 @@ msgstr ""
 #~ msgid "Retirement result"
 #~ msgstr ""
 
-#: src/pages/Retire/Retire.tsx:194
-#: src/pages/Retire/Retire.tsx:266
+#: src/pages/Retire/Retire.tsx:205
+#: src/pages/Retire/Retire.tsx:277
 #: src/pages/Send/Send.tsx:174
 #: src/pages/Send/Send.tsx:242
 msgid "Review"
@@ -3897,7 +3897,7 @@ msgstr "Статус"
 #~ msgstr "Sub Block at height {0} in the Chia blockchain"
 
 #: src/components/app/AppPassPrompt.tsx:128
-#: src/pages/Retire/Retire.tsx:314
+#: src/pages/Retire/Retire.tsx:325
 #: src/pages/Send/Send.tsx:302
 msgid "Submit"
 msgstr "Подтвердить"
@@ -4120,7 +4120,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:191
-#: src/pages/Retire/Retire.tsx:275
+#: src/pages/Retire/Retire.tsx:286
 #: src/pages/Send/Send.tsx:259
 msgid "This action is irreversible once submitted, please ensure the details here are correct."
 msgstr ""
@@ -4305,7 +4305,7 @@ msgstr ""
 #~ msgid "Token Offer"
 #~ msgstr ""
 
-#: src/pages/Retire/Retire.tsx:209
+#: src/pages/Retire/Retire.tsx:220
 msgid "Token Retirement"
 msgstr ""
 
@@ -4420,7 +4420,7 @@ msgstr ""
 msgid "Transaction ID"
 msgstr ""
 
-#: src/pages/Retire/Retire.tsx:191
+#: src/pages/Retire/Retire.tsx:202
 #: src/pages/Send/Send.tsx:171
 msgid "Transaction Information"
 msgstr ""
@@ -4430,7 +4430,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/Detokenization/CancelDetokenization.tsx:257
-#: src/pages/Retire/Retire.tsx:95
+#: src/pages/Retire/Retire.tsx:99
 #: src/pages/Send/Send.tsx:94
 msgid "Transaction fee"
 msgstr ""
@@ -4440,7 +4440,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/transaction/TransactionResult.tsx:43
-#: src/pages/Retire/Retire.tsx:230
+#: src/pages/Retire/Retire.tsx:241
 #: src/pages/Send/Send.tsx:207
 #: src/pages/Send/Send.tsx:252
 msgid "Transaction information"
@@ -4599,7 +4599,7 @@ msgstr "Разблокировать связку ключей"
 #~ msgid "Verify Pool Details"
 #~ msgstr "Подтвердите подробности пула"
 
-#: src/electron/main.tsx:436
+#: src/electron/main.tsx:448
 msgid "View"
 msgstr "Вид"
 
@@ -4841,7 +4841,7 @@ msgstr ""
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:480
+#: src/electron/main.tsx:492
 msgid "Window"
 msgstr "Окно"
 
