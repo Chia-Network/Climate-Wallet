@@ -3,6 +3,7 @@ import '@/config/env'
 import { i18n } from '@/config/locales'
 import loadConfig from '@/util/loadConfig'
 import { initialize } from '@electron/remote/main'
+import detect from 'detect-port'
 import {
   app,
   BrowserWindow,
@@ -14,11 +15,12 @@ import {
   net,
   shell,
 } from 'electron'
+import http from 'http'
+import kill from 'kill-port'
 import path from 'path'
 import { PythonShell } from 'python-shell'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import request from 'request-promise'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import url from 'url'
 import packageJson from '../../package.json'
@@ -105,7 +107,7 @@ const onRunService = () => {
   }
 
   const script = path.join(__dirname, `../${productionRunApp}`)
-  return require('child_process').spawn(script)
+  return require('child_process').execFile(script)
 }
 
 // @ts-ignore
@@ -309,31 +311,51 @@ const createWindow = async () => {
   require('@electron/remote/main').enable(mainWindow.webContents)
 }
 
+const startUp = function () {
+  pyProc = onRunService()
+
+  createWindow()
+}
+
+const killTokenPort = (port) => {
+  detect(port)
+    .then((_port) => {
+      if (port === _port) {
+        console.log(`port: ${port} was not occupied`)
+        startUp()
+      } else {
+        console.log(`port: ${port} was occupied, restart it`)
+        kill(port, 'tcp')
+          .then(() => {
+            startUp()
+          })
+          .catch(console.log)
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+//app start here
+app.on('ready', () => {
+  killTokenPort(31312)
+
+  app.applicationMenu = createMenu()
+})
+
 const exitPyProc = () => {
   pyProc.kill()
   console.log('child process exit')
   pyProc = null
 }
 
-//app start here
-app.on('ready', () => {
-  const startUp = function () {
-    pyProc = onRunService()
-
-    createWindow()
-  }
-
-  startUp()
-
-  app.applicationMenu = createMenu()
-})
-
 app.on('will-quit', (e) => {
-  exitPyProc()
+  pyProc.kill()
 })
 //app quit+
 app.on('window-all-closed', () => {
-  exitPyProc()
+  pyProc.kill()
   app.quit()
 })
 
