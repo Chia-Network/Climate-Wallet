@@ -1,9 +1,7 @@
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { checkMarketplaceIdentifier } from '@/util/token'
-import { WalletType } from '@chia/api'
-import { useGetStrayCatsQuery } from '@chia/api-react'
+import { useAddCATTokenMutation, useGetStrayCatsQuery } from '@chia/api-react'
 import { useEffect, useState } from 'react'
-import useWalletsList from './useWalletsList'
 
 export default function useCWAddStrayCats(): {
   isLoadingAddStrayCats: boolean
@@ -11,11 +9,25 @@ export default function useCWAddStrayCats(): {
   const [isLoadingAddStrayCats, setIsLoadingAddStrayCats] =
     useState<boolean>(true)
 
-  const { show: addStrayCat } = useWalletsList([WalletType.CAT], '')
+  const [addCATToken] = useAddCATTokenMutation()
   const { data: allCWAssets } = useGetAllCWAssets()
   const { data: strayCats } = useGetStrayCatsQuery(undefined, {
     pollingInterval: 10000,
   })
+
+  const handleAddCat = async (strayCat) => {
+    const { assetId, name } = strayCat
+    try {
+      const res = await addCATToken({
+        name: name,
+        assetId: assetId,
+        fee: '0',
+      }).unwrap()
+      return res
+    } catch (error) {
+      return error
+    }
+  }
 
   useEffect(() => {
     if (allCWAssets && strayCats) {
@@ -28,7 +40,7 @@ export default function useCWAddStrayCats(): {
                 checkMarketplaceIdentifier(cw.marketplaceIdentifier) === assetId
             )
           ) {
-            return addStrayCat(assetId)
+            return handleAddCat(strayCat)
           } else {
             return Promise.resolve()
           }
