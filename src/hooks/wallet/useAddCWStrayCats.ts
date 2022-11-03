@@ -30,7 +30,12 @@ export default function useCWAddStrayCats(): {
   }
 
   useEffect(() => {
-    if (allCWAssets && strayCats) {
+    if (
+      allCWAssets &&
+      strayCats &&
+      allCWAssets.length > 0 &&
+      strayCats.length > 0
+    ) {
       Promise.all(
         strayCats.map((strayCat) => {
           const { assetId } = strayCat
