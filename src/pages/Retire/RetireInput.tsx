@@ -1,7 +1,7 @@
 import { TransactionFeeInput } from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
-import { useGetRetireKeysQuery } from '@/services/climateService'
+import { useGetRetireKeysMutation } from '@/services/climateService'
 import { InputType } from '@/types/RetireType'
 import { Trans } from '@lingui/macro'
 import { Help as HelpIcon } from '@mui/icons-material'
@@ -18,7 +18,7 @@ import {
 import { useFormContext } from 'react-hook-form'
 
 const RetireInput = () => {
-  const { data: retireKey } = useGetRetireKeysQuery('')
+  const [getRetireKeys] = useGetRetireKeysMutation()
 
   const {
     register,
@@ -26,6 +26,17 @@ const RetireInput = () => {
     getValues,
     formState: { errors },
   } = useFormContext<InputType>()
+
+  const handleGetRetireKeys = async () => {
+    const retireKey = await getRetireKeys('').unwrap()
+    if (retireKey?.bech32m) {
+      setValue('publicKey', retireKey?.bech32m, {
+        shouldValidate: true,
+      })
+    } else {
+      alert('Can not get my public key')
+    }
+  }
 
   const theme = useTheme()
 
@@ -95,13 +106,7 @@ const RetireInput = () => {
                     sx={{
                       px: '20px',
                     }}
-                    onClick={() => {
-                      if (retireKey?.bech32m) {
-                        setValue('publicKey', retireKey?.bech32m, {
-                          shouldValidate: true,
-                        })
-                      }
-                    }}
+                    onClick={handleGetRetireKeys}
                   >
                     <Typography variant="body1">
                       <Trans>My Public Key</Trans>

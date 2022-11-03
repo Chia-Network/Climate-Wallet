@@ -45,7 +45,7 @@ export const climateServiceApi = createApi({
         body: data,
       }),
     }),
-    getRetireKeys: builder.query<
+    getRetireKeys: builder.mutation<
       {
         hex: string
         bech32m: string
@@ -57,6 +57,20 @@ export const climateServiceApi = createApi({
         params: { derivation_index: 0, prefix: 'bls1238', hardened: false },
       }),
     }),
+    getRetireKeysParse: builder.mutation<
+      {
+        hex?: string
+        bech32m?: string
+      },
+      {
+        address: string
+      }
+    >({
+      query: ({ address }) => ({
+        url: `/v1/keys/parse`,
+        params: { address: address },
+      }),
+    }),
   }),
 })
 
@@ -65,5 +79,6 @@ export const {
   useGetTransactionByIdQuery,
   useCreateRetirementTxMutation,
   useGetTransactionsQuery,
-  useGetRetireKeysQuery,
+  useGetRetireKeysMutation,
+  useGetRetireKeysParseMutation,
 } = climateServiceApi
