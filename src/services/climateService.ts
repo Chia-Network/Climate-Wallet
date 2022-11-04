@@ -6,10 +6,9 @@ import {
   TX,
 } from '@/types/ClimateServiceType'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ObjectEncodingOptions } from 'fs'
 
-export const serviceURL = process.env.CLIMATE_SERVICE
-
+export const serviceURL = `${process.env.CLIMATE_SERVICE}:${process.env.CLIMATE_SERVICE_PORT}`
+console.log('serviceURL', serviceURL)
 export const climateServiceApi = createApi({
   reducerPath: 'climateServiceApi',
   baseQuery: fetchBaseQuery({ baseUrl: serviceURL }),
