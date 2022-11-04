@@ -3,7 +3,13 @@ import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { InputType } from '@/types/SendType'
 import { Trans } from '@lingui/macro'
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import {
+  Alert,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 
 const SendInput = () => {
@@ -58,6 +64,11 @@ const SendInput = () => {
           fullWidth
           {...register('memo')}
         />
+        <Alert severity="error">
+          <Trans>
+            Text input into the ‘Memo’ field will be visible on the blockchain.
+          </Trans>
+        </Alert>
       </Grid>
     </Grid>
   )
