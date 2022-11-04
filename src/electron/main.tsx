@@ -318,6 +318,7 @@ const startUp = function () {
 }
 
 const killTokenPort = (port) => {
+  port = Number(port)
   detect(port)
     .then((_port) => {
       if (port === _port) {
