@@ -28,13 +28,17 @@ const RetireInput = () => {
   } = useFormContext<InputType>()
 
   const handleGetRetireKeys = async () => {
-    const retireKey = await getRetireKeys('').unwrap()
-    if (retireKey?.bech32m) {
-      setValue('publicKey', retireKey?.bech32m, {
-        shouldValidate: true,
-      })
-    } else {
-      alert('Can not get my public key')
+    try {
+      const retireKey = await getRetireKeys('').unwrap()
+      if (retireKey?.bech32m) {
+        setValue('publicKey', retireKey?.bech32m, {
+          shouldValidate: true,
+        })
+      } else {
+        alert('Can not get my public key')
+      }
+    } catch (error) {
+      alert('Climate service error')
     }
   }
 
