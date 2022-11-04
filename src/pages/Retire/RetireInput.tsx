@@ -1,4 +1,7 @@
-import { TransactionFeeInput } from '@/components/transaction'
+import {
+  TransactionCATInput,
+  TransactionFeeInput,
+} from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetRetireKeysMutation } from '@/services/climateService'
@@ -47,23 +50,7 @@ const RetireInput = () => {
   return (
     <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
       <Grid xs={6} item>
-        <TextField
-          label={<Trans>Quantity</Trans>}
-          fullWidth
-          {...register('amount', {
-            required: true,
-            pattern: TOKEN_AMOUNT_REGEX,
-          })}
-          error={Boolean(errors['amount'])}
-          required
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                {CARBON_TOKEN_UNIT}
-              </InputAdornment>
-            ),
-          }}
-        />
+        <TransactionCATInput />
       </Grid>
       <Grid xs={6} item>
         <TransactionFeeInput />

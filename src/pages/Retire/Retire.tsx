@@ -115,21 +115,17 @@ const Retire = () => {
   const [transactionId, setTransactionId] = useState<string>('')
 
   const handlePrview = async (data: InputType) => {
-    if (data.amount > walletBalance?.confirmedWalletBalance) {
-      alert('Retire tokens is more then hold tokens')
-    } else {
-      try {
-        const retireKey = await getRetireKeysParse({
-          address: data?.publicKey,
-        }).unwrap()
-        if (retireKey) {
-          setStep(RetireStep.Review)
-        } else {
-          alert('Your input public key is error!!')
-        }
-      } catch (error) {
-        alert('Climate service error')
+    try {
+      const retireKey = await getRetireKeysParse({
+        address: data?.publicKey,
+      }).unwrap()
+      if (retireKey) {
+        setStep(RetireStep.Review)
+      } else {
+        alert('Your input public key is error!!')
       }
+    } catch (error) {
+      alert('Climate service error')
     }
   }
 
