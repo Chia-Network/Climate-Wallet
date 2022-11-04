@@ -2,6 +2,7 @@ import {
   TransactionBasicInfo,
   TransactionBody,
   TransactionButton,
+  TransactionCATInput,
   TransactionContent,
   TransactionFeeInput,
   TransactionLoadingButton,
@@ -115,10 +116,6 @@ const RequestDetokenization = () => {
   }
 
   const handleSave = async (data: RequestInput) => {
-    if (data.amount > walletBalance?.confirmedWalletBalance) {
-      alert('Detokenization tokens is more then hold tokens')
-      return
-    }
     if (cwAsset && transactionValidCheck(data, state)) {
       try {
         const response = await creacteDetokenzation({
@@ -188,23 +185,7 @@ const RequestDetokenization = () => {
 
               <Grid sx={{ mt: 1, mb: 5 }} container spacing={2}>
                 <Grid xs={6} item>
-                  <TextField
-                    label={<Trans>Quantity</Trans>}
-                    fullWidth
-                    {...register('amount', {
-                      required: true,
-                      pattern: TOKEN_AMOUNT_REGEX,
-                    })}
-                    error={Boolean(formState.errors['amount'])}
-                    required
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {CARBON_TOKEN_UNIT}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  <TransactionCATInput />
                 </Grid>
                 <Grid xs={6} item>
                   <TransactionFeeInput />

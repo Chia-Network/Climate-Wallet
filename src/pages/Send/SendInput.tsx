@@ -1,9 +1,18 @@
-import { TransactionFeeInput } from '@/components/transaction'
+import {
+  TransactionCATInput,
+  TransactionFeeInput,
+} from '@/components/transaction'
 import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { InputType } from '@/types/SendType'
 import { Trans } from '@lingui/macro'
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import {
+  Alert,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 
 const SendInput = () => {
@@ -25,29 +34,7 @@ const SendInput = () => {
         />
       </Grid>
       <Grid xs={6} item>
-        <TextField
-          label={<Trans>Quantity</Trans>}
-          fullWidth
-          {...register('amount', {
-            required: true,
-            pattern: TOKEN_AMOUNT_REGEX,
-          })}
-          error={Boolean(errors['amount'])}
-          required
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                  fontWeight={400}
-                >
-                  {CARBON_TOKEN_UNIT}
-                </Typography>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <TransactionCATInput />
       </Grid>
       <Grid xs={6} item>
         <TransactionFeeInput />
@@ -58,6 +45,11 @@ const SendInput = () => {
           fullWidth
           {...register('memo')}
         />
+        <Alert severity="error">
+          <Trans>
+            Text input into the ‘Memo’ field will be visible on the blockchain.
+          </Trans>
+        </Alert>
       </Grid>
     </Grid>
   )

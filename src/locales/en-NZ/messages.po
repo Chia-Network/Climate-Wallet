@@ -90,8 +90,8 @@ msgstr ""
 #~ msgid "About Chia Blockchain"
 #~ msgstr "About Chia Blockchain"
 
-#: src/electron/main.tsx:383
-#: src/electron/main.tsx:509
+#: src/electron/main.tsx:384
+#: src/electron/main.tsx:510
 msgid "About Climate Wallet"
 msgstr ""
 
@@ -227,9 +227,17 @@ msgstr "Address"
 #~ msgid "Amount For Initial Coin"
 #~ msgstr "Amount for Initial Coin"
 
+#: src/components/transaction/TransactionCATInput.tsx:50
+msgid "Amount entered is higher than the amount you currently hold. Please lower the amount so that it is below the number displayed in your wallet."
+msgstr ""
+
 #: src/components/offers/OfferEditor.tsx:138
 #~ msgid "Amount exceeds spendable balance"
 #~ msgstr ""
+
+#: src/components/transaction/TransactionCATInput.tsx:56
+msgid "Amount input format is error."
+msgstr ""
 
 #: src/components/_wallet_old/did/WalletDIDCreate.tsx:62
 #~ msgid "Amount must be an even amount."
@@ -332,12 +340,12 @@ msgstr "Back"
 #~ msgstr ""
 
 #: src/pages/Retire/Retire.tsx:104
-#: src/pages/Retire/RetireInput.tsx:69
+#: src/pages/Retire/RetireInput.tsx:60
 msgid "Beneficiary Name"
 msgstr ""
 
 #: src/pages/Retire/Retire.tsx:108
-#: src/pages/Retire/RetireInput.tsx:77
+#: src/pages/Retire/RetireInput.tsx:68
 msgid "Beneficiary Public Key"
 msgstr ""
 
@@ -424,7 +432,7 @@ msgstr ""
 #: src/components/app/AppPassPrompt.tsx:204
 #: src/pages/Detokenization/CancelDetokenization.tsx:172
 #: src/pages/Detokenization/CancelDetokenization.tsx:224
-#: src/pages/Detokenization/RequestDetokenization.tsx:265
+#: src/pages/Detokenization/RequestDetokenization.tsx:246
 #: src/pages/Retire/Retire.tsx:314
 #: src/pages/Send/Send.tsx:223
 #: src/pages/Send/Send.tsx:292
@@ -550,7 +558,7 @@ msgstr ""
 #~ msgid "Click here to download an older version of the wallet"
 #~ msgstr ""
 
-#: src/electron/main.tsx:380
+#: src/electron/main.tsx:381
 msgid "Climate"
 msgstr ""
 
@@ -1044,7 +1052,7 @@ msgstr "Deleting key"
 #~ msgstr ""
 
 #: src/pages/Send/Send.tsx:86
-#: src/pages/Send/SendInput.tsx:19
+#: src/pages/Send/SendInput.tsx:28
 msgid "Destination address"
 msgstr ""
 
@@ -1061,7 +1069,7 @@ msgstr ""
 msgid "Detokenization Quantity"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:226
+#: src/pages/Detokenization/RequestDetokenization.tsx:207
 msgid "Detokenization cannot be undone"
 msgstr ""
 
@@ -1069,11 +1077,11 @@ msgstr ""
 msgid "Detokenized Quantity"
 msgstr ""
 
-#: src/electron/main.tsx:457
+#: src/electron/main.tsx:458
 msgid "Developer"
 msgstr "Developer"
 
-#: src/electron/main.tsx:460
+#: src/electron/main.tsx:461
 msgid "Developer Tools"
 msgstr "Developer Tools"
 
@@ -1185,7 +1193,7 @@ msgstr ""
 #~ msgid "Duplicate Plots"
 #~ msgstr "Duplicate Plots"
 
-#: src/electron/main.tsx:416
+#: src/electron/main.tsx:417
 msgid "Edit"
 msgstr "Edit"
 
@@ -1446,8 +1454,8 @@ msgstr "Fee"
 #~ msgstr "Final folder location"
 
 #: src/components/transaction/TransactionResult.tsx:37
-msgid "Finish"
-msgstr ""
+#~ msgid "Finish"
+#~ msgstr ""
 
 #: src/components/fullNode/FullNode.jsx:39
 #: src/components/fullNode/FullNode.jsx:93
@@ -1482,7 +1490,7 @@ msgstr ""
 #~ msgid "Full Node Status"
 #~ msgstr "Full Node Status"
 
-#: src/electron/main.tsx:485
+#: src/electron/main.tsx:486
 msgid "Full Screen"
 msgstr "Full Screen"
 
@@ -1555,7 +1563,7 @@ msgstr "Full Screen"
 #~ msgid "Height"
 #~ msgstr "Height"
 
-#: src/electron/main.tsx:506
+#: src/electron/main.tsx:507
 msgid "Help"
 msgstr "Help"
 
@@ -1594,7 +1602,7 @@ msgstr "Hint"
 #~ msgid "I Understand, Create Offer"
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:244
+#: src/pages/Detokenization/RequestDetokenization.tsx:225
 msgid "I have confirmed that the detokenization details are correct and I want to request detokenization."
 msgstr ""
 
@@ -2095,7 +2103,7 @@ msgstr ""
 #~ msgid "My Pubkey"
 #~ msgstr "My Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:112
+#: src/pages/Retire/RetireInput.tsx:103
 msgid "My Public Key"
 msgstr ""
 
@@ -2488,7 +2496,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/app/AppPassPrompt.tsx:153
-#: src/pages/Detokenization/RequestDetokenization.tsx:214
+#: src/pages/Detokenization/RequestDetokenization.tsx:195
 msgid "Passphrase"
 msgstr "Passphrase"
 
@@ -3073,7 +3081,7 @@ msgstr ""
 msgid "Project Name"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:178
+#: src/pages/Detokenization/RequestDetokenization.tsx:175
 #: src/pages/Retire/Retire.tsx:231
 #: src/pages/Send/Send.tsx:198
 msgid "Project information"
@@ -3100,7 +3108,7 @@ msgstr ""
 #~ msgid "Pubkey"
 #~ msgstr "Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:86
+#: src/pages/Retire/RetireInput.tsx:77
 msgid "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 msgstr ""
 
@@ -3122,9 +3130,7 @@ msgstr ""
 #~ msgstr "Puzzlehash"
 
 #: src/components/token/TokenHistory.tsx:28
-#: src/pages/Detokenization/RequestDetokenization.tsx:192
-#: src/pages/Retire/RetireInput.tsx:47
-#: src/pages/Send/SendInput.tsx:29
+#: src/components/transaction/TransactionCATInput.tsx:30
 msgid "Quantity"
 msgstr ""
 
@@ -3281,8 +3287,8 @@ msgstr ""
 #~ msgstr "Report an Issue..."
 
 #: src/components/token/TokenContent.tsx:201
-#: src/pages/Detokenization/RequestDetokenization.tsx:167
-#: src/pages/Detokenization/RequestDetokenization.tsx:186
+#: src/pages/Detokenization/RequestDetokenization.tsx:164
+#: src/pages/Detokenization/RequestDetokenization.tsx:183
 msgid "Request Detokenization"
 msgstr ""
 
@@ -3368,7 +3374,7 @@ msgstr ""
 #~ msgid "Save passphrase"
 #~ msgstr "Save passphrase"
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:275
+#: src/pages/Detokenization/RequestDetokenization.tsx:256
 msgid "Save request"
 msgstr ""
 
@@ -3794,6 +3800,10 @@ msgstr "Syncing"
 #~ msgid "Temporary folder location"
 #~ msgstr "Temporary folder location"
 
+#: src/pages/Send/SendInput.tsx:49
+msgid "Text input into the ‘Memo’ field will be visible on the blockchain."
+msgstr ""
+
 #: src/components/nfts/NFTMoveToProfileDialog.tsx:318
 #~ msgid "The NFT move failed: {error}"
 #~ msgstr ""
@@ -3828,7 +3838,7 @@ msgstr "Syncing"
 #~ msgid "The derivation index sets the range of wallet addresses that the wallet scans the blockchain for. This number is generally higher if you have a lot of transactions or canceled offers for XCH, CATs, or NFTs. If you believe your balance is incorrect because it’s missing coins, then increasing the derivation index could help the wallet include the missing coins in the balance total."
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:228
+#: src/pages/Detokenization/RequestDetokenization.tsx:209
 msgid "The detokenization request file is valid from the moment it is created until it is successfully canceled or executed."
 msgstr ""
 
@@ -4427,7 +4437,7 @@ msgstr "Unlock Keyring"
 #~ msgid "Verify Pool Details"
 #~ msgstr "Verify Pool Details"
 
-#: src/electron/main.tsx:448
+#: src/electron/main.tsx:449
 msgid "View"
 msgstr "View"
 
@@ -4669,7 +4679,7 @@ msgstr ""
 #~ msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 #~ msgstr "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 
-#: src/electron/main.tsx:492
+#: src/electron/main.tsx:493
 msgid "Window"
 msgstr "Window"
 
@@ -4881,6 +4891,10 @@ msgstr "Your keyring is locked"
 #~ msgid "[Error 22] File not found. Most likely one of the plot folders in your config.yaml has an issue."
 #~ msgstr "[Error 22] File not found. Most likely one of the plot folders in your config.yaml has an issue."
 
+#: src/components/transaction/TransactionResult.tsx:37
+msgid "close"
+msgstr ""
+
 #: src/components/_wallet_old/WalletStatusCard.tsx:41
 #: src/components/_wallet_old/Wallets.tsx:75
 #~ msgid "connections:"
@@ -4900,7 +4914,7 @@ msgstr "Your keyring is locked"
 #~ msgid "height:"
 #~ msgstr "height:"
 
-#: src/pages/Send/SendInput.tsx:57
+#: src/pages/Send/SendInput.tsx:44
 msgid "memo"
 msgstr ""
 

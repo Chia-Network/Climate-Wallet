@@ -318,6 +318,7 @@ const startUp = function () {
 }
 
 const killTokenPort = (port) => {
+  port = Number(port)
   detect(port)
     .then((_port) => {
       if (port === _port) {
@@ -339,7 +340,7 @@ const killTokenPort = (port) => {
 
 //app start here
 app.on('ready', () => {
-  killTokenPort(31312)
+  killTokenPort(process.env.CLIMATE_SERVICE_PORT || '31314')
 
   app.applicationMenu = createMenu()
 })

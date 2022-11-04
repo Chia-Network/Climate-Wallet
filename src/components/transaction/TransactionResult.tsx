@@ -34,7 +34,7 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
             onClick={onFinish}
             size="large"
           >
-            <Trans>Finish</Trans>
+            <Trans>close</Trans>
           </Button>
         </Stack>
 

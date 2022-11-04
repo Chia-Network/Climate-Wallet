@@ -1,5 +1,6 @@
 export { default as TransactionBackButton } from './TransactionBackButton'
 export { default as TransactionBasicInfo } from './TransactionBasicInfo'
+export { default as TransactionCATInput } from './TransactionCATInput'
 export { default as TransactionContent } from './TransactionContent'
 export { default as TransactionFeeInput } from './TransactionFeeInput'
 export { default as TransactionID } from './TransactionID'
