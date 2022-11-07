@@ -348,8 +348,12 @@ msgstr "Back"
 msgid "Beneficiary Name"
 msgstr ""
 
-#: src/pages/Retire/Retire.tsx:108
 #: src/pages/Retire/RetireInput.tsx:68
+msgid "Beneficiary Name entered would be stored on the blockchain and visible to anyone."
+msgstr ""
+
+#: src/pages/Retire/Retire.tsx:108
+#: src/pages/Retire/RetireInput.tsx:93
 msgid "Beneficiary Public Key"
 msgstr ""
 
@@ -2107,11 +2111,11 @@ msgstr ""
 #~ msgid "My Pubkey"
 #~ msgstr "My Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:103
+#: src/pages/Retire/RetireInput.tsx:128
 msgid "My Public Key"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:180
+#: src/pages/TokenWallet/TokenSidebar.tsx:182
 msgid "My Wallet"
 msgstr ""
 
@@ -2208,11 +2212,11 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:225
+#: src/pages/TokenWallet/TokenSidebar.tsx:227
 msgid "Name - A to Z"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:228
+#: src/pages/TokenWallet/TokenSidebar.tsx:230
 msgid "Name - Z to A"
 msgstr ""
 
@@ -3112,7 +3116,7 @@ msgstr ""
 #~ msgid "Pubkey"
 #~ msgstr "Pubkey"
 
-#: src/pages/Retire/RetireInput.tsx:77
+#: src/pages/Retire/RetireInput.tsx:102
 msgid "Public key of the beneficiary to be recorded on the blockchain. Can be used by the beneficiary to prove claimed retirements for auditing purposes."
 msgstr ""
 
@@ -3138,11 +3142,11 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:219
+#: src/pages/TokenWallet/TokenSidebar.tsx:221
 msgid "Quantity - high to low"
 msgstr ""
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:222
+#: src/pages/TokenWallet/TokenSidebar.tsx:224
 msgid "Quantity - low to high"
 msgstr ""
 
@@ -3643,7 +3647,7 @@ msgstr ""
 #~ msgid "Something went wrong"
 #~ msgstr "Something went wrong"
 
-#: src/pages/TokenWallet/TokenSidebar.tsx:202
+#: src/pages/TokenWallet/TokenSidebar.tsx:204
 msgid "Sort by"
 msgstr ""
 

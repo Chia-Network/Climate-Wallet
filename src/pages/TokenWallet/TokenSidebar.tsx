@@ -1,6 +1,5 @@
 import { Loading } from '@/components/loading'
 import { ExportButton, TokenListItem } from '@/components/token'
-import { CW_LINK } from '@/constants/link'
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
@@ -9,6 +8,7 @@ import {
   useWalletsBalance,
   useWalletsList,
 } from '@/hooks/wallet'
+import getCWLink from '@/util/getCWLink'
 import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
@@ -149,7 +149,9 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': `${CW_LINK}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`,
+        'CW Link': `${getCWLink()}/#/units?orgUid=all&unitId=${
+          asset.warehouseUnitId
+        }`,
       }
     })
   }, [allCWAssets, filteredWallets])

@@ -2,21 +2,29 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import os from 'os'
 import path from 'path'
+import packageJson from '../../package.json'
+
+const version = packageJson.version
 
 declare const process: {
   env: {
     CLIMATE_WAREHOUSE: string
+    CLIMATE_WAREHOUSE_NODE: string
   }
 }
 
 interface Config {
   climateWarehouses: string[]
+  climateWarehousesNode: string
   apiTimeout: number
+  version: string
 }
 
 const defaultConfig: Config = {
   climateWarehouses: [process.env.CLIMATE_WAREHOUSE],
+  climateWarehousesNode: process.env.CLIMATE_WAREHOUSE_NODE,
   apiTimeout: 20 * 1000,
+  version: version,
 }
 const homeDir = os.homedir()
 const persistanceFolderPath = `${homeDir}/.chia/mainnet/climate-wallet`
@@ -57,5 +65,16 @@ export const updateConfig = (updates) => {
     fs.writeFileSync(configFilePath, yaml.dump(updatedConfig), 'utf8')
   } catch (e) {
     console.log(`Could not update config file`, e)
+  }
+}
+
+export const checkConfig = () => {
+  const configVersion = version > getConfig().version || '0.0.0'
+  if (version > configVersion) {
+    console.log('version', version, version > getConfig().version)
+    updateConfig({
+      ...defaultConfig,
+      ...getConfig(),
+    })
   }
 }

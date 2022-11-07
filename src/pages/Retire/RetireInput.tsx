@@ -60,6 +60,31 @@ const RetireInput = () => {
           label={<Trans>Beneficiary Name</Trans>}
           fullWidth
           {...register('beneficiary', {})}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Tooltip
+                  title={
+                    <Trans>
+                      Beneficiary Name entered would be stored on the blockchain
+                      and visible to anyone.
+                    </Trans>
+                  }
+                  arrow
+                >
+                  <HelpIcon
+                    color="disabled"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      width: '24px',
+                      height: '24px',
+                      mr: 1,
+                    }}
+                  />
+                </Tooltip>
+              </InputAdornment>
+            ),
+          }}
         />
       </Grid>
       <Grid xs={12} item>

@@ -9,11 +9,16 @@ import Retire from '@/pages/Retire'
 import SelectKey from '@/pages/SelectKey'
 import Send from '@/pages/Send'
 import TokenWalletCheck from '@/pages/TokenWallet'
+import { checkConfig } from '@/util/yamlConfigLoader'
+import { useEffect } from 'react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function AppRouter() {
+  useEffect(() => {
+    checkConfig()
+  }, [])
   return (
     <>
       <HashRouter>

@@ -1,7 +1,7 @@
 import GreySkeleton from '@/components/common/GreySkeleton'
-import { CW_LINK } from '@/constants/link'
 import useOpenExternal from '@/hooks/useOpenExternal'
 import { useSelectedWallet } from '@/hooks/wallet'
+import getCWLink from '@/util/getCWLink'
 import { Trans } from '@lingui/macro'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
@@ -50,7 +50,7 @@ const TokenHeader = () => {
 
   const handleViewDetails = () => {
     openExternal(
-      `${CW_LINK}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
+      `${getCWLink()}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
     )
   }
 
