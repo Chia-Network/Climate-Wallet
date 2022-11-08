@@ -381,21 +381,6 @@ const getMenuTemplate = () => {
       label: i18n._(/* i18n */ { id: 'Climate' }),
       submenu: [
         {
-          label: i18n._(/* i18n */ { id: 'About Climate Wallet' }),
-          click: () => {
-            openAbout()
-          },
-        },
-        {
-          type: 'separator',
-        },
-        {
-          role: 'services',
-        },
-        {
-          type: 'separator',
-        },
-        {
           role: 'hide',
         },
         {
@@ -509,7 +494,7 @@ const getMenuTemplate = () => {
         {
           label: i18n._(/* i18n */ { id: 'About Climate Wallet' }),
           click: () => {
-            // openExternal('url')
+            openAbout()
           },
         },
       ],

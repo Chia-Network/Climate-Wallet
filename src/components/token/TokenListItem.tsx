@@ -1,10 +1,13 @@
 import GreySkeleton from '@/components/common/GreySkeleton'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
+import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import {
   useSelectedWallet,
   useWallet,
   useWalletHumanValue,
 } from '@/hooks/wallet'
+import { useGetTransactionByIdQuery } from '@/services/climateService'
+import { BlockingList } from '@/types/DetokenizationType'
 import {
   useGetCATAssetIdQuery,
   useGetWalletBalanceQuery,
@@ -20,6 +23,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
+import { useEffect } from 'react'
 
 interface StyledButtonProps {
   selected?: boolean
@@ -53,8 +57,23 @@ export interface TokenListItemProps {
   isDetoken: boolean
 }
 
-const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
+const TokenListItem = ({ walletId }: TokenListItemProps) => {
   const theme = useTheme()
+
+  const { isDetokenWallet, blockingList, setBlockingList } =
+    useDetokenzationBlockingList()
+  const isDetoken = isDetokenWallet(walletId)
+
+  const detokenizationInfo = blockingList?.find(
+    (item) => String(item.walletId) === String(walletId)
+  )
+
+  const { data: txStatus, refetch } = useGetTransactionByIdQuery(
+    {
+      txId: detokenizationInfo?.txId,
+    },
+    { skip: !detokenizationInfo?.txId }
+  )
 
   const { walletId: selectedWalletId, setWalletId } = useSelectedWallet()
   const { data: assetId } = useGetCATAssetIdQuery({ walletId: walletId })
@@ -80,6 +99,31 @@ const TokenListItem = ({ walletId, isDetoken }: TokenListItemProps) => {
   const handleSelectItem = () => {
     setWalletId(walletId)
   }
+
+  function onRemoveBlockingList() {
+    const oldList: BlockingList = blockingList || []
+    setBlockingList(
+      oldList.filter((item) => String(item.walletId) !== String(walletId))
+    )
+  }
+  useEffect(() => {
+    let timer
+
+    if (isDetoken) {
+      timer = setInterval(() => {
+        refetch()
+      }, 30000)
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  }, [isDetoken])
+
+  useEffect(() => {
+    if (isDetoken && txStatus?.record?.confirmed) {
+      onRemoveBlockingList()
+    }
+  }, [isDetoken, txStatus])
 
   const selectedColor = isSelected
     ? theme.palette['other'].buttonTextGreen

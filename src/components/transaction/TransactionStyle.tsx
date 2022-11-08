@@ -34,4 +34,4 @@ export const TransactionLoadingButton = styled(LoadingButton)({
   padding: '8px 40px',
 })
 
-export const TransactionContentWidth = 720
+export const TransactionContentWidth = 820

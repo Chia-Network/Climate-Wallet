@@ -1,5 +1,5 @@
 import { BlockingList } from '@/types/DetokenizationType'
-import { useLocalStorage } from 'react-use'
+import useLocalStorage from './useReactUseLocalStorage'
 
 export const useDetokenzationDialogShowLocalStorage = () => {
   return useLocalStorage<boolean>('DetokenzationDialogShow', false)
@@ -15,11 +15,10 @@ export const useDetokenzationBlockingList = (): {
     []
   )
   const isDetokenWallet = (walletId?: string | number) => {
-    return (
-      blockingList?.some(
-        (b) => b.walletId === (walletId?.toString() ?? '-1')
-      ) ?? false
-    )
+    if (blockingList) {
+      return blockingList.some((b) => String(b.walletId) === String(walletId))
+    }
+    return false
   }
 
   return {

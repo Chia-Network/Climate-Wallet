@@ -1,7 +1,17 @@
+import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
+import { useSelectedWallet, useWalletState } from '@/hooks/wallet'
 import { Trans } from '@lingui/macro'
 import { Alert, AlertTitle } from '@mui/material'
-
 const TokenAlert = () => {
+  const { state } = useWalletState()
+  const { walletId } = useSelectedWallet()
+  const { isDetokenWallet } = useDetokenzationBlockingList()
+  const isDetoken = isDetokenWallet(walletId)
+
+  if (!isDetoken) {
+    return null
+  }
+
   return (
     <Alert
       severity="info"

@@ -69,12 +69,13 @@ export const updateConfig = (updates) => {
 }
 
 export const checkConfig = () => {
-  const configVersion = version > getConfig().version || '0.0.0'
+  const configVersion = getConfig().version || '0.0.0'
+
   if (version > configVersion) {
-    console.log('version', version, version > getConfig().version)
     updateConfig({
       ...defaultConfig,
       ...getConfig(),
+      version: version,
     })
   }
 }

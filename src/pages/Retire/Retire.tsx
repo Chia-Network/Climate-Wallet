@@ -116,14 +116,7 @@ const Retire = () => {
 
   const handlePrview = async (data: InputType) => {
     try {
-      const retireKey = await getRetireKeysParse({
-        address: data?.publicKey,
-      }).unwrap()
-      if (retireKey) {
-        setStep(RetireStep.Review)
-      } else {
-        alert('Your input public key is error!!')
-      }
+      setStep(RetireStep.Review)
     } catch (error) {
       alert('Climate service error')
     }
@@ -162,7 +155,8 @@ const Retire = () => {
         setTransactionId(response?.tx?.id)
         setStep(RetireStep.Result)
       } catch (e) {
-        alert(JSON.stringify(e))
+        //@ts-ignore
+        alert(e?.error || JSON.stringify(e))
       }
     }
   }
