@@ -66,8 +66,8 @@ const RetireInput = () => {
                 <Tooltip
                   title={
                     <Trans>
-                      Beneficiary Name entered would be stored on the blockchain
-                      and visible to anyone.
+                      Text entered here will be visible on the blockchain. This
+                      is an optional field.
                     </Trans>
                   }
                   arrow
