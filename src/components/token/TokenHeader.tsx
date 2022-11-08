@@ -2,13 +2,14 @@ import GreySkeleton from '@/components/common/GreySkeleton'
 import useOpenExternal from '@/hooks/useOpenExternal'
 import { useSelectedWallet } from '@/hooks/wallet'
 import getCWLink from '@/util/getCWLink'
+import { useGetCATAssetIdQuery } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material'
 import { ReactNode } from 'react'
+import { useParams } from 'react-router-dom'
 import TokenCard from './TokenCard'
-
 interface TokenHeaderDescProps {
   title: string | ReactNode
   value: string | ReactNode
@@ -40,7 +41,8 @@ const TokenHeaderDesc = ({ title, value }: TokenHeaderDescProps) => {
 }
 
 const TokenHeader = () => {
-  const { wallet, loading, asset, isLoadingAsset } = useSelectedWallet()
+  const { wallet, loading, asset, assetId, isLoadingAsset } =
+    useSelectedWallet()
 
   if (loading || !wallet || isLoadingAsset) {
     return null
@@ -137,7 +139,7 @@ const TokenHeader = () => {
         />
         <TokenHeaderDesc
           title={<Trans>Token Asset ID</Trans>}
-          value={asset?.asset_id ?? ''}
+          value={assetId}
         />
       </TokenCard>
     </Stack>
