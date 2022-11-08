@@ -75,6 +75,7 @@ export const checkConfig = () => {
     updateConfig({
       ...defaultConfig,
       ...getConfig(),
+      version: version,
     })
   }
 }
