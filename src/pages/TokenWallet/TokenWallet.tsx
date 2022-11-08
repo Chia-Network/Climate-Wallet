@@ -20,8 +20,6 @@ const StyledContainer = styled(Stack)({
 
 const TokenWallet = () => {
   const { wallet, loading, walletId } = useSelectedWallet()
-  const { isDetokenWallet } = useDetokenzationBlockingList()
-  const isDetoken = isDetokenWallet(walletId)
 
   if (loading) {
     return (
@@ -45,7 +43,7 @@ const TokenWallet = () => {
 
   return (
     <StyledStackRoot>
-      {isDetoken && <TokenAlert />}
+      <TokenAlert />
       <StyledContainer spacing={3}>
         <TokenHeader />
         <TokenContent />

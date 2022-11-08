@@ -1,8 +1,6 @@
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useDetokenzationBlockingList } from '@/hooks/useLoaclStorage'
 import { useSelectedWallet, useWalletHumanValue } from '@/hooks/wallet'
-import { useGetTransactionByIdQuery } from '@/services/climateService'
-import { BlockingList } from '@/types/DetokenizationType'
 import createDetokenFile from '@/util/createDetokenFile'
 import { useGetWalletBalanceQuery } from '@chia/api-react'
 import { Trans } from '@lingui/macro'
@@ -63,11 +61,12 @@ const TokenContent = () => {
   const { walletId, wallet, unit, loading } = useSelectedWallet()
   const { isDetokenWallet, blockingList, setBlockingList } =
     useDetokenzationBlockingList()
-  const isDetoken = isDetokenWallet(walletId)
 
   const detokenizationInfo = blockingList?.find(
     (item) => item.walletId === walletId
   )
+
+  const isDetoken = isDetokenWallet(walletId)
 
   const navigate = useNavigate()
 
@@ -82,13 +81,6 @@ const TokenContent = () => {
     {
       pollingInterval: 10000,
     }
-  )
-
-  const { data: txStatus } = useGetTransactionByIdQuery(
-    {
-      txId: detokenizationInfo?.txId,
-    },
-    { skip: !detokenizationInfo?.txId }
   )
 
   const confirmedWalletBalanceValue = useWalletHumanValue(
@@ -113,17 +105,6 @@ const TokenContent = () => {
   const handleDownloadRequest = () => {
     if (detokenizationInfo) createDetokenFile(detokenizationInfo)
   }
-
-  function onRemoveBlockingList() {
-    const oldList: BlockingList = blockingList || []
-    setBlockingList(oldList.filter((item) => item.walletId !== walletId))
-  }
-
-  useEffect(() => {
-    if (isDetoken && txStatus?.record?.confirmed) {
-      onRemoveBlockingList()
-    }
-  }, [isDetoken, txStatus])
 
   return (
     <Stack spacing={4}>

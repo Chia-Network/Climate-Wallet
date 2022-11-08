@@ -12,6 +12,7 @@ export const serviceURL = `${process.env.CLIMATE_SERVICE}:${process.env.CLIMATE_
 export const climateServiceApi = createApi({
   reducerPath: 'climateServiceApi',
   baseQuery: fetchBaseQuery({ baseUrl: serviceURL }),
+
   endpoints: (builder) => ({
     getTransactions: builder.query<any, any>({
       query: (data) => ({
@@ -23,6 +24,7 @@ export const climateServiceApi = createApi({
       query: ({ txId }) => ({
         url: `/v1/transactions/${txId}`,
       }),
+      keepUnusedDataFor: 5,
     }),
     creatDetokenizationTx: builder.mutation<
       DetokenizationTxResponse,
