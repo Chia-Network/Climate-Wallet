@@ -58,9 +58,33 @@ msgstr ""
 #~ msgid "0 automatically chooses bucket count"
 #~ msgstr ""
 
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:108
+msgid "1) You must be an account holder at the issuing registry or work with an intermediary that is an account holder. The non-tokenized units will be credited to that account holder."
+msgstr ""
+
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:148
 #~ msgid "128 buckets is recommended"
 #~ msgstr "128 buckets is recommended"
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:115
+msgid "2) You must get approval from the issuing registry before starting the detokenization process."
+msgstr ""
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:121
+msgid "3) Upon granting approval, the registry will provide a detokenization passcode."
+msgstr ""
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:127
+msgid "4) Using that passcode, the Climate Wallet will create a detokenization request file to be sent to the registry."
+msgstr ""
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:133
+msgid "5) The registry will confirm the detokenization request file is correct, sign it, and submit it to the blockchain."
+msgstr ""
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:139
+msgid "6) Once the tokens have been successfully destroyed, the registry will credit the appropriate non-tokenized units to the account holder."
+msgstr ""
 
 #: src/components/settings/ProfileAdd.tsx:87
 #~ msgid "<0>Get some XCH</0>"
@@ -435,7 +459,7 @@ msgstr ""
 #: src/components/app/AppPassPrompt.tsx:204
 #: src/pages/Detokenization/CancelDetokenization.tsx:172
 #: src/pages/Detokenization/CancelDetokenization.tsx:224
-#: src/pages/Detokenization/RequestDetokenization.tsx:246
+#: src/pages/Detokenization/RequestDetokenization.tsx:243
 #: src/pages/Retire/Retire.tsx:308
 #: src/pages/Send/Send.tsx:223
 #: src/pages/Send/Send.tsx:292
@@ -1068,11 +1092,15 @@ msgstr ""
 #~ msgid "Details"
 #~ msgstr ""
 
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:97
+msgid "Detokenization Process"
+msgstr ""
+
 #: src/pages/Detokenization/CancelDetokenization.tsx:112
 msgid "Detokenization Quantity"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:207
+#: src/pages/Detokenization/RequestDetokenization.tsx:204
 msgid "Detokenization cannot be undone"
 msgstr ""
 
@@ -1605,7 +1633,7 @@ msgstr "Ledtråd"
 #~ msgid "I Understand, Create Offer"
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:225
+#: src/pages/Detokenization/RequestDetokenization.tsx:222
 msgid "I have confirmed that the detokenization details are correct and I want to request detokenization."
 msgstr ""
 
@@ -2499,7 +2527,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/app/AppPassPrompt.tsx:153
-#: src/pages/Detokenization/RequestDetokenization.tsx:195
+#: src/pages/Detokenization/RequestDetokenization.tsx:192
 msgid "Passphrase"
 msgstr "Lösenfras"
 
@@ -3084,7 +3112,7 @@ msgstr ""
 msgid "Project Name"
 msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:175
+#: src/pages/Detokenization/RequestDetokenization.tsx:172
 #: src/pages/Retire/Retire.tsx:225
 #: src/pages/Send/Send.tsx:198
 msgid "Project information"
@@ -3290,8 +3318,8 @@ msgstr ""
 #~ msgstr "Rapportera ett problem ..."
 
 #: src/components/token/TokenContent.tsx:182
-#: src/pages/Detokenization/RequestDetokenization.tsx:164
-#: src/pages/Detokenization/RequestDetokenization.tsx:183
+#: src/pages/Detokenization/RequestDetokenization.tsx:161
+#: src/pages/Detokenization/RequestDetokenization.tsx:180
 msgid "Request Detokenization"
 msgstr ""
 
@@ -3377,7 +3405,7 @@ msgstr ""
 #~ msgid "Save passphrase"
 #~ msgstr "Spara lösenfras"
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:256
+#: src/pages/Detokenization/RequestDetokenization.tsx:253
 msgid "Save request"
 msgstr ""
 
@@ -3845,7 +3873,7 @@ msgstr ""
 #~ msgid "The derivation index sets the range of wallet addresses that the wallet scans the blockchain for. This number is generally higher if you have a lot of transactions or canceled offers for XCH, CATs, or NFTs. If you believe your balance is incorrect because it’s missing coins, then increasing the derivation index could help the wallet include the missing coins in the balance total."
 #~ msgstr ""
 
-#: src/pages/Detokenization/RequestDetokenization.tsx:209
+#: src/pages/Detokenization/RequestDetokenization.tsx:206
 msgid "The detokenization request file is valid from the moment it is created until it is successfully canceled or executed."
 msgstr ""
 
@@ -4082,6 +4110,11 @@ msgstr ""
 #: src/components/plotNFT/PlotNFTGetPoolLoginLinkDialog.tsx:52
 #~ msgid "This plot NFT is not connected to pool"
 #~ msgstr "This plot NFT is not connected to a pool"
+
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:100
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:146
+msgid "This process is only used when reverting tokenized units back to traditional units in a registry account. This process is NOT needed to retire carbon, nor is it needed to assert the validity of the token you hold."
+msgstr ""
 
 #: src/components/farm/FarmLastAttemptedProof.tsx:39
 #~ msgid "This table shows you the last time your farm attempted to win a block challenge."
@@ -4674,7 +4707,7 @@ msgstr ""
 #~ msgid "Welcome! The following words are used for your wallet backup. Without them, you will lose access to your wallet, keep them safe! Write down each word along with the order number next to them. (Order is important)"
 #~ msgstr "Welcome! The following words are used for your wallet backup. Without them, you will lose access to your wallet, keep them safe! Write down each word along with the order number next to them. (Order is important)"
 
-#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:92
+#: src/pages/Detokenization/RequestDetokenizationDialog.tsx:91
 msgid "What is request detokenization?"
 msgstr ""
 
