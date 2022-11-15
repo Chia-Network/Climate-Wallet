@@ -2,9 +2,9 @@
 
 This repository holds the source code for the Climate Wallet in the Climate Portal system.
 
-Note this wallet is explicitly as an independent plugin to the official [Chia Wallet](https://www.chia.net/downloads/).
+Note this wallet is explicitly as an independent plugin to the latest official [Chia Wallet](https://www.chia.net/downloads/).
 
-## Hierarchy
+# Hierarchy
 
 - `src`:
   - `assets`: fonts and images
@@ -20,24 +20,40 @@ Note this wallet is explicitly as an independent plugin to the official [Chia Wa
   - `types`: typescript types
   - `util`: this project utilities
 
+# Usage
+
 ## Prerequisite
 
 You will need a running instance of [Chia Wallet](https://www.chia.net/downloads/) before the next steps.
 
-## Usage
+### Installation and configuration
 
-### Setpup submodule and follow submodule readme to stepup env
+- Setpup submodule and follow submodule readme to stepup env
 
-```sh
-git submodule update --init --recursive
-cp .env.submodule climate-token-driver/.env
-```
+  ```sh
+  git submodule update --init --recursive
+  ```
 
-### package submodule for dev and build
+- copy `.env` for submodule
+  ```sh
+  cp .env.submodule climate-token-driver/.env
+  ```
+- package submodule for dev and production
 
-```sh
-npm run package-submodule
-```
+  ```sh
+  npm run package-submodule
+  ```
+
+  submodule used `Climate Token Driver Suite` client service port `31314`
+
+### Configurations
+
+- A config.yaml file located at `./chia/mainnet/climate-wallet` is loaded, which adds to the configurations after .env. This part of the configuration is free to change by end binary users. When the application is opened, the new configurable would automatically apply.
+- About config.yaml:
+  - `climateWarehouses`:links of climate warehouses api
+  - `apiTimeout`: api request timeout
+  - `climateWarehousesNode`:links of climate warehouses node
+  - `version`: climate wallet version
 
 ### Run from source for development
 

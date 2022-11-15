@@ -17,7 +17,12 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'eslint-plugin-prettier'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'eslint-plugin-prettier',
+    'prettier',
+  ],
   settings: {
     react: {
       version: 'detect',
@@ -33,8 +38,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    indent: 0,
-    camelcase: 0,
+    indent: ['off', 2],
     'comma-dangle': 0,
     'space-before-function-paren': 0,
     'react/react-in-jsx-scope': 0,

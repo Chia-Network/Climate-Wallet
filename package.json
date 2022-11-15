@@ -118,6 +118,8 @@
     "@types/seedrandom": "3.0.1",
     "@types/styled-components": "5.1.20",
     "@types/validator": "13.7.1",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
     "app-builder-lib": "^23.4.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "8.2.3",
@@ -144,6 +146,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "html-loader": "3.1.0",
     "html-webpack-plugin": "5.5.0",
     "keytar": "^7.9.0",
@@ -231,5 +234,5 @@
       ]
     }
   },
-  "version": "1.0.7"
+  "version": "1.0.8"
 }

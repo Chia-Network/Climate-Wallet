@@ -1,4 +1,3 @@
-import { useDetokenzationDialogShowLocalStorage } from '@/hooks/useLoaclStorage'
 import { Trans } from '@lingui/macro'
 import CloseIcon from '@mui/icons-material/Close'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
@@ -12,8 +11,10 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { ChangeEvent, useEffect, useState } from 'react'
+
+import { useDetokenzationDialogShowLocalStorage } from '@/hooks/useLoaclStorage'
 
 const StyledQuestionButton = styled(Button)(({ theme }) => ({
   minWidth: 36,
@@ -28,9 +29,7 @@ const StyledQuestionButton = styled(Button)(({ theme }) => ({
 }))
 
 const RequestDetokenizationDialog = () => {
-  const theme = useTheme()
-
-  const [notShowAgain, setNotShowAgain, remove] =
+  const [notShowAgain, setNotShowAgain] =
     useDetokenzationDialogShowLocalStorage()
 
   const [open, setOpen] = useState<boolean>(false)
@@ -95,25 +94,61 @@ const RequestDetokenizationDialog = () => {
 
         <DialogContent>
           <Typography gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque sed aliquam lectus. Suspendisse consequat fermentum
-            nunc, posuere laoreet ligula suscipit a. In turpis nulla, rhoncus eu
-            iaculis ac, fringilla a risus. Suspendisse varius maximus
-            pellentesque.
+            <Trans>Detokenization Process</Trans>
           </Typography>
           <Typography gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque sed aliquam lectus. Suspendisse consequat fermentum
-            nunc, posuere laoreet ligula suscipit a. In turpis nulla, rhoncus eu
-            iaculis ac, fringilla a risus. Suspendisse varius maximus
-            pellentesque.
+            <Trans>
+              This process is only used when reverting tokenized units back to
+              traditional units in a registry account. This process is NOT
+              needed to retire carbon, nor is it needed to assert the validity
+              of the token you hold.
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              1) You must be an account holder at the issuing registry or work
+              with an intermediary that is an account holder. The non-tokenized
+              units will be credited to that account holder.
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              2) You must get approval from the issuing registry before starting
+              the detokenization process.
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              3) Upon granting approval, the registry will provide a
+              detokenization passcode.
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              4) Using that passcode, the Climate Wallet will create a
+              detokenization request file to be sent to the registry.
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              5) The registry will confirm the detokenization request file is
+              correct, sign it, and submit it to the blockchain.
+            </Trans>
           </Typography>
           <Typography gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque sed aliquam lectus. Suspendisse consequat fermentum
-            nunc, posuere laoreet ligula suscipit a. In turpis nulla, rhoncus eu
-            iaculis ac, fringilla a risus. Suspendisse varius maximus
-            pellentesque.
+            <Trans>
+              6) Once the tokens have been successfully destroyed, the registry
+              will credit the appropriate non-tokenized units to the account
+              holder.
+            </Trans>
+          </Typography>
+          <Typography gutterBottom>
+            <Trans>
+              This process is only used when reverting tokenized units back to
+              traditional units in a registry account. This process is NOT
+              needed to retire carbon, nor is it needed to assert the validity
+              of the token you hold.
+            </Trans>
           </Typography>
         </DialogContent>
 

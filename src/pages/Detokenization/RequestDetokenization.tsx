@@ -1,4 +1,26 @@
 import {
+  useGetCATAssetIdQuery,
+  useGetWalletBalanceQuery,
+} from '@chia/api-react'
+import { catToMojo, chiaToMojo } from '@chia/core'
+import { Trans } from '@lingui/macro'
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
+import moment from 'moment'
+import { ChangeEvent, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import {
   TransactionBasicInfo,
   TransactionBody,
   TransactionButton,
@@ -8,7 +30,6 @@ import {
   TransactionLoadingButton,
   TransactionPrompt,
 } from '@/components/transaction'
-import { TOKEN_AMOUNT_REGEX } from '@/constants/regex'
 import { CARBON_TOKEN_UNIT } from '@/constants/unit'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
 import useGetTransactionInfos from '@/hooks/useGetTransactionInfos'
@@ -22,29 +43,7 @@ import {
 } from '@/types/DetokenizationType'
 import createDetokenFile from '@/util/createDetokenFile'
 import transactionValidCheck from '@/util/transactionValidCheck'
-import {
-  useGetCATAssetIdQuery,
-  useGetWalletBalanceQuery,
-} from '@chia/api-react'
-import { catToMojo, chiaToMojo } from '@chia/core'
-import { Trans } from '@lingui/macro'
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-import moment from 'moment'
-import { ChangeEvent, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
+
 import RequestDetokenizationDialog from './RequestDetokenizationDialog'
 
 const RequestDetokenization = () => {
@@ -68,17 +67,15 @@ const RequestDetokenization = () => {
   const { register, formState, handleSubmit, reset, getValues } = methods
 
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
-  const { data: cwAsset, isLoading: isLoadingAsset } =
-    useGetAllCWAssetsById(assetId)
-  const { data: walletBalance, isLoading: isLoadingWalletBalance } =
-    useGetWalletBalanceQuery(
-      {
-        walletId,
-      },
-      {
-        pollingInterval: 10000,
-      }
-    )
+  const { data: cwAsset } = useGetAllCWAssetsById(assetId)
+  const { data: walletBalance } = useGetWalletBalanceQuery(
+    {
+      walletId,
+    },
+    {
+      pollingInterval: 10000,
+    }
+  )
 
   const confirmedWalletBalanceValue = useWalletHumanValue(
     wallet,
@@ -100,11 +97,11 @@ const RequestDetokenization = () => {
     if (walletId && !oldList.some((item) => item.walletId === walletId)) {
       const amount = getValues().amount
       const newItem: BlockingListContent = {
-        walletId: walletId,
+        walletId,
         amount: String(amount),
-        txId: txId,
+        txId,
         passphrase: getValues().passphrase,
-        content: content,
+        content,
         fileName: `detok-${amount}${CARBON_TOKEN_UNIT}-${moment().format(
           'YYYY-MM-DD'
         )}`,
@@ -136,7 +133,7 @@ const RequestDetokenization = () => {
             },
           },
 
-          assetId: assetId,
+          assetId,
         }).unwrap()
 
         onSetBlockingList(response?.tx?.id, response?.content)
