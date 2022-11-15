@@ -22,7 +22,6 @@ module.exports = {
     '@typescript-eslint',
     'eslint-plugin-prettier',
     'prettier',
-    'simple-import-sort',
   ],
   settings: {
     react: {
@@ -46,7 +45,5 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'multiline-ternary': 0,
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
   },
 }
