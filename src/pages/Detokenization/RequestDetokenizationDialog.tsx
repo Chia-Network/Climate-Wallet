@@ -1,4 +1,3 @@
-import { useDetokenzationDialogShowLocalStorage } from '@/hooks/useLoaclStorage'
 import { Trans } from '@lingui/macro'
 import CloseIcon from '@mui/icons-material/Close'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
@@ -12,8 +11,10 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { ChangeEvent, useEffect, useState } from 'react'
+
+import { useDetokenzationDialogShowLocalStorage } from '@/hooks/useLoaclStorage'
 
 const StyledQuestionButton = styled(Button)(({ theme }) => ({
   minWidth: 36,
@@ -28,9 +29,7 @@ const StyledQuestionButton = styled(Button)(({ theme }) => ({
 }))
 
 const RequestDetokenizationDialog = () => {
-  const theme = useTheme()
-
-  const [notShowAgain, setNotShowAgain, remove] =
+  const [notShowAgain, setNotShowAgain] =
     useDetokenzationDialogShowLocalStorage()
 
   const [open, setOpen] = useState<boolean>(false)
