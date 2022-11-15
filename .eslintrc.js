@@ -38,7 +38,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    indent: 'error',
+    indent: ['off', 2],
     'comma-dangle': 0,
     'space-before-function-paren': 0,
     'react/react-in-jsx-scope': 0,
