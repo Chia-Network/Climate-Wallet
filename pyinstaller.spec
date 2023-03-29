@@ -9,6 +9,7 @@ datas = []
 datas.append((f"{ROOT}/chia/wallet/puzzles/*.hex", "./chia/wallet/puzzles"))
 datas.append(("./climate-token-driver/app/core/chialisp/*.hex", "./app/core/chialisp"))
 datas.append(("./climate-token-driver/.env", "./"))
+datas.append(("./climate-token-driver/config.yaml", "./"))
 
 block_cipher = None
 
