@@ -24,13 +24,27 @@ defaults:
 
 jobs:
   build:
-    name: Windows 10 Installer
-    runs-on: [windows-2019]
-    timeout-minutes: 50
+    name: Build Installer ${{ matrix.os.name }}
+    runs-on: ${{ matrix.os.runs-on }}
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.9]
+        os:
+          # TODO: use old versions for improved compatibility?
+          - name: Linux
+            runs-on: ubuntu-latest
+            electron-builder: --linux
+            electron-builder-unpacked: linux_unpacked
+          - name: macOS
+            runs-on: macos-latest
+            electron-builder: --macos
+            electron-builder-unpacked: macos_unpacked
+          - name: Windows
+            runs-on: windows-latest
+            electron-builder: --windows
+            electron-builder-unpacked: win_unpacked
 
     steps:
     - name: Checkout Code
@@ -163,13 +177,14 @@ jobs:
       run: |
         pyinstaller --log-level INFO pyinstaller.spec
 
-        cp dist/main build/main
+        # TODO: clearly a bad name, wary across platforms with the *
+        cp dist/main* build/
 
         npm run build
-        electron-builder build --win --x64 --config.productName="ClimateWallet"
+        electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
 
         ls -la dist
-        ls -la dist/win-unpacked/resources
+        ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources
 
     - name: Upload Installer to artifacts
       uses: actions/upload-artifact@v3
