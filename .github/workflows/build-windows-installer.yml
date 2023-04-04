@@ -173,7 +173,6 @@ jobs:
 #        cd .\build_scripts
 #        .\build_windows-2-installer.ps1
     - name: just build it for now
-      env:
       run: |
         pyinstaller --log-level INFO pyinstaller.spec
 
