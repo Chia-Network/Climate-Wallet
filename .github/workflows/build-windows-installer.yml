@@ -52,6 +52,7 @@ jobs:
       with:
         fetch-depth: 0
         submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
 
 #    - name: Set Env
 #      uses: Chia-Network/actions/setjobenv@main
