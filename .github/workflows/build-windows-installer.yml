@@ -193,13 +193,15 @@ jobs:
         # electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
 
         ls -la dist
-        ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources
+        # ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources
+        mkdir -p artifacts/
+        cp dist/'Climate Wallet'* artifacts/
 
     - name: Upload Installer to artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: windows-exe-intel
-        path: 'dist/win-unpacked/ClimateWallet.exe'
+        name: artifacts
+        path: 'artifacts/*'
 
 #    - name: Install AWS CLI
 #      if: steps.check_secrets.outputs.HAS_AWS_SECRET
