@@ -54,8 +54,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        submodules: recursive
-        token: ${{ secrets.GITHUB_TOKEN }}
 
 #    - name: Set Env
 #      uses: Chia-Network/actions/setjobenv@main
@@ -140,10 +138,10 @@ jobs:
       with:
         directories: ${{ steps.create-venv.outputs.activate-venv-directories }}
 
-    # TODO: this list probably belongs elsewhere
-    - name: Install in build venv
-      run: |
-        pip install pyinstaller climate-token-driver/chia-blockchain/ climate-token-driver
+#    # TODO: this list probably belongs elsewhere
+#    - name: Install in build venv
+#      run: |
+#        pip install pyinstaller climate-token-driver/chia-blockchain/ climate-token-driver
 
 #    - name: Prepare GUI cache
 #      id: gui-ref
@@ -178,10 +176,10 @@ jobs:
 #        .\build_windows-2-installer.ps1
     - name: just build it for now
       run: |
-        pyinstaller --log-level INFO pyinstaller.spec
-
-        # TODO: clearly a bad name, wary across platforms with the *
-        cp dist/main* build/
+#        pyinstaller --log-level INFO pyinstaller.spec
+#
+#        # TODO: clearly a bad name, wary across platforms with the *
+#        cp dist/main* build/
 
         npm run build
         electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
