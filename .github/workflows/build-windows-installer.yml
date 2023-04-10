@@ -185,6 +185,7 @@ jobs:
 
     - name: just build it for now
       run: |
+        cp .env.example .env
         # back to this once we have a lock: npm ci
         npm install
         npm run build
