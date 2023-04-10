@@ -185,6 +185,7 @@ jobs:
 
     - name: just build it for now
       run: |
+        npm ci
         npm run build
         npm run ${{ matrix.os.npm-run-command }}
         # electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
