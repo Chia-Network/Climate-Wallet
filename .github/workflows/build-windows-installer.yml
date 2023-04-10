@@ -174,13 +174,14 @@ jobs:
 #        $env:path="C:\Program` Files` (x86)\Windows` Kits\10\App` Certification` Kit;$env:path"
 #        cd .\build_scripts
 #        .\build_windows-2-installer.ps1
-    - name: just build it for now
-      run: |
+
 #        pyinstaller --log-level INFO pyinstaller.spec
 #
 #        # TODO: clearly a bad name, wary across platforms with the *
 #        cp dist/main* build/
 
+    - name: just build it for now
+      run: |
         npm run build
         electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
 
