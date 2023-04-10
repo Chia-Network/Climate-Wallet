@@ -40,17 +40,17 @@ jobs:
             runs-on: ubuntu-latest
             npm-run-command: package-linux
 #            electron-builder: --linux
-#            electron-builder-unpacked: linux_unpacked
+            electron-builder-unpacked: linux_unpacked
           - name: macOS
             runs-on: macos-latest
             npm-run-command: package-macos
 #            electron-builder: --macos
-#            electron-builder-unpacked: macos_unpacked
+            electron-builder-unpacked: macos_unpacked
           - name: Windows
             runs-on: windows-latest
             npm-run-command: package-windows
 #            electron-builder: --windows
-#            electron-builder-unpacked: win_unpacked
+            electron-builder-unpacked: win_unpacked
 
     steps:
     - name: Checkout Code
