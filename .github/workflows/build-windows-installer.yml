@@ -38,16 +38,19 @@ jobs:
           # TODO: use old versions for improved compatibility?
           - name: Linux
             runs-on: ubuntu-latest
-            electron-builder: --linux
-            electron-builder-unpacked: linux_unpacked
+            npm-run-command: package-linux
+#            electron-builder: --linux
+#            electron-builder-unpacked: linux_unpacked
           - name: macOS
             runs-on: macos-latest
-            electron-builder: --macos
-            electron-builder-unpacked: macos_unpacked
+            npm-run-command: package-macos
+#            electron-builder: --macos
+#            electron-builder-unpacked: macos_unpacked
           - name: Windows
             runs-on: windows-latest
-            electron-builder: --windows
-            electron-builder-unpacked: win_unpacked
+            npm-run-command: package-windows
+#            electron-builder: --windows
+#            electron-builder-unpacked: win_unpacked
 
     steps:
     - name: Checkout Code
@@ -182,8 +185,9 @@ jobs:
 
     - name: just build it for now
       run: |
-        npm run build
-        electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
+        npm run ${{ matrix.os.npm-run-command }}
+        # npm run build
+        # electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
 
         ls -la dist
         ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources
