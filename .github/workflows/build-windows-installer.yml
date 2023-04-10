@@ -200,7 +200,7 @@ jobs:
     - name: Upload Installer to artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: artifacts
+        name: ${{ matrix.os.name }}
         path: 'artifacts/*'
 
 #    - name: Install AWS CLI
