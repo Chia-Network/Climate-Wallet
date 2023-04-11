@@ -41,16 +41,21 @@ jobs:
             npm-run-command: package-linux
 #            electron-builder: --linux
             electron-builder-unpacked: linux_unpacked
+            token-driver-artifact: dev-token-driver-chia-linux-amd64
           - name: macOS
             runs-on: macos-latest
             npm-run-command: package-macos
 #            electron-builder: --macos
             electron-builder-unpacked: macos_unpacked
+            # TODO: fill this out
+#            token-driver-artifact: dev-token-driver-chia-
           - name: Windows
             runs-on: windows-latest
             npm-run-command: package-windows
 #            electron-builder: --windows
             electron-builder-unpacked: win_unpacked
+            # TODO: fill this out
+#            token-driver-artifact: dev-token-driver-chia-
 
     steps:
     - name: Checkout Code
@@ -183,7 +188,14 @@ jobs:
 #        # TODO: clearly a bad name, wary across platforms with the *
 #        cp dist/main* build/
 
-    - name: just build it for now
+    - name: download token driver
+      run: |
+        WORKFLOW_ID=$(gh run list --repo chia-network/climate-token-driver --branch main --limit 1 --json workflowDatabaseId --jq '.[0].workflowDatabaseId')
+        gh run download $WORKFLOW_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir token-driver-artifact/
+        mkdir -p build/
+        unzip token-driver-artifact/${{ matrix.os.token-driver-artifact }}.zip -d ../build/
+
+    - name: build
       run: |
         cp .env.example .env
         # back to this once we have a lock: npm ci
