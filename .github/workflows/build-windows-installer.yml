@@ -196,7 +196,7 @@ jobs:
         RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch add_workflow_dispatch --limit 1 --json databaseId --jq '.[0].databaseId')
         gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir token-driver-artifact/
         mkdir -p build/
-        unzip token-driver-artifact/${{ matrix.os.token-driver-artifact }}.zip -d ../build/
+        cp token-driver-artifact/main build/
 
     - name: build
       run: |
