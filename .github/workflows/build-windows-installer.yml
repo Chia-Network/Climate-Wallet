@@ -189,6 +189,8 @@ jobs:
 #        cp dist/main* build/
 
     - name: download token driver
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         WORKFLOW_ID=$(gh run list --repo chia-network/climate-token-driver --branch main --limit 1 --json workflowDatabaseId --jq '.[0].workflowDatabaseId')
         gh run download $WORKFLOW_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir token-driver-artifact/
