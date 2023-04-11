@@ -47,15 +47,13 @@ jobs:
             npm-run-command: package-macos
 #            electron-builder: --macos
             electron-builder-unpacked: macos_unpacked
-            # TODO: fill this out
-#            token-driver-artifact: dev-token-driver-chia-
+            token-driver-artifact: dev-token-driver-chia-macos-amd64
           - name: Windows
             runs-on: windows-latest
             npm-run-command: package-windows
 #            electron-builder: --windows
             electron-builder-unpacked: win_unpacked
-            # TODO: fill this out
-#            token-driver-artifact: dev-token-driver-chia-
+            token-driver-artifact: dev-token-driver-chia-windows-amd64
 
     steps:
     - name: Checkout Code
