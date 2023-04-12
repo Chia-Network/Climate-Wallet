@@ -41,19 +41,19 @@ jobs:
             npm-run-command: package-linux
 #            electron-builder: --linux
             electron-builder-unpacked: linux-unpacked
-            token-driver-artifact: dev-token-driver-chia-linux-amd64
+            token-driver-artifact: climate-token-client-chia-linux-amd64
           - name: macOS
             runs-on: macos-latest
             npm-run-command: package-macos
 #            electron-builder: --macos
             electron-builder-unpacked: mac
-            token-driver-artifact: dev-token-driver-chia-macos-amd64
+            token-driver-artifact: climate-token-client-chia-macos-amd64
           - name: Windows
             runs-on: windows-latest
             npm-run-command: package-windows
 #            electron-builder: --windows
             electron-builder-unpacked: win-unpacked
-            token-driver-artifact: dev-token-driver-chia-windows-amd64
+            token-driver-artifact: climate-token-client-chia-windows-amd64
 
     steps:
     - name: Checkout Code
