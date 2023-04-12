@@ -193,7 +193,7 @@ jobs:
         # TODO: totally hacking it with this pr branch so there's a build
         RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch more_binaries --limit 1 --json databaseId --jq '.[0].databaseId')
         gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir build/
-        ls -la build/
+        ls -la build/ || true
 
     - name: build
       run: |
@@ -204,9 +204,9 @@ jobs:
         npm run ${{ matrix.os.npm-run-command }}
         # electron-builder build ${{ matrix.os.electron-builder }} --x64 --config.productName="ClimateWallet"
 
-        ls -la dist
-        ls -la dist/${{ matrix.os.electron-builder-unpacked }}
-        ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources
+        ls -la dist || true
+        ls -la dist/${{ matrix.os.electron-builder-unpacked }} || true
+        ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources || true
         mkdir -p artifacts/
         cp dist/'Climate Wallet'* artifacts/
 
