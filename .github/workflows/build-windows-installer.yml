@@ -42,18 +42,21 @@ jobs:
 #            electron-builder: --linux
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact: climate-token-client-chia-linux-amd64
+            executable-extension: ''
           - name: macOS
             runs-on: macos-latest
             npm-run-command: package-macos
 #            electron-builder: --macos
             electron-builder-unpacked: mac
             token-driver-artifact: climate-token-client-chia-macos-amd64
+            executable-extension: ''
           - name: Windows
             runs-on: windows-latest
             npm-run-command: package-windows
 #            electron-builder: --windows
             electron-builder-unpacked: win-unpacked
             token-driver-artifact: climate-token-client-chia-windows-amd64
+            executable-extension: '.exe'
 
     steps:
     - name: Checkout Code
@@ -192,7 +195,9 @@ jobs:
       run: |
         # TODO: totally hacking it with this pr branch so there's a build
         RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch more_binaries --limit 1 --json databaseId --jq '.[0].databaseId')
-        gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir build/
+        gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir downloaded-artifacts/
+        # expected to fail if there are multiple files
+        mv downloaded-artifacts/* build/main${{ matrix.os.executable-extension }}
         ls -la build/ || true
 
     - name: build
