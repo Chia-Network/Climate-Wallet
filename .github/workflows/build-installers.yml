@@ -34,18 +34,17 @@ jobs:
             matrix: linux
             emoji: 🐧
             runs-on: ubuntu-latest
-            npm-run-command: package-linux
+            electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact: climate-token-client-chia-linux-amd64
             executable-extension: ''
-            # TODO: don't we want .deb?
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
           - name: macOS
             matrix: macos
             emoji: 🍎
             runs-on: macos-latest
-            npm-run-command: package-macos
+            electron-builder-options: --macos
             electron-builder-unpacked: mac
             token-driver-artifact: climate-token-client-chia-macos-amd64
             executable-extension: ''
@@ -55,12 +54,24 @@ jobs:
             matrix: windows
             emoji: 🪟
             runs-on: windows-latest
-            npm-run-command: package-windows
+            electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
             token-driver-artifact: climate-token-client-chia-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
+        arch:
+          - name: ARM
+            matrix: arm
+            electron-builder-options: --arm64
+          - name: Intel
+            matrix: intel
+            electron-builder-options: --x64
+        exclude:
+          - os:
+              matrix: windows
+            arch:
+              matrix: arm
 
     steps:
       - uses: Chia-Network/actions/clean-workspace@main
@@ -109,7 +120,7 @@ jobs:
         if: matrix.os.matrix == 'linux'
         run: |
           npm run build
-          npm run ${{ matrix.os.npm-run-command }}
+          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
 
       - name: Build electron app (macOS)
         if: matrix.os.matrix == 'macos'
@@ -118,7 +129,7 @@ jobs:
           CSC_FOR_PULL_REQUEST: "true"
         run: |
           npm run build
-          npm run ${{ matrix.os.npm-run-command }}
+          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
 
       - name: Build electron app (Windows)
         if: matrix.os.matrix == 'windows'
@@ -128,7 +139,7 @@ jobs:
           CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
         run: |
           npm run build
-          npm run ${{ matrix.os.npm-run-command }}
+          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
 
       - name: Copy to artifacts/
         run: |
