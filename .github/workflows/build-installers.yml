@@ -22,7 +22,7 @@ defaults:
 jobs:
   build:
     name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
-    runs-on: ${{ matrix.os.runs-on }}
+    runs-on: ${{ matrix.os.runs-on[matrix.arch.matrix] }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -33,7 +33,9 @@ jobs:
           - name: Linux
             matrix: linux
             emoji: 🐧
-            runs-on: ubuntu-latest
+            runs-on:
+              arm: [Linux, ARM64]
+              intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact: climate-token-client-chia-linux-amd64
@@ -43,7 +45,9 @@ jobs:
           - name: macOS
             matrix: macos
             emoji: 🍎
-            runs-on: macos-latest
+            runs-on:
+              arm: [macOS, ARM64]
+              intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             token-driver-artifact: climate-token-client-chia-macos-amd64
@@ -53,7 +57,8 @@ jobs:
           - name: Windows
             matrix: windows
             emoji: 🪟
-            runs-on: windows-latest
+            runs-on:
+              intel: [windows-latest]
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
             token-driver-artifact: climate-token-client-chia-windows-amd64
