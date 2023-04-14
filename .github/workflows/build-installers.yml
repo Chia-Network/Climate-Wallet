@@ -38,6 +38,8 @@ jobs:
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact: climate-token-client-chia-linux-amd64
             executable-extension: ''
+            # TODO: don't we want .deb?
+            build-result-pattern: 'Climate Wallet-*.AppImage'
             artifact-name: linux
           - name: macOS
             matrix: macos
@@ -47,6 +49,7 @@ jobs:
             electron-builder-unpacked: mac
             token-driver-artifact: climate-token-client-chia-macos-amd64
             executable-extension: ''
+            build-result-pattern: 'Climate Wallet-*.dmg'
             artifact-name: macos
           - name: Windows
             matrix: windows
@@ -56,6 +59,7 @@ jobs:
             electron-builder-unpacked: win-unpacked
             token-driver-artifact: climate-token-client-chia-windows-amd64
             executable-extension: '.exe'
+            build-result-pattern: 'Climate Wallet-*.exe'
             artifact-name: windows
 
     steps:
@@ -128,11 +132,12 @@ jobs:
 
       - name: Copy to artifacts/
         run: |
-          ls -la dist || true
-          ls -la dist/${{ matrix.os.electron-builder-unpacked }} || true
-          ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources || true
-          mkdir -p artifacts/
-          cp dist/'Climate Wallet'* artifacts/
+          set -vx
+          ls -la dist 2>&1 || true
+          ls -la dist/${{ matrix.os.electron-builder-unpacked }} 2>&1 || true
+          ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources 2>&1 || true
+          mkdir -p artifacts/ 2>&1
+          cp --verbose "dist/${{ matrix.os.build-result-pattern }}" artifacts/ 2>&1
 
       - name: Notarize
         if: matrix.os.matrix == 'macos'
