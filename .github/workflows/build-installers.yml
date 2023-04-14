@@ -177,6 +177,12 @@ jobs:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
           path: 'artifacts/*'
 
+      # We want to delete this no matter what happened in the previous steps (failures, success, etc)
+      - name: Delete signing keychain
+        if: always()
+        run:
+          security delete-keychain signing_temp.keychain || true
+
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
