@@ -134,8 +134,8 @@ jobs:
         run: |
           set -vx
           ls -la dist 2>&1 || true
-#          ls -la dist/${{ matrix.os.electron-builder-unpacked }} 2>&1 || true
-#          ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources 2>&1 || true
+          # ls -la dist/${{ matrix.os.electron-builder-unpacked }} 2>&1 || true
+          # ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources 2>&1 || true
           mkdir -p artifacts/ 2>&1
           cp -v "dist/${{ matrix.os.build-result-pattern }}" artifacts/ 2>&1
 
