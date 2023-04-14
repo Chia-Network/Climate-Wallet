@@ -20,6 +20,7 @@ defaults:
     shell: bash
 
 jobs:
+  build:
     name: Build Installer ${{ matrix.os.name }}
     runs-on: ${{ matrix.os.runs-on }}
     timeout-minutes: 30
@@ -36,6 +37,7 @@ jobs:
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact: climate-token-client-chia-linux-amd64
             executable-extension: ''
+            artifact-name: linux
           - name: macOS
             matrix: macos
             runs-on: macos-latest
@@ -43,6 +45,7 @@ jobs:
             electron-builder-unpacked: mac
             token-driver-artifact: climate-token-client-chia-macos-amd64
             executable-extension: ''
+            artifact-name: macos
           - name: Windows
             matrix: windows
             runs-on: windows-latest
@@ -50,6 +53,7 @@ jobs:
             electron-builder-unpacked: win-unpacked
             token-driver-artifact: climate-token-client-chia-windows-amd64
             executable-extension: '.exe'
+            artifact-name: windows
 
     steps:
       - uses: Chia-Network/actions/clean-workspace@main
@@ -124,96 +128,14 @@ jobs:
       - name: Upload Installer to artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os.name }}
+          name: ${{ matrix.os.artifact-name }}-installer
           path: 'artifacts/*'
-
-  build_windows:
-    name: Build Windows Installer
-    runs-on: windows-2019
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Node 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: npm install
-        run: |
-          node --version
-          npm install
-      - name: Build electron app
-        env:
-          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
-          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
-        run: npm run electron:package:win
-
-      - name: Upload Windows Installer
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-installer
-          path: ${{ github.workspace }}/dist/*.exe
-
-  build_linux:
-    name: Build Linux Installer
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Node 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: npm install
-        run: |
-          node --version
-          npm install
-      - name: Build electron app
-        run: npm run electron:package:linux
-
-      - name: Upload Linux Installer
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux-installer
-          path: ${{ github.workspace }}/dist/*.deb
-
-  build_web:
-    name: Build Climate Warehouse Web App
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Node 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: npm install and build
-        run: |
-          node --version
-          npm install
-          npm run build
-      - name: Create .tar.gz of the web build
-        run: tar -cvzf web-build.tar.gz build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: web-build
-          path: web-build.tar.gz
 
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     needs:
-      - build_mac
-      - build_windows
-      - build_linux
-      - build_web
+      - build
     steps:
       - name: Download Windows artifacts
         uses: actions/download-artifact@v3
@@ -221,11 +143,11 @@ jobs:
           name: windows-installer
           path: windows-installer
 
-      - name: Download MacOS artifacts
+      - name: Download macOS artifacts
         uses: actions/download-artifact@v3
         with:
-          name: mac-installer
-          path: mac-installer
+          name: macos-installer
+          path: macos-installer
 
       - name: Download Linux artifacts
         uses: actions/download-artifact@v3
@@ -233,22 +155,15 @@ jobs:
           name: linux-installer
           path: linux-installer
 
-      - name: Download Web artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: web-build
-          path: web-build
-
       - name: Get Filenames
         run: |
           DMG_FILE=$(find ${{ github.workspace }}/mac-installer/ -type f -name '*.dmg')
           DEB_FILE=$(find ${{ github.workspace }}/linux-installer/ -type f -name '*.deb')
           EXE_FILE=$(find ${{ github.workspace }}/windows-installer/ -type f -name '*.exe')
-          WEB_FILE=$(find ${{ github.workspace }}/web-build/ -type f -name '*.tar.gz')
           echo "DMG_FILE=$DMG_FILE" >>$GITHUB_ENV
           echo "DEB_FILE=$DEB_FILE" >>$GITHUB_ENV
           echo "EXE_FILE=$EXE_FILE" >>$GITHUB_ENV
-          echo "WEB_FILE=$WEB_FILE" >>$GITHUB_ENV
+
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
@@ -256,4 +171,3 @@ jobs:
             ${{ env.DMG_FILE }}
             ${{ env.DEB_FILE }}
             ${{ env.EXE_FILE }}
-            ${{ env.WEB_FILE }}
