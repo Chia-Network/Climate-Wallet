@@ -106,8 +106,9 @@ jobs:
           # macos
           CSC_FOR_PULL_REQUEST: "true"
           # windows
-          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
-          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
+          # TODO: uncomment
+          # CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
+          # CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
         run: |
           npm run build
           npm run ${{ matrix.os.npm-run-command }}
