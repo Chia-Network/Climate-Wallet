@@ -24,9 +24,9 @@
     "locale": "lingui extract && lingui compile",
     "package-submodule": "pyinstaller --clean --distpath build pyinstaller.spec ",
     "package-all": "electron-builder build --linux --macos --win -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-linux": "electron-builder build --linux  -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-macos": "electron-builder build --macos  -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-windows": "electron-builder build --win -c.extraMetadata.main=build/electron/main.js --publish never"
+    "package-linux": "electron-builder build --linux --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-macos": "electron-builder build --macos --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-windows": "electron-builder build --windows --x64 -c.extraMetadata.main=build/electron/main.js --publish never"
   },
   "dependencies": {
     "@chia/api": "./packages/api",
