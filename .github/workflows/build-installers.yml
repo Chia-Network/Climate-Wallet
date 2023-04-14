@@ -130,7 +130,7 @@ jobs:
           p12-password: ${{ secrets.APPLE_DEV_ID_APP_PASS }}
 
       - name: Prepare for Linux ARM electron-builder
-        if: matrix.os.matrix == 'linux' and matrix.arch.matrix == 'arm'
+        if: matrix.os.matrix == 'linux' && matrix.arch.matrix == 'arm'
         run: |
           # TODO: make this an action?
           # https://github.com/Chia-Network/chia-blockchain/blob/9b8cdd36daebf2efe8777c98e212e564f4cdd475/build_scripts/build_linux_deb-2-installer.sh#L72
