@@ -73,9 +73,11 @@ jobs:
         arch:
           - name: ARM
             matrix: arm
+            artifact-name: arm64
             electron-builder-options: --arm64
           - name: Intel
             matrix: intel
+            artifact-name: amd64
             electron-builder-options: --x64
         exclude:
           - os:
@@ -171,7 +173,7 @@ jobs:
       - name: Upload Installer to artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os.artifact-name }}-installer
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
           path: 'artifacts/*'
 
   release:
