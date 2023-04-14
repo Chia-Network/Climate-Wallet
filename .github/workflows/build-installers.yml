@@ -137,7 +137,7 @@ jobs:
           ls -la dist/${{ matrix.os.electron-builder-unpacked }} 2>&1 || true
           ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources 2>&1 || true
           mkdir -p artifacts/ 2>&1
-          cp --verbose "dist/${{ matrix.os.build-result-pattern }}" artifacts/ 2>&1
+          cp --verbose "dist/${{ matrix.os.electron-builder-unpacked }}/${{ matrix.os.build-result-pattern }}" artifacts/ 2>&1
 
       - name: Notarize
         if: matrix.os.matrix == 'macos'
