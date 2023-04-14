@@ -39,7 +39,7 @@ jobs:
             token-driver-artifact: climate-token-client-chia-linux-amd64
             executable-extension: ''
             # TODO: don't we want .deb?
-            build-result-pattern: '"Climate Wallet-"*".deb"'
+            build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
           - name: macOS
             matrix: macos
