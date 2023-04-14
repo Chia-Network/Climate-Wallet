@@ -23,6 +23,7 @@
     "locale:compile": "lingui compile",
     "locale": "lingui extract && lingui compile",
     "package-submodule": "pyinstaller --clean --distpath build pyinstaller.spec ",
+    "package-none": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
     "package-all": "electron-builder build --linux --macos --win -c.extraMetadata.main=build/electron/main.js --publish never",
     "package-linux": "electron-builder build --linux --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
     "package-macos": "electron-builder build --macos --x64 -c.extraMetadata.main=build/electron/main.js --publish never",

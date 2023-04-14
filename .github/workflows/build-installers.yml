@@ -120,7 +120,7 @@ jobs:
         if: matrix.os.matrix == 'linux'
         run: |
           npm run build
-          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
       - name: Build electron app (macOS)
         if: matrix.os.matrix == 'macos'
@@ -129,7 +129,7 @@ jobs:
           CSC_FOR_PULL_REQUEST: "true"
         run: |
           npm run build
-          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
       - name: Build electron app (Windows)
         if: matrix.os.matrix == 'windows'
@@ -139,7 +139,7 @@ jobs:
           CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
         run: |
           npm run build
-          npm run electron-builder build ${{ matrix.arch.electron-builder-options }} ${{ matrix.arch.electron-builder-options }} -c.extraMetadata.main=build/electron/main.js --publish never
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
       - name: Copy to artifacts/
         run: |
