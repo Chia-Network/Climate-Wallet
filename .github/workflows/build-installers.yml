@@ -123,7 +123,7 @@ jobs:
 
       - name: Import Apple installer signing certificate
         if: matrix.os.matrix == 'macos'
-        uses: Apple-Actions/import-codesign-certs@v1
+        uses: Apple-Actions/import-codesign-certs@v2
         with:
           p12-file-base64: ${{ secrets.APPLE_DEV_ID_APP }}
           p12-password: ${{ secrets.APPLE_DEV_ID_APP_PASS }}
