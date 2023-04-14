@@ -21,7 +21,7 @@ defaults:
 
 jobs:
   build:
-    name: Build Installer ${{ matrix.os.name }}
+    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }}
     runs-on: ${{ matrix.os.runs-on }}
     timeout-minutes: 30
     strategy:
@@ -32,6 +32,7 @@ jobs:
           # TODO: use old versions for improved compatibility?
           - name: Linux
             matrix: linux
+            emoji: 🐧
             runs-on: ubuntu-latest
             npm-run-command: package-linux
             electron-builder-unpacked: linux-unpacked
@@ -40,6 +41,7 @@ jobs:
             artifact-name: linux
           - name: macOS
             matrix: macos
+            emoji: 🍎
             runs-on: macos-latest
             npm-run-command: package-macos
             electron-builder-unpacked: mac
@@ -48,6 +50,7 @@ jobs:
             artifact-name: macos
           - name: Windows
             matrix: windows
+            emoji: 🪟
             runs-on: windows-latest
             npm-run-command: package-windows
             electron-builder-unpacked: win-unpacked
