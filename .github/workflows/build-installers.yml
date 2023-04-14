@@ -21,7 +21,7 @@ defaults:
 
 jobs:
   build:
-    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }}
+    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
     runs-on: ${{ matrix.os.runs-on }}
     timeout-minutes: 30
     strategy:
