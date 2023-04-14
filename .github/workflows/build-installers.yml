@@ -38,7 +38,9 @@ jobs:
               intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
-            token-driver-artifact: climate-token-client-chia-linux-amd64
+            token-driver-artifact:
+              arm: climate-token-client-chia-linux-arm64
+              intel: climate-token-client-chia-linux-amd64
             executable-extension: ''
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
@@ -50,7 +52,9 @@ jobs:
               intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
-            token-driver-artifact: climate-token-client-chia-macos-amd64
+            token-driver-artifact:
+              arm: climate-token-client-chia-macos-arm64
+              intel: climate-token-client-chia-macos-amd64
             executable-extension: ''
             build-result-pattern: '"Climate Wallet-"*".dmg"'
             artifact-name: macos
@@ -61,7 +65,8 @@ jobs:
               intel: [windows-latest]
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
-            token-driver-artifact: climate-token-client-chia-windows-amd64
+            token-driver-artifact:
+              intel: climate-token-client-chia-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
@@ -102,7 +107,7 @@ jobs:
         run: |
           # TODO: totally hacking it with this pr branch so there's a build
           RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch add_arm --limit 1 --json databaseId --jq '.[0].databaseId')
-          gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact }} --dir downloaded-artifacts/
+          gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact[matrix.arch.matrix] }} --dir downloaded-artifacts/
           mkdir -p build/
           # expected to fail if there are multiple files
           mv downloaded-artifacts/* build/main${{ matrix.os.executable-extension }}
