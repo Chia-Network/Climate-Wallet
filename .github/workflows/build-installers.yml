@@ -101,18 +101,33 @@ jobs:
           p12-file-base64: ${{ secrets.APPLE_DEV_ID_APP }}
           p12-password: ${{ secrets.APPLE_DEV_ID_APP_PASS }}
 
-      - name: Build electron app
-        env:
-          # macos
-          CSC_FOR_PULL_REQUEST: "true"
-          # windows
-          # TODO: uncomment
-          # CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
-          # CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
+      - name: Build electron app (Linux)
+        if: matrix.os.matrix == 'linux'
         run: |
           npm run build
           npm run ${{ matrix.os.npm-run-command }}
 
+      - name: Build electron app (macOS)
+        if: matrix.os.matrix == 'macos'
+        env:
+          # macos
+          CSC_FOR_PULL_REQUEST: "true"
+        run: |
+          npm run build
+          npm run ${{ matrix.os.npm-run-command }}
+
+      - name: Build electron app (Windows)
+        if: matrix.os.matrix == 'windows'
+        env:
+          # windows
+          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
+          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
+        run: |
+          npm run build
+          npm run ${{ matrix.os.npm-run-command }}
+
+      - name: Copy to artifacts/
+        run: |
           ls -la dist || true
           ls -la dist/${{ matrix.os.electron-builder-unpacked }} || true
           ls -la dist/${{ matrix.os.electron-builder-unpacked }}/resources || true
