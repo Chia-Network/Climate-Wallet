@@ -108,7 +108,7 @@ const onRunService = () => {
   }
   console.error(' ==== onRunService() productionRunApp', productionRunApp)
 
-  const script = path.join(__dirname, `../${productionRunApp}`)
+  const script = path.join(__dirname, `../../../extraResources/${productionRunApp}`)
   console.error(' ==== onRunService() script', script)
   return require('child_process').execFile(script)
 }

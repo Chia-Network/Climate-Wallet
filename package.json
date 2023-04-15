@@ -195,6 +195,9 @@
       "build/**/*",
       "node_modules/**/*"
     ],
+    "extraResources": [
+      "extraResources/**/*"
+    ],
     "publish": {
       "provider": "github",
       "repo": "climate-wallet",
