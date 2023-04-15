@@ -142,10 +142,10 @@ jobs:
       - name: Build electron app
         env:
           # macos
-          CSC_FOR_PULL_REQUEST: ${{ matrix.os.matrix == 'macos' && 'true' || '' }}
+          CSC_FOR_PULL_REQUEST: ${{ matrix.os.matrix == 'macos' && 'true' || env.CSC_FOR_PULL_REQUEST }}
           # windows
-          CSC_LINK: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_CERT || '' }}
-          CSC_KEY_PASSWORD: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_PASSWORD || '' }}
+          CSC_LINK: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_CERT || env.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_PASSWORD || env.CSC_KEY_PASSWORD }}
         run: |
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
