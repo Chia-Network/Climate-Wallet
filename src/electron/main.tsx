@@ -101,12 +101,15 @@ const onRunDevService = () => {
 }
 
 const onRunService = () => {
+  console.error(' ==== onRunService() entering')
   let productionRunApp = 'main'
   if (process.platform === 'win32') {
     productionRunApp = 'main.exe'
   }
+  console.error(' ==== onRunService() productionRunApp', productionRunApp)
 
   const script = path.join(__dirname, `../${productionRunApp}`)
+  console.error(' ==== onRunService() script', script)
   return require('child_process').execFile(script)
 }
 
