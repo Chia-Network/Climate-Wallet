@@ -149,6 +149,7 @@ jobs:
         if: matrix.os.matrix == 'macos'
         env:
           # macos
+          # TODO: maybe remove?
           CSC_FOR_PULL_REQUEST: "true"
         run: |
           npm run build
