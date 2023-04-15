@@ -139,13 +139,27 @@ jobs:
           sudo gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
-      - name: Build electron app
+      - name: Build electron app (Linux)
+        if: matrix.os.matrix == 'linux'
+        run: |
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (macOS)
+        if: matrix.os.matrix == 'macos'
         env:
           # macos
-          CSC_FOR_PULL_REQUEST: ${{ matrix.os.matrix == 'macos' && 'true' || '' }}
+          CSC_FOR_PULL_REQUEST: "true"
+        run: |
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (Windows)
+        if: matrix.os.matrix == 'windows'
+        env:
           # windows
-          CSC_LINK: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_CERT || '' }}
-          CSC_KEY_PASSWORD: ${{ matrix.os.matrix == 'windows' && secrets.WIN_CODE_SIGN_PASSWORD || '' }}
+          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
+          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
         run: |
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
