@@ -107,13 +107,15 @@ jobs:
       - name: download token driver
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
+          DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
         run: |
           # TODO: totally hacking it with this pr branch so there's a build
           RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch add_arm --limit 1 --json databaseId --jq '.[0].databaseId')
           gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact[matrix.arch.matrix] }} --dir downloaded-artifacts/
           mkdir -p extraResources/
           # expected to fail if there are multiple files
-          mv downloaded-artifacts/* extraResources/main${{ matrix.os.executable-extension }}
+          mv downloaded-artifacts/* "${DESTINATION}"
+          chmod a+x "${DESTINATION}"
           ls -la extraResources/ || true
 
       - name: prep
