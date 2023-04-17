@@ -201,37 +201,37 @@ jobs:
     needs:
       - build
     steps:
+      - name: Download Linux ARM artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-arm64-installer
+          path: installers
+
+      - name: Download Linux Intel artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-amd64-installer
+          path: installers
+
+      - name: Download macOS ARM artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-arm64-installer
+          path: installers
+
+      - name: Download macOS Intel artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-amd64-installer
+          path: installers
+
       - name: Download Windows artifacts
         uses: actions/download-artifact@v3
         with:
-          name: windows-installer
-          path: windows-installer
-
-      - name: Download macOS artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: macos-installer
-          path: macos-installer
-
-      - name: Download Linux artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: linux-installer
-          path: linux-installer
-
-      - name: Get Filenames
-        run: |
-          DMG_FILE=$(find ${{ github.workspace }}/mac-installer/ -type f -name '*.dmg')
-          DEB_FILE=$(find ${{ github.workspace }}/linux-installer/ -type f -name '*.deb')
-          EXE_FILE=$(find ${{ github.workspace }}/windows-installer/ -type f -name '*.exe')
-          echo "DMG_FILE=$DMG_FILE" >>$GITHUB_ENV
-          echo "DEB_FILE=$DEB_FILE" >>$GITHUB_ENV
-          echo "EXE_FILE=$EXE_FILE" >>$GITHUB_ENV
+          name: windows-amd64-installer
+          path: installers
 
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
-          files: |
-            ${{ env.DMG_FILE }}
-            ${{ env.DEB_FILE }}
-            ${{ env.EXE_FILE }}
+          files: installers/*
