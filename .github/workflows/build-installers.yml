@@ -86,8 +86,7 @@ jobs:
               matrix: arm
 
     steps:
-      # TODO: switch back to @main
-      - uses: Chia-Network/actions/clean-workspace@cleanup_keychain_for_macos
+      - uses: Chia-Network/actions/clean-workspace@main
 
       - name: Checkout Code
         uses: actions/checkout@v3
