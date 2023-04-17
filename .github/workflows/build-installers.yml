@@ -205,36 +205,6 @@ jobs:
         with:
           path: installers
 
-#      - name: Download Linux ARM artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: linux-arm64-installer
-#          path: installers
-#
-#      - name: Download Linux Intel artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: linux-amd64-installer
-#          path: installers
-#
-#      - name: Download macOS ARM artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: macos-arm64-installer
-#          path: installers
-#
-#      - name: Download macOS Intel artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: macos-amd64-installer
-#          path: installers
-#
-#      - name: Download Windows artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: windows-amd64-installer
-#          path: installers
-
       - name: Report installers
         run: |
           ls -lda installers/* || true
@@ -246,3 +216,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: installers/*/*
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.ref }}
