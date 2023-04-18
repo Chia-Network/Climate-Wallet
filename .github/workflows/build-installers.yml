@@ -217,4 +217,4 @@ jobs:
         with:
           files: installers/*/*
           fail_on_unmatched_files: true
-          target_commitish: ${{ github.ref }}
+          target_commitish: ${{ github.sha }}
