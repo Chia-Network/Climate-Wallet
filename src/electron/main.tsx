@@ -106,7 +106,7 @@ const onRunService = () => {
     productionRunApp = 'main.exe'
   }
 
-  const script = path.join(__dirname, `../${productionRunApp}`)
+  const script = path.join(__dirname, `../../../extraResources/${productionRunApp}`)
   return require('child_process').execFile(script)
 }
 

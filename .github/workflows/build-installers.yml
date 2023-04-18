@@ -1,0 +1,220 @@
+name: 📦🚀 Build & Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+concurrency:
+  # SHA is added to the end if on `main` to let all main workflows run
+  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref == 'refs/heads/main' && github.sha || '' }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
+    runs-on: ${{ matrix.os.runs-on[matrix.arch.matrix] }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration:
+          - token-driver-artifact-ref: 1.0.2
+        python-version: [3.9]
+        os:
+          # TODO: use old versions for improved compatibility?
+          - name: Linux
+            matrix: linux
+            emoji: 🐧
+            runs-on:
+              arm: [Linux, ARM64]
+              intel: [ubuntu-latest]
+            electron-builder-options: --linux
+            electron-builder-unpacked: linux-unpacked
+            token-driver-artifact:
+              arm: climate-token-client-chia-linux-arm64
+              intel: climate-token-client-chia-linux-amd64
+            executable-extension: ''
+            build-result-pattern: '"climate-wallet"*".deb"'
+            artifact-name: linux
+          - name: macOS
+            matrix: macos
+            emoji: 🍎
+            runs-on:
+              arm: [macOS, ARM64]
+              intel: [macos-latest]
+            electron-builder-options: --macos
+            electron-builder-unpacked: mac
+            token-driver-artifact:
+              arm: climate-token-client-chia-macos-arm64
+              intel: climate-token-client-chia-macos-amd64
+            executable-extension: ''
+            build-result-pattern: '"Climate Wallet-"*".dmg"'
+            artifact-name: macos
+          - name: Windows
+            matrix: windows
+            emoji: 🪟
+            runs-on:
+              intel: [windows-latest]
+            electron-builder-options: --windows
+            electron-builder-unpacked: win-unpacked
+            token-driver-artifact:
+              intel: climate-token-client-chia-windows-amd64
+            executable-extension: '.exe'
+            build-result-pattern: '"Climate Wallet Setup "*".exe"'
+            artifact-name: windows
+        arch:
+          - name: ARM
+            matrix: arm
+            artifact-name: arm64
+            electron-builder-options: --arm64
+          - name: Intel
+            matrix: intel
+            artifact-name: amd64
+            electron-builder-options: --x64
+        exclude:
+          - os:
+              matrix: windows
+            arch:
+              matrix: arm
+
+    steps:
+      - uses: Chia-Network/actions/clean-workspace@main
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: install dmg-license
+        if: matrix.os.matrix == 'macos'
+        run: |
+          npm install dmg-license
+
+      - name: download token driver
+        env:
+          GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
+          DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
+        run: |
+          RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --json databaseId --jq '.[0].databaseId')
+          gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact[matrix.arch.matrix] }} --dir downloaded-artifacts/
+          mkdir -p extraResources/
+          # expected to fail if there are multiple files
+          mv downloaded-artifacts/* "${DESTINATION}"
+          chmod a+x "${DESTINATION}"
+          ls -la extraResources/ || true
+
+      - name: prep
+        run: |
+          cp .env.example .env
+          # back to this once we have a lock: npm ci
+          npm install
+
+      - name: Import Apple installer signing certificate
+        if: matrix.os.matrix == 'macos'
+        uses: Apple-Actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_DEV_ID_APP }}
+          p12-password: ${{ secrets.APPLE_DEV_ID_APP_PASS }}
+
+      - name: Prepare for Linux ARM electron-builder
+        if: matrix.os.matrix == 'linux' && matrix.arch.matrix == 'arm'
+        run: |
+          # TODO: make this an action?
+          # https://github.com/Chia-Network/chia-blockchain/blob/9b8cdd36daebf2efe8777c98e212e564f4cdd475/build_scripts/build_linux_deb-2-installer.sh#L72
+          sudo apt -y install ruby ruby-dev
+          sudo gem install public_suffix -v 4.0.7
+          sudo gem install fpm
+          echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
+
+      - name: Build electron app (Linux)
+        if: matrix.os.matrix == 'linux'
+        run: |
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (macOS)
+        if: matrix.os.matrix == 'macos'
+        env:
+          # macos
+          CSC_FOR_PULL_REQUEST: "true"
+        run: |
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (Windows)
+        if: matrix.os.matrix == 'windows'
+        env:
+          # windows
+          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
+          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
+        run: |
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Copy to artifacts/
+        run: |
+          ls -la dist || true
+          mkdir -p artifacts/
+          cp -v dist/${{ matrix.os.build-result-pattern }} artifacts/
+
+      - name: Notarize
+        if: matrix.os.matrix == 'macos'
+        run: |
+          DMG_FILE=$(find ${{ github.workspace }}/artifacts/ -type f -name '*.dmg')
+          npm install -g notarize-cli
+          notarize-cli \
+            --file="$DMG_FILE" \
+            --bundle-id net.chia.climate-wallet \
+            --username "${{ secrets.APPLE_NOTARIZE_USERNAME }}" \
+            --password "${{ secrets.APPLE_NOTARIZE_PASSWORD }}"
+
+      - name: Upload Installer to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
+          path: 'artifacts/*'
+
+      # We want to delete this no matter what happened in the previous steps (failures, success, etc)
+      - name: Delete signing keychain
+        if: always()
+        run:
+          security delete-keychain signing_temp.keychain || true
+
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: installers
+
+      - name: Report installers
+        run: |
+          ls -lda installers/* || true
+          echo ====
+          ls -lda installers/*/* || true
+
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: installers/*/*
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.ref }}

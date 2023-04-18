@@ -23,9 +23,11 @@
     "locale:compile": "lingui compile",
     "locale": "lingui extract && lingui compile",
     "package-submodule": "pyinstaller --clean --distpath build pyinstaller.spec ",
-    "package-all": "electron-builder build --mac --win -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-mac": "electron-builder build --mac  -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-windows": "electron-builder build --win -c.extraMetadata.main=build/electron/main.js --publish never"
+    "package-none": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-all": "electron-builder build --linux --macos --win -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-linux": "electron-builder build --linux --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-macos": "electron-builder build --macos --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-windows": "electron-builder build --windows --x64 -c.extraMetadata.main=build/electron/main.js --publish never"
   },
   "dependencies": {
     "@chia/api": "./packages/api",
@@ -134,7 +136,7 @@
     "css-loader": "6.5.1",
     "dotenv-webpack": "^8.0.1",
     "electron": "^20.0.2",
-    "electron-builder": "^23.3.3",
+    "electron-builder": "^23.5.1",
     "electron-winstaller": "5.0.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
@@ -193,6 +195,9 @@
       "build/**/*",
       "node_modules/**/*"
     ],
+    "extraResources": [
+      "extraResources/**/*"
+    ],
     "publish": {
       "provider": "github",
       "repo": "climate-wallet",
@@ -202,11 +207,7 @@
       "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
-          "target": "default",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
+          "target": "dmg"
         }
       ]
     },
@@ -214,11 +215,7 @@
       "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
+          "target": "nsis"
         }
       ]
     },
@@ -226,10 +223,7 @@
       "icon": "src/assets/img/climate_wallet-green.png",
       "target": [
         {
-          "target": "AppImage",
-          "arch": [
-            "x64"
-          ]
+          "target": "deb"
         }
       ]
     }
