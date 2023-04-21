@@ -10,6 +10,7 @@ declare const process: {
   env: {
     CLIMATE_WAREHOUSE: string
     CLIMATE_WAREHOUSE_NODE: string
+    CLIMATE_WAREHOUSE_API_KEY: string
   }
 }
 
@@ -18,11 +19,13 @@ interface Config {
   climateWarehousesNode: string
   apiTimeout: number
   version: string
+  climateWarehouseApiKey: string
 }
 
 const defaultConfig: Config = {
   climateWarehouses: [process.env.CLIMATE_WAREHOUSE],
   climateWarehousesNode: process.env.CLIMATE_WAREHOUSE_NODE,
+  climateWarehouseApiKey: process.env.CLIMATE_WAREHOUSE_API_KEY,
   apiTimeout: 20 * 1000,
   version: version,
 }
