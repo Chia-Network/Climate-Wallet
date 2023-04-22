@@ -11,6 +11,7 @@ interface AxiosQuery {
 }
 
 const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
+  const apiKey = getConfig().climateWarehouseApiKey
   try {
     const result = await axios({
       url: url,
@@ -18,6 +19,7 @@ const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
       data,
       params,
       timeout: getConfig().apiTimeout || 20 * 1000,
+      headers: apiKey ? {"x-api-key": apiKey} : {}
     })
     return { data: result.data }
   } catch (axiosError) {
