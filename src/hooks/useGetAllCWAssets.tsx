@@ -47,7 +47,7 @@ export function useGetAllCWAssets() {
       })
     }
     return []
-  }, [assets, organizations])
+  }, [assets, organizations, projects])
 
   return { isLoading, data, error }
 }
