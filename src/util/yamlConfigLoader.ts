@@ -15,7 +15,7 @@ declare const process: {
 }
 
 interface Config {
-  cadtServerHosts: string[]
+  cadtApiServerHosts: string[]
   cadtUiHost: string
   apiTimeout: number
   version: string
@@ -23,7 +23,7 @@ interface Config {
 }
 
 const defaultConfig: Config = {
-  cadtServerHosts: [process.env.CADT_API_SERVER_HOST],
+  cadtApiServerHosts: [process.env.CADT_API_SERVER_HOST],
   cadtUiHost: process.env.CADT_UI_HOST,
   cadtApiKey: process.env.CADT_API_KEY,
   apiTimeout: 20 * 1000,

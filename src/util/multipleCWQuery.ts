@@ -35,7 +35,7 @@ const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
 const multipleCWQuery =
   (): BaseQueryFn<AxiosQuery, unknown, unknown> =>
   async ({ url, method, data, params }) => {
-    const serviceUrls = getConfig().cadtServerHosts || []
+    const serviceUrls = getConfig().cadtApiServerHosts || []
 
     const resArray = await Promise.all(
       serviceUrls.map((baseUrl) =>
