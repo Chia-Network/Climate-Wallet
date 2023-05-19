@@ -41,8 +41,8 @@ jobs:
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact:
-              arm: climate-token-client-chia-linux-arm64
-              intel: climate-token-client-chia-linux-amd64
+              arm: climate-token-driver-linux-arm64
+              intel: climate-token-driver-linux-amd64
             executable-extension: ''
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
@@ -55,8 +55,8 @@ jobs:
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             token-driver-artifact:
-              arm: climate-token-client-chia-macos-arm64
-              intel: climate-token-client-chia-macos-amd64
+              arm: climate-token-driver-macos-arm64
+              intel: climate-token-driver-macos-amd64
             executable-extension: ''
             build-result-pattern: '"Climate Wallet-"*".dmg"'
             artifact-name: macos
@@ -68,7 +68,7 @@ jobs:
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
             token-driver-artifact:
-              intel: climate-token-client-chia-windows-amd64
+              intel: climate-token-driver-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
