@@ -1,8 +1,13 @@
 # Climate Wallet
 
-This repository holds the source code for the Climate Wallet in the Climate Portal system.
+This repository holds the source code for the Climate Wallet in the Climate Tokenization Suite. Related programs are:
+* [Climate Tokenization Engine](https://github.com/Chia-Network/Climate-Tokenization-Engine) and [UI](https://github.com/Chia-Network/Climate-Tokenization-Engine-UI)
+* [Climate Token Driver](https://github.com/Chia-Network/climate-token-driver)
+* [CADT](https://github.com/Chia-Network/cadt) and [UI](https://github.com/Chia-Network/cadt-ui)
 
 Note this wallet is explicitly as an independent plugin to the latest official [Chia Wallet](https://www.chia.net/downloads/).
+
+*Note: Version 1.1.0 contains breaking changes. Configuration variables are renamed in the config.yaml file and are best handled by taking a backup of the Climate Wallet config.yaml file, unistalling the Climate Wallet and deleting the climate-wallet config.yaml file, then reinstalling and reconfiguring.*
 
 # Hierarchy
 
