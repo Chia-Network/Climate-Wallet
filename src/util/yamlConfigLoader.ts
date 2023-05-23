@@ -8,24 +8,24 @@ const version = packageJson.version
 
 declare const process: {
   env: {
-    CLIMATE_WAREHOUSE: string
-    CLIMATE_WAREHOUSE_NODE: string
-    CLIMATE_WAREHOUSE_API_KEY: string
+    CADT_API_SERVER_HOST: string
+    CADT_UI_HOST: string
+    CADT_API_KEY: string
   }
 }
 
 interface Config {
-  climateWarehouses: string[]
-  climateWarehousesNode: string
+  cadtApiServerHosts: string[]
+  cadtUiHost: string
   apiTimeout: number
   version: string
-  climateWarehouseApiKey: string
+  cadtApiKey: string
 }
 
 const defaultConfig: Config = {
-  climateWarehouses: [process.env.CLIMATE_WAREHOUSE],
-  climateWarehousesNode: process.env.CLIMATE_WAREHOUSE_NODE,
-  climateWarehouseApiKey: process.env.CLIMATE_WAREHOUSE_API_KEY,
+  cadtApiServerHosts: [process.env.CADT_API_SERVER_HOST],
+  cadtUiHost: process.env.CADT_UI_HOST,
+  cadtApiKey: process.env.CADT_API_KEY,
   apiTimeout: 20 * 1000,
   version: version,
 }

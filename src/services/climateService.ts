@@ -7,7 +7,7 @@ import {
 } from '@/types/ClimateServiceType'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const serviceURL = `${process.env.CLIMATE_SERVICE}:${process.env.CLIMATE_SERVICE_PORT}`
+export const serviceURL = `${process.env.CLIMATE_TOKEN_DRIVER_HOST}:${process.env.CLIMATE_TOKEN_DRIVER_HOST_PORT}`
 
 export const climateServiceApi = createApi({
   reducerPath: 'climateServiceApi',

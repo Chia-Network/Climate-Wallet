@@ -50,9 +50,9 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
 
 - A config.yaml file located at `./chia/mainnet/climate-wallet` is loaded, which adds to the configurations after .env. This part of the configuration is free to change by end binary users. When the application is opened, the new configurable would automatically apply.
 - About config.yaml:
-  - `climateWarehouses`:links of climate warehouses api
+  - `cadtApiServerHosts`:links of climate action data trust api
   - `apiTimeout`: api request timeout
-  - `climateWarehousesNode`:links of climate warehouses node
+  - `cadtUiHost`:links of climate warehouses node
   - `version`: climate wallet version
 
 ### Run from source for development

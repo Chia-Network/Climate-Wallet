@@ -11,7 +11,7 @@ interface AxiosQuery {
 }
 
 const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
-  const apiKey = getConfig().climateWarehouseApiKey
+  const apiKey = getConfig().cadtApiKey
   try {
     const result = await axios({
       url: url,
@@ -35,7 +35,7 @@ const axiosQuery = async ({ url, method, data, params }: AxiosQuery) => {
 const multipleCWQuery =
   (): BaseQueryFn<AxiosQuery, unknown, unknown> =>
   async ({ url, method, data, params }) => {
-    const serviceUrls = getConfig().climateWarehouses || []
+    const serviceUrls = getConfig().cadtApiServerHosts || []
 
     const resArray = await Promise.all(
       serviceUrls.map((baseUrl) =>

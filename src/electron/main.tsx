@@ -340,7 +340,7 @@ const killTokenPort = (port) => {
 
 //app start here
 app.on('ready', () => {
-  killTokenPort(process.env.CLIMATE_SERVICE_PORT || '31314')
+  killTokenPort(process.env.CLIMATE_TOKEN_DRIVER_PORT || '31314')
 
   app.applicationMenu = createMenu()
 })
