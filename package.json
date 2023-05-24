@@ -3,6 +3,7 @@
   "author": "Chia Network <hello@chia.net> (https://chia.net/)",
   "description": "Climate Wallet for Chia Blockchain",
   "productName": "Climate Wallet",
+  "version": "1.1.0",
   "private": true,
   "homepage": "./",
   "main": "build/electron/main.js",
@@ -227,6 +228,5 @@
         }
       ]
     }
-  },
-  "version": "1.0.13"
+  }
 }
