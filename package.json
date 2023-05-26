@@ -79,7 +79,7 @@
     "react-number-format": "4.9.1",
     "react-redux": "7.2.6",
     "react-router": "6.2.1",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "6.11.1",
     "react-scroll-to-bottom": "4.2.0",
     "react-teleporter": "2.2.1",
     "react-toastify": "^9.0.8",
