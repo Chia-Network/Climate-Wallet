@@ -40,7 +40,7 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@fontsource/roboto": "^4.5.8",
-    "@lingui/macro": "3.13.0",
+    "@lingui/macro": "4.0.0",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.105",
     "@mui/material": "^5.10.1",
