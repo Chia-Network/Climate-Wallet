@@ -45,7 +45,7 @@
     "@mui/lab": "^5.0.0-alpha.105",
     "@mui/material": "^5.10.1",
     "@mui/styled-engine-sc": "5.10.1",
-    "@mui/styles": "5.9.3",
+    "@mui/styles": "5.12.3",
     "@nivo/core": "0.79.0",
     "@nivo/line": "0.79.1",
     "@reduxjs/toolkit": "^1.8.4",
