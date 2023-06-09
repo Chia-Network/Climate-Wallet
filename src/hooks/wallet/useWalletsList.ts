@@ -199,7 +199,7 @@ export default function useWalletsList(
       [getWalletTypeOrder, getTypeOrder, 'name'],
       ['asc', 'asc', 'asc']
     )
-  }, [isLoading, wallets, catList, strayCats, hidden, search, walletAssetIds])
+  }, [isLoading, wallets, catList, strayCats, hidden, search, walletAssetIds, knownCatAssetIds])
 
   async function handleShow(id: number | string) {
     try {
