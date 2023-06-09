@@ -35,7 +35,7 @@ export default function useWallet(walletId?: number | string): IUseWalletProps {
 
       return currencyCode
     }
-  }, [wallet, currencyCode, isCatListLoading])
+  }, [wallet, currencyCode, isCatListLoading, catList])
 
   return {
     wallet,
