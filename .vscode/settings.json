@@ -6,6 +6,5 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSaveMode": "file",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "ansible.python.interpreterPath": "/bin/python3"
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
