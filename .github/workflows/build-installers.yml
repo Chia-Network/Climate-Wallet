@@ -121,7 +121,15 @@ jobs:
 
       - name: prep
         run: |
-          cp .env.example .env
+          cp -v .env.example .env
+          echo "User is:"
+          whoami
+          pwd
+          ls -lah
+          echo ""
+          echo ""
+          echo "root dir"
+          ls -lah /root/
           # back to this once we have a lock: npm ci
           npm install
 
