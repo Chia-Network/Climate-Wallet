@@ -10,26 +10,6 @@
   "engines": {
     "node": ">=12.20.0"
   },
-  "scripts": {
-    "start": "npm run electron",
-    "dev:electron": "cross-env NODE_ENV=development webpack --config webpack.electron.babel.ts --mode development && electron .",
-    "dev:react": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=8192 webpack serve --config webpack.react.babel.ts --mode development",
-    "dev": "concurrently --kill-others \"npm run dev:react\" \"npm run dev:electron\"",
-    "dev:fast": "concurrently --kill-others \"npm run dev:react\" \"npm run dev:electron\"",
-    "build:electron": "cross-env NODE_ENV=production webpack --config ./webpack.electron.babel.ts",
-    "build:react": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 webpack --config ./webpack.react.babel.ts",
-    "build": "npm run locale && npm run build:electron && npm run build:react",
-    "electron": "electron .",
-    "locale:extract": "lingui extract",
-    "locale:compile": "lingui compile",
-    "locale": "lingui extract && lingui compile",
-    "package-submodule": "pyinstaller --clean --distpath build pyinstaller.spec ",
-    "package-none": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-all": "electron-builder build --linux --macos --win -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-linux": "electron-builder build --linux --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-macos": "electron-builder build --macos --x64 -c.extraMetadata.main=build/electron/main.js --publish never",
-    "package-windows": "electron-builder build --windows --x64 -c.extraMetadata.main=build/electron/main.js --publish never"
-  },
   "dependencies": {
     "react": "17.0.2"
   },
