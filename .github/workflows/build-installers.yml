@@ -128,8 +128,6 @@ jobs:
           ls -lah
           echo ""
           echo ""
-          echo "root dir"
-          ls -lah /root/
           # back to this once we have a lock: npm ci
           npm install
 
