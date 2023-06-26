@@ -123,8 +123,6 @@ jobs:
         run: |
           cp .env.example .env
           # back to this once we have a lock: npm ci
-          git config --global url."https://github.com/".insteadOf git@github.com:
-          git config --global url."https://".insteadOf git://
           npm install
 
       - name: Import Apple installer signing certificate
