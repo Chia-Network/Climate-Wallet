@@ -99,7 +99,7 @@ jobs:
       - name: Setup Node 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '16.x'
 
       - name: install dmg-license
         if: matrix.os.matrix == 'macos'
