@@ -3,7 +3,7 @@
   "author": "Chia Network <hello@chia.net> (https://chia.net/)",
   "description": "Climate Wallet for Chia Blockchain",
   "productName": "Climate Wallet",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "homepage": "./",
   "main": "build/electron/main.js",
@@ -168,7 +168,7 @@
     "webpack": "5.66.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.8.1",
-    "xmldom": "github:xmldom/xmldom#0.8.0"
+    "@xmldom/xmldom": "0.8.0"
   },
   "browserslist": {
     "production": [

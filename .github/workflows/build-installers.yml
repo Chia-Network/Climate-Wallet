@@ -88,7 +88,8 @@ jobs:
               matrix: arm
 
     steps:
-      - uses: Chia-Network/actions/clean-workspace@main
+      - name: Clean workspace
+        uses: Chia-Network/actions/clean-workspace@main
 
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -98,7 +99,7 @@ jobs:
       - name: Setup Node 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '16'
 
       - name: install dmg-license
         if: matrix.os.matrix == 'macos'
