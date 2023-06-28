@@ -50,7 +50,10 @@ jobs:
             cat CHANGELOG.md
             git commit -m "chore: Updating changelog for $version"
             echo "Git commit complete"
-            git tag $version
+            echo "Doing a git status here"
+            git status
+            echo "Doing git tag next with -m"
+            git tag $version -m "Version $version"
             echo "Git tag complete"
             git push origin $version
             git push origin main
