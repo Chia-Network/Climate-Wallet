@@ -25,10 +25,10 @@ jobs:
           token: ${{ secrets.PACKAGE_ADMIN_PAT }}
           fetch-depth: 0
 
-      - uses: Chia-Network/actions/commit-sign/gpg@main
-        with:
-          gpg_private_key: ${{ secrets.CHIA_AUTOMATION_PRIVATE_GPG_KEY }}
-          passphrase: ${{ secrets.CHIA_AUTOMATION_PRIVATE_GPG_PASSPHRASE }}
+      # - uses: Chia-Network/actions/commit-sign/gpg@main
+      #   with:
+      #     gpg_private_key: ${{ secrets.CHIA_AUTOMATION_PRIVATE_GPG_KEY }}
+      #     passphrase: ${{ secrets.CHIA_AUTOMATION_PRIVATE_GPG_PASSPHRASE }}
 
       - name: Check for current version tag. Create if it doesn't exist
         run: |
@@ -41,9 +41,9 @@ jobs:
             echo "Tag does not exist. Creating and pushing tag"
             rm -f CHANGELOG.md
             npx conventional-changelog-cli -p angular -i CHANGELOG.md -s -r 0
-            git add CHANGELOG.md
             git config --global user.name 'ChiaAutomation'
             git config --global user.email 'automation@chia.net'
+            git add CHANGELOG.md
             git commit -m "chore: Updating changelog for $version"
             git tag $version
             git push origin $version
