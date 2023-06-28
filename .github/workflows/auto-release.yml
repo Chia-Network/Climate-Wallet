@@ -39,11 +39,19 @@ jobs:
             echo "Tag exists, nothing to do"
           else
             echo "Tag does not exist. Creating and pushing tag"
+            echo "git config information"
+            git config --list --global
             rm -f CHANGELOG.md
             npx conventional-changelog-cli -p angular -i CHANGELOG.md -s -r 0
             git add CHANGELOG.md
+            echo "Here's the git status"
+            git status
+            echo "Here's the CHANGELOG.md file"
+            cat CHANGELOG.md
             git commit -m "chore: Updating changelog for $version"
+            echo "Git commit complete"
             git tag $version
+            echo "Git tag complete"
             git push origin $version
             git push origin main
           fi
