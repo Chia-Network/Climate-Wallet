@@ -41,10 +41,10 @@ jobs:
             echo "Tag does not exist. Creating and pushing tag"
             rm -f CHANGELOG.md
             npx conventional-changelog-cli -p angular -i CHANGELOG.md -s -r 0
-            changes=$(npx conventional-changelog-cli -r 1)
+            changes=$(npx conventional-changelog-cli -r 1 | tail -n +2)
             git add CHANGELOG.md
             git commit -m "chore: Updating changelog for $version"
-            git tag $version -m "$changes"
+            git tag $version -m "Release $version \n$changes"
             git push origin $version
             git push origin main
           fi
