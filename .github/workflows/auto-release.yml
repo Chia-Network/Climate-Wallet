@@ -11,8 +11,8 @@ concurrency:
   group: main-release-check
 
 jobs:
-  check-version:
-    name: Check version increment
+  tag-and-changelog:
+    name: Create Changelog and tag release
     runs-on: ubuntu-latest
     steps:
       - name: Clean workspace
@@ -44,7 +44,7 @@ jobs:
             changes=$(npx conventional-changelog-cli -r 1 | tail -n +2)
             git add CHANGELOG.md
             git commit -m "chore: Updating changelog for $version"
-            git tag $version -m "Release $version \n$changes"
+            git tag $version -m "Release $version  $changes"
             git push origin $version
             git push origin main
           fi

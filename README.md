@@ -16,7 +16,39 @@ The Climate Wallet connects with the official [Chia Wallet](https://www.chia.net
 
 ## Installation
 
-Precompiled binaries and installers are available for MacOS, Windows, and Debian-based Linux distros (Ubuntu, Mint, PopOS, etc) on the [releases](https://github.com/Chia-Network/Climate-Wallet/releases) page.
+Precompiled binaries and installers are available for x86 and ARM versions of MacOS, Windows, and Debian-based Linux distros (Ubuntu, Mint, PopOS, etc) on the [releases](https://github.com/Chia-Network/Climate-Wallet/releases) page.
+
+#### Using APT on Debian-based Linux Distros (Ubuntu, Mint, etc)
+
+The Climate Wallet can be installed with `apt`.  
+
+1. Start by updating apt and allowing repository download over HTTPS:
+
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+```
+
+2.  Add Chia's official GPG Key (if you have installed Chia with `apt`, you'll have this key already and will get a message about overwriting the existing key, which is safe to do):
+
+```
+curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | sudo gpg --dearmor -o /usr/share/keyrings/chia.gpg
+```
+
+3. Use the following command to setup the repository.
+
+```
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/climate-tokenization/debian/ stable main" | sudo tee /etc/apt/sources.list.d/climate-tokenization.list > /dev/null
+```
+
+4.  Install the Climate Wallet
+
+```
+sudo apt-get update
+sudo apt-get install climate-wallet
+```
+
+5.  Run the Climate Wallet from your OS launcher or at the command line with `climate-wallet`. 
 
 ## Configuration
 
