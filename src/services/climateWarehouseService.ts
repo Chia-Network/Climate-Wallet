@@ -10,6 +10,10 @@ export const climateWarehouseServiceApi = createApi({
     getAllCWAsset: builder.query<CWAsset[], any>({
       query: () => ({
         url: `/v1/units`,
+        params: {
+          hasMarketplaceIdentifier: true,
+          includeProjectInfoInSearch: true,
+        },
         method: 'get',
       }),
     }),

@@ -8,7 +8,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import { Button, ButtonProps, Stack, Typography, useTheme } from '@mui/material'
-import { PropsWithChildren, ReactNode } from 'react'
+import { PropsWithChildren, ReactNode, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import TokenCard from './TokenCard'
 import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
@@ -61,7 +61,7 @@ const ButtonStack = ({ children }: PropsWithChildren<IButtonStackProps>) => {
 const TokenContent = () => {
   const theme = useTheme()
 
-  const { walletId, wallet, unit, loading } = useSelectedWallet()
+  const { walletId, wallet, unit } = useSelectedWallet()
   const { data: assetId } = useGetCATAssetIdQuery({ walletId })
 
   const { data: asset } = useGetAllCWAssetsById(assetId)
@@ -69,6 +69,14 @@ const TokenContent = () => {
   const { data: metadata } = useGetCWMetaDataQuery(asset?.orgUid, {
     skip: !assetId,
   })
+
+  const tailData = useMemo(() => {
+    if (!metadata) {
+      return undefined
+    }
+
+    return JSON.parse(metadata?.[`meta_${asset.asset_id}`])?.detokenization
+  }, [metadata])
 
   const { isDetokenWallet, blockingList, setBlockingList } =
     useDetokenzationBlockingList()
@@ -189,7 +197,7 @@ const TokenContent = () => {
             text={<Trans>Retire</Trans>}
             onClick={handleRetire}
           />
-          {metadata && metadata?.[`meta_${asset.asset_id}`] && (
+          {tailData && (
             <TokenContentButton
               text={<Trans>Request Detokenization</Trans>}
               onClick={handleDetoken}
