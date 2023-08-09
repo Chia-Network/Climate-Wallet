@@ -8,9 +8,12 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import { Button, ButtonProps, Stack, Typography, useTheme } from '@mui/material'
-import { PropsWithChildren, ReactNode, useEffect } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { useNavigate } from 'react-router'
 import TokenCard from './TokenCard'
+import { useGetAllCWAssetsById } from '@/hooks/useGetAllCWAssets'
+import { useGetCATAssetIdQuery } from '@chia/api-react'
+import { useGetCWMetaDataQuery } from '@/services/climateWarehouseService'
 
 interface TokenContentButtonProps extends ButtonProps {
   text: ReactNode
@@ -59,6 +62,14 @@ const TokenContent = () => {
   const theme = useTheme()
 
   const { walletId, wallet, unit, loading } = useSelectedWallet()
+  const { data: assetId } = useGetCATAssetIdQuery({ walletId })
+
+  const { data: asset } = useGetAllCWAssetsById(assetId)
+
+  const { data: metadata } = useGetCWMetaDataQuery(asset?.orgUid, {
+    skip: !assetId,
+  })
+
   const { isDetokenWallet, blockingList, setBlockingList } =
     useDetokenzationBlockingList()
 
@@ -178,10 +189,12 @@ const TokenContent = () => {
             text={<Trans>Retire</Trans>}
             onClick={handleRetire}
           />
-          <TokenContentButton
-            text={<Trans>Request Detokenization</Trans>}
-            onClick={handleDetoken}
-          />
+          {metadata && metadata?.[`meta_${asset.asset_id}`] && (
+            <TokenContentButton
+              text={<Trans>Request Detokenization</Trans>}
+              onClick={handleDetoken}
+            />
+          )}
         </ButtonStack>
       )}
     </Stack>
