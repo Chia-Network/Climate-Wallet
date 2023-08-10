@@ -138,6 +138,10 @@ const TokenHeader = () => {
           }
         />
         <TokenHeaderDesc
+          title={<Trans>Type</Trans>}
+          value={asset?.sequence_num}
+        />
+        <TokenHeaderDesc
           title={<Trans>Token Asset ID</Trans>}
           value={assetId}
         />

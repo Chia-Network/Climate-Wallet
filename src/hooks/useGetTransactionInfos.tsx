@@ -18,6 +18,10 @@ const useGetTransactionInfos = ({ cwAsset, balance }: Props) => {
       subtitle: <Trans>Quantity Held</Trans>,
       value: balance,
     },
+    {
+      subtitle: <Trans>Type</Trans>,
+      value: cwAsset?.sequence_num,
+    },
   ]
 }
 
