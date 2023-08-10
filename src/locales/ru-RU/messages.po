@@ -484,7 +484,7 @@ msgstr "Отмена"
 #~ msgid "Cancel on blockchain"
 #~ msgstr ""
 
-#: src/components/token/TokenContent.tsx:150
+#: src/components/token/TokenContent.tsx:170
 msgid "Cancel request"
 msgstr ""
 
@@ -1276,7 +1276,7 @@ msgstr ""
 msgid "Detokenization cannot be undone"
 msgstr ""
 
-#: src/components/token/TokenContent.tsx:131
+#: src/components/token/TokenContent.tsx:151
 msgid "Detokenized Quantity"
 msgstr ""
 
@@ -1342,7 +1342,7 @@ msgstr "Инструменты разработчика"
 #~ msgid "Distributed Identity Options"
 #~ msgstr "Distributed Identity Options"
 
-#: src/components/token/TokenContent.tsx:168
+#: src/components/token/TokenContent.tsx:188
 msgid "Do not include the registry-selected passphrase in the file."
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 #~ msgid "Download"
 #~ msgstr ""
 
-#: src/components/token/TokenContent.tsx:155
+#: src/components/token/TokenContent.tsx:175
 msgid "Download request file"
 msgstr ""
 
@@ -3345,7 +3345,7 @@ msgstr ""
 msgid "Quantity - low to high"
 msgstr ""
 
-#: src/components/token/TokenContent.tsx:114
+#: src/components/token/TokenContent.tsx:134
 #: src/hooks/useGetTransactionInfos.tsx:18
 msgid "Quantity Held"
 msgstr ""
@@ -3489,7 +3489,7 @@ msgstr ""
 #~ msgid "Report an Issue..."
 #~ msgstr "Сообщить о проблеме..."
 
-#: src/components/token/TokenContent.tsx:182
+#: src/components/token/TokenContent.tsx:203
 #: src/pages/Detokenization/RequestDetokenization.tsx:161
 #: src/pages/Detokenization/RequestDetokenization.tsx:180
 msgid "Request Detokenization"
@@ -3526,7 +3526,7 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: src/components/token/TokenContent.tsx:178
+#: src/components/token/TokenContent.tsx:198
 msgid "Retire"
 msgstr ""
 
@@ -3701,7 +3701,7 @@ msgstr ""
 #~ msgid "Sell"
 #~ msgstr "Sell"
 
-#: src/components/token/TokenContent.tsx:176
+#: src/components/token/TokenContent.tsx:196
 #: src/pages/Send/Send.tsx:189
 msgid "Send"
 msgstr "Send"
@@ -4347,7 +4347,7 @@ msgstr ""
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:141
+#: src/components/token/TokenHeader.tsx:145
 msgid "Token Asset ID"
 msgstr ""
 
@@ -4531,7 +4531,9 @@ msgstr ""
 #~ msgid "Try Again"
 #~ msgstr ""
 
+#: src/components/token/TokenHeader.tsx:141
 #: src/components/token/TokenHistory.tsx:25
+#: src/hooks/useGetTransactionInfos.tsx:22
 msgid "Type"
 msgstr "Type"
 
