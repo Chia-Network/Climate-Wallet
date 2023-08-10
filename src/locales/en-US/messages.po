@@ -484,7 +484,7 @@ msgstr "Cancel"
 #~ msgid "Cancel on blockchain"
 #~ msgstr "Cancel on blockchain"
 
-#: src/components/token/TokenContent.tsx:150
+#: src/components/token/TokenContent.tsx:170
 msgid "Cancel request"
 msgstr "Cancel request"
 
@@ -1104,7 +1104,7 @@ msgstr "Detokenization Quantity"
 msgid "Detokenization cannot be undone"
 msgstr "Detokenization cannot be undone"
 
-#: src/components/token/TokenContent.tsx:131
+#: src/components/token/TokenContent.tsx:151
 msgid "Detokenized Quantity"
 msgstr "Detokenized Quantity"
 
@@ -1170,7 +1170,7 @@ msgstr "Developer Tools"
 #~ msgid "Distributed Identity Options"
 #~ msgstr "Distributed Identity Options"
 
-#: src/components/token/TokenContent.tsx:168
+#: src/components/token/TokenContent.tsx:188
 msgid "Do not include the registry-selected passphrase in the file."
 msgstr "Do not include the registry-selected passphrase in the file."
 
@@ -1192,7 +1192,7 @@ msgstr "Do not include the registry-selected passphrase in the file."
 #~ msgid "Download"
 #~ msgstr "Download"
 
-#: src/components/token/TokenContent.tsx:155
+#: src/components/token/TokenContent.tsx:175
 msgid "Download request file"
 msgstr "Download request file"
 
@@ -3177,7 +3177,7 @@ msgstr "Quantity - high to low"
 msgid "Quantity - low to high"
 msgstr "Quantity - low to high"
 
-#: src/components/token/TokenContent.tsx:114
+#: src/components/token/TokenContent.tsx:134
 #: src/hooks/useGetTransactionInfos.tsx:18
 msgid "Quantity Held"
 msgstr "Quantity Held"
@@ -3321,7 +3321,7 @@ msgstr "Quantity Held"
 #~ msgid "Report an Issue..."
 #~ msgstr "Report an Issue..."
 
-#: src/components/token/TokenContent.tsx:182
+#: src/components/token/TokenContent.tsx:203
 #: src/pages/Detokenization/RequestDetokenization.tsx:161
 #: src/pages/Detokenization/RequestDetokenization.tsx:180
 msgid "Request Detokenization"
@@ -3358,7 +3358,7 @@ msgstr "Requesting Detokenization"
 msgid "Result"
 msgstr "Result"
 
-#: src/components/token/TokenContent.tsx:178
+#: src/components/token/TokenContent.tsx:198
 msgid "Retire"
 msgstr "Retire"
 
@@ -3533,7 +3533,7 @@ msgstr "Save request"
 #~ msgid "Sell"
 #~ msgstr "Sell"
 
-#: src/components/token/TokenContent.tsx:176
+#: src/components/token/TokenContent.tsx:196
 #: src/pages/Send/Send.tsx:189
 msgid "Send"
 msgstr "Send"
@@ -4179,7 +4179,7 @@ msgstr "This transaction has been submitted to the blockchain with this transact
 msgid "To"
 msgstr "To"
 
-#: src/components/token/TokenHeader.tsx:141
+#: src/components/token/TokenHeader.tsx:145
 msgid "Token Asset ID"
 msgstr "Token Asset ID"
 
@@ -4363,7 +4363,9 @@ msgstr "Transaction result"
 #~ msgid "Try Again"
 #~ msgstr "Try Again"
 
+#: src/components/token/TokenHeader.tsx:141
 #: src/components/token/TokenHistory.tsx:25
+#: src/hooks/useGetTransactionInfos.tsx:22
 msgid "Type"
 msgstr "Type"
 
