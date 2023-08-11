@@ -17,7 +17,7 @@ const TransactionResult = ({ transactionId, children, onFinish }: Props) => {
       </Typography>
       <TransactionBody>
         <Typography gutterBottom variant={'body1'}>
-          <Trans>Transaction Completed</Trans>
+          <Trans>Transaction Submitted</Trans>
         </Typography>
         <Typography gutterBottom color={'gray'} variant={'body1'}>
           <Trans>

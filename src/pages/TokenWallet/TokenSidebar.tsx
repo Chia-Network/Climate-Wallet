@@ -12,6 +12,7 @@ import getCWLink from '@/util/getCWLink'
 import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletType } from '@chia/api'
 import { Trans } from '@lingui/macro'
+import { useNavigate } from 'react-router-dom'
 import {
   FormControl,
   MenuItem,
@@ -42,6 +43,7 @@ const StyledRoot = styled(Stack)(({ theme }) => ({
 }))
 
 export default function TokenSidebar() {
+  const navigate = useNavigate()
   const { isLoadingAddStrayCats } = useCWAddStrayCats()
   const { list: wallets, isLoading: isLoadingWallets } = useWalletsList(
     [WalletType.STANDARD_WALLET, WalletType.CAT],
@@ -173,6 +175,10 @@ export default function TokenSidebar() {
       setWalletId(sortedWallets[0].walletId)
     }
   }, [sortedWallets, filteredWallets, walletsBalance])
+
+  if (!isLoadingAllCWAssets && sortedWallets.length === 0) {
+    navigate('/dashboard/wallets/no-token')
+  }
 
   return (
     <StyledRoot direction="column" gap={3}>
