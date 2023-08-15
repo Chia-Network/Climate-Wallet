@@ -201,6 +201,14 @@ const TokenListItem = ({ walletId }: TokenListItemProps) => {
                 &nbsp;
                 <Typography variant="body2">{asset.vintageYear}</Typography>
               </Stack>
+              {Boolean(asset?.sequence_num) &&
+                asset?.sequence_num.toString() !== '0' && (
+                  <Stack direction="row" alignItems="flex-end">
+                    <Typography variant="body2">
+                      {asset.sequence_num}
+                    </Typography>
+                  </Stack>
+                )}
               <Divider
                 sx={{
                   backgroundColor: '#BFBFBF',

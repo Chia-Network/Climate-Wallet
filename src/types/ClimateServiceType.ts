@@ -34,14 +34,14 @@ export interface TokenBasicData {
   org_uid: string
   warehouse_project_id: string
   vintage_year: string
-  sequence_num: number
+  sequence_num: string
 }
 
 export interface TokenMetaData extends TokenBasicData {
   index: string
   public_key: string
   asset_id: string
-  sequence_num: number
+  sequence_num: string
 }
 
 export interface DetokenizationTxRequest {

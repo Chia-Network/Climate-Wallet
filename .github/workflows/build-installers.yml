@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - token-driver-artifact-ref: 1.0.3
+          - token-driver-artifact-ref: 1.0.21
         python-version: [3.9]
         os:
           # TODO: use old versions for improved compatibility?
@@ -39,8 +39,8 @@ jobs:
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
             token-driver-artifact:
-              arm: climate-token-client-chia-linux-arm64
-              intel: climate-token-client-chia-linux-amd64
+              arm: climate-tokenization-chia-linux-arm64
+              intel: climate-tokenization-chia-linux-amd64
             executable-extension: ''
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
@@ -53,8 +53,8 @@ jobs:
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             token-driver-artifact:
-              arm: climate-token-client-chia-macos-arm64
-              intel: climate-token-client-chia-macos-amd64
+              arm: climate-tokenization-chia-macos-arm64
+              intel: climate-tokenization-chia-macos-amd64
             executable-extension: ''
             build-result-pattern: '"Climate Wallet-"*".dmg"'
             artifact-name: macos
@@ -66,7 +66,7 @@ jobs:
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
             token-driver-artifact:
-              intel: climate-token-client-chia-windows-amd64
+              intel: climate-tokenization-chia-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
@@ -94,10 +94,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node 16.x
+      - name: Setup Node 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: install dmg-license
         if: matrix.os.matrix == 'macos'
@@ -109,7 +109,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
         run: |
-          RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --json databaseId --jq '.[0].databaseId')
+          RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --workflow "Build & Release" --json databaseId --jq '.[0].databaseId')
           gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact[matrix.arch.matrix] }} --dir downloaded-artifacts/
           mkdir -p extraResources/
           # expected to fail if there are multiple files
@@ -140,8 +140,8 @@ jobs:
           sudo gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
-      - name: Build electron app (Linux)
-        if: matrix.os.matrix == 'linux'
+      - name: Build electron app
+        if: matrix.os.matrix != 'macos'
         run: |
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
@@ -150,17 +150,7 @@ jobs:
         if: matrix.os.matrix == 'macos'
         env:
           # macos
-          CSC_FOR_PULL_REQUEST: "true"
-        run: |
-          npm run build
-          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
-
-      - name: Build electron app (Windows)
-        if: matrix.os.matrix == 'windows'
-        env:
-          # windows
-          CSC_LINK: ${{ secrets.WIN_CODE_SIGN_CERT }}
-          CSC_KEY_PASSWORD: ${{ secrets.WIN_CODE_SIGN_PASSWORD }}
+          CSC_FOR_PULL_REQUEST: 'true'
         run: |
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
@@ -182,6 +172,25 @@ jobs:
             --username "${{ secrets.APPLE_NOTARIZE_USERNAME }}" \
             --password "${{ secrets.APPLE_NOTARIZE_PASSWORD }}"
 
+      # Windows Code Signing
+      - name: Get installer name for signing
+        if: matrix.os.matrix == 'windows'
+        shell: bash
+        run: |
+          FILE=$(find artifacts -type f -maxdepth 1 -name '*.exe')
+          echo "Installer file is $FILE"
+          echo "INSTALLER_FILE=$FILE" >> "$GITHUB_ENV"
+
+      - name: Sign windows artifacts
+        if: matrix.os.matrix == 'windows'
+        uses: chia-network/actions/digicert/windows-sign@main
+        with:
+          sm_api_key: ${{ secrets.SM_API_KEY }}
+          sm_client_cert_file_b64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
+          sm_client_cert_password: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+          sm_code_signing_cert_sha1_hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
+          file: "${{ github.workspace }}/${{ env.INSTALLER_FILE }}"
+
       - name: Upload Installer to artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -191,8 +200,7 @@ jobs:
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
         if: always()
-        run:
-          security delete-keychain signing_temp.keychain || true
+        run: security delete-keychain signing_temp.keychain || true
 
   release:
     runs-on: ubuntu-latest

@@ -8,6 +8,7 @@ import {
 import Retire from '@/pages/Retire'
 import SelectKey from '@/pages/SelectKey'
 import Send from '@/pages/Send'
+import NoTokensFound from '@/pages/NoTokensFound'
 import TokenWalletCheck from '@/pages/TokenWallet'
 import { checkConfig } from '@/util/yamlConfigLoader'
 import { useEffect } from 'react'
@@ -28,9 +29,14 @@ export default function AppRouter() {
             <Route element={<Layout actions={<AppStatusHeader />} outlet />}>
               <Route path="dashboard" element={<Navigate to="wallets" />} />
               <Route
+                path="dashboard/wallets/no-token"
+                element={<NoTokensFound />}
+              />
+              <Route
                 path="dashboard/wallets/*"
                 element={<TokenWalletCheck />}
               />
+
               <Route
                 path="dashboard/wallets/send/:walletId"
                 element={<Send />}
