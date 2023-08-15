@@ -140,7 +140,7 @@ jobs:
           sudo gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
-      - name: Build electron app (Linux)
+      - name: Build electron app
         if: matrix.os.matrix != 'macos'
         run: |
           npm run build
