@@ -1,3 +1,21 @@
+## [1.1.7](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.5...1.1.7) (2023-08-15)
+
+
+### Bug Fixes
+
+* json parser for metadata ([dc99d01](https://github.com/Chia-Network/Climate-Wallet/commit/dc99d01bcfb906821cd6385b408213c6ac3ed99b))
+* transaction submitted message ([5fd4e6d](https://github.com/Chia-Network/Climate-Wallet/commit/5fd4e6dd150d95a9c360d66888e97dfcfec68bb1))
+
+
+### Features
+
+* add fourth param information to token description cards ([1978f5f](https://github.com/Chia-Network/Climate-Wallet/commit/1978f5ffb3da8549c9fc041ff5e0599fffb4ef3d))
+* check for detok in metadata ([ddf456a](https://github.com/Chia-Network/Climate-Wallet/commit/ddf456a5b3232e6b49d49de3551e4344eb647ce9))
+* hide detokenization if meta not found on cw ([3bc5e1d](https://github.com/Chia-Network/Climate-Wallet/commit/3bc5e1ddcc080cf326b8fdb75f392b02d4d8389c))
+* no token screen when no tokens available ([94530cc](https://github.com/Chia-Network/Climate-Wallet/commit/94530cc0780181b307565cde7b0ffe0a19274e85))
+
+
+
 ## [1.1.5](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.4...1.1.5) (2023-07-19)
 
 
