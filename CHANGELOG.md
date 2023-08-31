@@ -1,3 +1,12 @@
+## [1.1.8](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.7...1.1.8) (2023-08-31)
+
+
+### Bug Fixes
+
+* tokenization port ([e892d34](https://github.com/Chia-Network/Climate-Wallet/commit/e892d349d68ba23f97bc42686b3b1b896b715b6c))
+
+
+
 ## [1.1.7](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.5...1.1.7) (2023-08-15)
 
 
