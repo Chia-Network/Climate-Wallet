@@ -127,8 +127,6 @@ jobs:
           unzip *.zip
           rm -f *.zip
           popd
-          echo "#### Showing downloaded-artifacts directory ####"
-          ls -lah downloaded-artifacts/
           mkdir -p extraResources/
           mv downloaded-artifacts/* "${DESTINATION}"
           chmod a+x "${DESTINATION}"
