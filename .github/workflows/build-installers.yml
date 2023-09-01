@@ -123,11 +123,11 @@ jobs:
           DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
         run: |
           gh release download ${{ matrix.configuration.token-driver-artifact-ref }} --repo chia-network/climate-token-driver --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip --dir downloaded-artifacts/
-          unzip downloaded-artifacts/*.zip
+          pushd downloaded-artifacts
+          unzip *.zip
+          rm -f *.zip
+          popd
           echo "#### Showing downloaded-artifacts directory ####"
-          ls -lah downloaded-artifacts/
-          rm -fv downloaded-artifacts/*.zip
-          echo "#### Showing downloaded-artifacts directory after removing zip file ####"
           ls -lah downloaded-artifacts/
           mkdir -p extraResources/
           mv downloaded-artifacts/* "${DESTINATION}"
