@@ -1,3 +1,12 @@
+## [1.1.9](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.8...1.1.9) (2023-09-05)
+
+
+### Bug Fixes
+
+* guard against bad json data in asset deseriaization ([42589e4](https://github.com/Chia-Network/Climate-Wallet/commit/42589e497fc588029c2e0e9f5d96254d464af856))
+
+
+
 ## [1.1.8](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.7...1.1.8) (2023-08-31)
 
 
