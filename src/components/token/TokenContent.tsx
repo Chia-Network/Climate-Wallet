@@ -75,9 +75,14 @@ const TokenContent = () => {
       return undefined
     }
 
-    return JSON.parse(metadata?.[`meta_${asset.asset_id}`] || {})
-      ?.detokenization
-  }, [metadata])
+    const assetData = metadata?.[`meta_${asset?.asset_id}`]
+
+    if (!assetData) {
+      return undefined
+    }
+
+    return JSON.parse(assetData || {})?.detokenization
+  }, [metadata, asset])
 
   const { isDetokenWallet, blockingList, setBlockingList } =
     useDetokenzationBlockingList()
