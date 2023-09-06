@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - token-driver-artifact-ref: 1.0.21
+          - token-driver-artifact-ref: 1.0.21 # Set to blank string for latest version
         python-version: [3.9]
         os:
           # TODO: use old versions for improved compatibility?
@@ -38,9 +38,9 @@ jobs:
               intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
-            token-driver-artifact:
-              arm: climate-tokenization-chia-linux-arm64
-              intel: climate-tokenization-chia-linux-amd64
+            # token-driver-artifact:
+            #   arm: climate-tokenization-chia-linux-arm64
+            #   intel: climate-tokenization-chia-linux-amd64
             executable-extension: ''
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
@@ -52,9 +52,9 @@ jobs:
               intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
-            token-driver-artifact:
-              arm: climate-tokenization-chia-macos-arm64
-              intel: climate-tokenization-chia-macos-amd64
+            # token-driver-artifact:
+            #   arm: climate-tokenization-chia-macos-arm64
+            #   intel: climate-tokenization-chia-macos-amd64
             executable-extension: ''
             build-result-pattern: '"Climate Wallet-"*".dmg"'
             artifact-name: macos
@@ -65,8 +65,8 @@ jobs:
               intel: [windows-latest]
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
-            token-driver-artifact:
-              intel: climate-tokenization-chia-windows-amd64
+            # token-driver-artifact:
+            #   intel: climate-tokenization-chia-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
@@ -104,15 +104,30 @@ jobs:
         run: |
           npm install dmg-license
 
-      - name: download token driver
+      # - name: download token driver
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
+      #     DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
+      #   run: |
+      #     RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --workflow "Build & Release" --json databaseId --jq '.[0].databaseId')
+      #     gh run download $RUN_ID --repo chia-network/climate-token-driver --name climate-token-driver_${{ matrix.os.matrix }}_${{ matrix.configuration.token-driver-artifact-ref }}_${{ matrix.arch.artifact-name }} --dir downloaded-artifacts/
+      #     mkdir -p extraResources/
+      #     # expected to fail if there are multiple files
+      #     mv downloaded-artifacts/* "${DESTINATION}"
+      #     chmod a+x "${DESTINATION}"
+      #     ls -la extraResources/ || true
+
+      - name: Download Token Driver Client
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
         run: |
-          RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --workflow "Build & Release" --json databaseId --jq '.[0].databaseId')
-          gh run download $RUN_ID --repo chia-network/climate-token-driver --name ${{ matrix.os.token-driver-artifact[matrix.arch.matrix] }} --dir downloaded-artifacts/
+          gh release download ${{ matrix.configuration.token-driver-artifact-ref }} --repo chia-network/climate-token-driver --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip --dir downloaded-artifacts/
+          pushd downloaded-artifacts
+          unzip *.zip
+          rm -f *.zip
+          popd
           mkdir -p extraResources/
-          # expected to fail if there are multiple files
           mv downloaded-artifacts/* "${DESTINATION}"
           chmod a+x "${DESTINATION}"
           ls -la extraResources/ || true
@@ -189,7 +204,7 @@ jobs:
           sm_client_cert_file_b64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
           sm_client_cert_password: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
           sm_code_signing_cert_sha1_hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
-          file: "${{ github.workspace }}/${{ env.INSTALLER_FILE }}"
+          file: '${{ github.workspace }}/${{ env.INSTALLER_FILE }}'
 
       - name: Upload Installer to artifacts
         uses: actions/upload-artifact@v3

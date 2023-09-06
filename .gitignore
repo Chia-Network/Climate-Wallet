@@ -93,6 +93,7 @@ packages/**/src/locales/_build
 packages/**/src/locales/**/*.js
 daemon/
 win_code_sign_cert.p12
+extraResources/
 
 
 dist
