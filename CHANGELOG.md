@@ -1,3 +1,12 @@
+## [1.1.11](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.10...1.1.11) (2023-09-07)
+
+
+### Bug Fixes
+
+* race condition in no asset screen ([f88008a](https://github.com/Chia-Network/Climate-Wallet/commit/f88008a9bb2cb20c3e5e4fe974de36e7f4a2bbb8))
+
+
+
 ## [1.1.10](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.9...1.1.10) (2023-09-06)
 
 
