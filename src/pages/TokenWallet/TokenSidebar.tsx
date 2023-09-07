@@ -176,7 +176,7 @@ export default function TokenSidebar() {
     }
   }, [sortedWallets, filteredWallets, walletsBalance])
 
-  if (!isLoadingAllCWAssets && sortedWallets.length === 0) {
+  if (!isLoading && sortedWallets.length === 0) {
     navigate('/dashboard/wallets/no-token')
   }
 
