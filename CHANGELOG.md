@@ -1,3 +1,26 @@
+## [1.1.13](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.11...1.1.13) (2023-09-13)
+
+
+### Features
+
+* light theme ([0551f74](https://github.com/Chia-Network/Climate-Wallet/commit/0551f7434d489903b515058d25f9f678e9762224))
+* oly query tokenized projects ([58caf65](https://github.com/Chia-Network/Climate-Wallet/commit/58caf6579192d27338928160c46d4defb58fda50))
+
+
+
+## [1.1.11](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.10...1.1.11) (2023-09-07)
+
+
+### Bug Fixes
+
+* race condition in no asset screen ([f88008a](https://github.com/Chia-Network/Climate-Wallet/commit/f88008a9bb2cb20c3e5e4fe974de36e7f4a2bbb8))
+
+
+
+## [1.1.10](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.9...1.1.10) (2023-09-06)
+
+
+
 ## [1.1.9](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.8...1.1.9) (2023-09-05)
 
 
