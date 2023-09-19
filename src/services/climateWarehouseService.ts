@@ -13,6 +13,8 @@ export const climateWarehouseServiceApi = createApi({
         params: {
           hasMarketplaceIdentifier: true,
           includeProjectInfoInSearch: true,
+          page: 1,
+          limit: 50,
         },
         method: 'get',
       }),
@@ -22,9 +24,18 @@ export const climateWarehouseServiceApi = createApi({
     getCWAssetById: builder.query({
       query: (warehouseUnitId) => ({
         url: '/v1/units',
-        params: { warehouseUnitId },
+        params: { warehouseUnitId, page: 1, limit: 50 },
         method: 'get',
       }),
+      transformResponse: (response: any) => {
+        // if the response is paginated, it will be in the data property
+        // otherwise, it will just be the response itself
+        if (response.data) {
+          return response.data
+        }
+
+        return response
+      },
     }),
 
     // get all organizations
@@ -42,6 +53,15 @@ export const climateWarehouseServiceApi = createApi({
         params: { onlyTokenizedProjects: true },
         method: 'get',
       }),
+      transformResponse: (response: any) => {
+        // if the response is paginated, it will be in the data property
+        // otherwise, it will just be the response itself
+        if (response.data) {
+          return response.data
+        }
+
+        return response
+      },
     }),
 
     // get one project by warehouseProjectId
