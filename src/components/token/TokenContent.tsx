@@ -81,7 +81,7 @@ const TokenContent = () => {
       return undefined
     }
 
-    return JSON.parse(assetData || {})?.detokenization
+    return JSON.parse(assetData || {})?.detokenization?.signature
   }, [metadata, asset])
 
   const { isDetokenWallet, blockingList, setBlockingList } =
@@ -117,12 +117,15 @@ const TokenContent = () => {
   const handleSend = () => {
     navigate(`/dashboard/wallets/send/${walletId}`)
   }
+
   const handleRetire = () => {
     navigate(`/dashboard/wallets/retire/${walletId}`)
   }
+
   const handleDetoken = () => {
     navigate(`/dashboard/wallets/detokenization/request/${walletId}`)
   }
+
   const handleCancelDetoken = () => {
     navigate(`/dashboard/wallets/detokenization/cancel/${walletId}`)
   }
