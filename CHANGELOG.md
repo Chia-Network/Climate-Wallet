@@ -1,3 +1,13 @@
+## [1.1.16](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.14...1.1.16) (2023-09-19)
+
+
+### Features
+
+* make climate-wallet backwards compatible with pagination ([8384f52](https://github.com/Chia-Network/Climate-Wallet/commit/8384f527662ff3568d012f082b25131574215b63))
+* make climate-wallet backwards compatible with pagination ([bda39af](https://github.com/Chia-Network/Climate-Wallet/commit/bda39afab528e5ca7934a4ea073add9c734209c4))
+
+
+
 ## [1.1.14](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.13...1.1.14) (2023-09-19)
 
 
