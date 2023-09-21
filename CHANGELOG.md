@@ -1,3 +1,12 @@
+## [1.1.14](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.13...1.1.14) (2023-09-19)
+
+
+### Bug Fixes
+
+* dont show detok button when null detok ([53c405e](https://github.com/Chia-Network/Climate-Wallet/commit/53c405e993e75c03f3bf85ea628ca73577e348a6))
+
+
+
 ## [1.1.13](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.11...1.1.13) (2023-09-13)
 
 

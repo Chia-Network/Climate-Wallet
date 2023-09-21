@@ -31,8 +31,8 @@ const TransactionCATInput = () => {
       fullWidth
       {...register('amount', {
         required: true,
-        pattern: TOKEN_AMOUNT_REGEX,
-        max: max,
+        pattern: /^-?\d+$/,
+        max,
       })}
       error={Boolean(errors['amount'])}
       InputProps={{
