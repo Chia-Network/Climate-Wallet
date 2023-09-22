@@ -28,12 +28,7 @@ export const climateWarehouseServiceApi = createApi({
         method: 'get',
       }),
       transformResponse: (response: any) => {
-        // if the response is paginated, it will be in the data property
-        // otherwise, it will just be the response itself
-        if (response.data) {
-          return response.data
-        }
-
+        console.log('@@@@', response)
         return response
       },
     }),
@@ -53,15 +48,6 @@ export const climateWarehouseServiceApi = createApi({
         params: { onlyTokenizedProjects: true },
         method: 'get',
       }),
-      transformResponse: (response: any) => {
-        // if the response is paginated, it will be in the data property
-        // otherwise, it will just be the response itself
-        if (response.data) {
-          return response.data
-        }
-
-        return response
-      },
     }),
 
     // get one project by warehouseProjectId
