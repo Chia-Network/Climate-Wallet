@@ -176,6 +176,17 @@ export default function TokenSidebar() {
     }
   }, [sortedWallets, filteredWallets, walletsBalance])
 
+  console.log(
+    'sortedWallets',
+    {
+      isLoadingWallets,
+      isLoadingAllCWAssets,
+      isLoadingAddStrayCats,
+      isLoadingWalletsBalance,
+    },
+    sortedWallets
+  )
+
   if (!isLoading && sortedWallets.length === 0) {
     navigate('/dashboard/wallets/no-token')
   }
