@@ -1,3 +1,12 @@
+## [1.1.18](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.17...1.1.18) (2023-09-29)
+
+
+### Bug Fixes
+
+* guard against null ([c57fa78](https://github.com/Chia-Network/Climate-Wallet/commit/c57fa7883d75f31299d1f8e2f5a3e245d3ceae1d))
+
+
+
 ## [1.1.17](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.16...1.1.17) (2023-09-29)
 
 
