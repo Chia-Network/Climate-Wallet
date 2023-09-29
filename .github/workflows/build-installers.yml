@@ -77,7 +77,7 @@ jobs:
             electron-builder-options: --arm64
           - name: Intel
             matrix: intel
-            artifact-name: amd64
+            artifact-name: x64
             electron-builder-options: --x64
         exclude:
           - os:
