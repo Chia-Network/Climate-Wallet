@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - token-driver-artifact-ref: 1.0.21 # Set to blank string for latest version
+          - token-driver-artifact-ref: '' # Set to blank string for latest version
         python-version: [3.9]
         os:
           # TODO: use old versions for improved compatibility?
