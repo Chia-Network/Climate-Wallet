@@ -10,12 +10,10 @@ export default function useCWAddStrayCats(): {
     useState<boolean>(true)
 
   const [addCATToken] = useAddCATTokenMutation()
-  const { data: allCWAssets, isLoading: isGetAllCWAssetsLoading } =
-    useGetAllCWAssets()
-  const { data: strayCats, isLoading: isGetStrayCatsLoading } =
-    useGetStrayCatsQuery(undefined, {
-      pollingInterval: 10000,
-    })
+  const { data: allCWAssets } = useGetAllCWAssets()
+  const { data: strayCats } = useGetStrayCatsQuery(undefined, {
+    pollingInterval: 10000,
+  })
 
   const handleAddCat = async (strayCat) => {
     const { assetId, name } = strayCat
@@ -33,10 +31,10 @@ export default function useCWAddStrayCats(): {
 
   useEffect(() => {
     if (
-      !isGetAllCWAssetsLoading &&
-      !isGetStrayCatsLoading &&
       allCWAssets &&
-      strayCats
+      strayCats &&
+      allCWAssets.length > 0 &&
+      strayCats.length > 0
     ) {
       Promise.all(
         strayCats.map((strayCat) => {
