@@ -50,7 +50,7 @@ export const climateWarehouseServiceApi = createApi({
     getAllCWProject: builder.query({
       query: () => ({
         url: '/v1/projects',
-        params: { onlyTokenizedProjects: true, page: 1, limit: 50 },
+        params: { onlyMarketplaceProjects: true, page: 1, limit: 50 },
         method: 'get',
       }),
       transformResponse: (response: any) => {
