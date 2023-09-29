@@ -1,3 +1,14 @@
+## [1.1.17](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.16...1.1.17) (2023-09-29)
+
+
+### Bug Fixes
+
+* backwards compatible pagination ([f8bf25a](https://github.com/Chia-Network/Climate-Wallet/commit/f8bf25a9317a7e9e3e31437c2a351da7b4a0550e))
+* rename query param to be more generic ([dee3029](https://github.com/Chia-Network/Climate-Wallet/commit/dee30292f0246a45e117b2ebab82e0eb23f48498))
+* test changes ([c85419e](https://github.com/Chia-Network/Climate-Wallet/commit/c85419ed4252b7effc0fbbdab1eb8412d1538d8b))
+
+
+
 ## [1.1.16](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.14...1.1.16) (2023-09-19)
 
 
