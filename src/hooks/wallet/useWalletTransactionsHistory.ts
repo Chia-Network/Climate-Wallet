@@ -74,8 +74,8 @@ export default function useWalletTransactionsHistory(
 
       return {
         ...transaction,
-        historyType: historyType,
-        historyTypeString: TokenType[historyType].toString(),
+        historyType,
+        historyTypeString: TokenType[historyType]?.toString(),
         status: isConfirmed ? 'Confirmed' : 'Pending',
         date: moment(createdAtTime * 1000).format('LLL'),
         unitCount: `${isOutgoing ? '-' : '+'} ${FormatLargeNumber(
