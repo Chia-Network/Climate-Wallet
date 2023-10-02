@@ -7,7 +7,9 @@ import {
   useSelectedWallet,
   useWalletsBalance,
   useWalletsList,
+  useWalletState,
 } from '@/hooks/wallet'
+import SyncingStatus from '@/constants/SyncingStatus'
 import getCWLink from '@/util/getCWLink'
 import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletType } from '@chia/api'
@@ -45,6 +47,7 @@ const StyledRoot = styled(Stack)(({ theme }) => ({
 export default function TokenSidebar() {
   const navigate = useNavigate()
   const { isLoadingAddStrayCats } = useCWAddStrayCats()
+  const { state: walletState } = useWalletState()
   const { list: wallets, isLoading: isLoadingWallets } = useWalletsList(
     [WalletType.STANDARD_WALLET, WalletType.CAT],
     ''
@@ -176,7 +179,11 @@ export default function TokenSidebar() {
     }
   }, [sortedWallets, filteredWallets, walletsBalance])
 
-  if (!isLoading && sortedWallets.length === 0) {
+  if (
+    !isLoading &&
+    sortedWallets.length === 0 &&
+    walletState === SyncingStatus.SYNCED
+  ) {
     navigate('/dashboard/wallets/no-token')
   }
 
@@ -194,7 +201,12 @@ export default function TokenSidebar() {
       </Stack>
 
       {isLoading ? (
-        <Loading center />
+        <div>
+          <Loading center />
+          {walletState !== SyncingStatus.SYNCED && (
+            <center>Your Chia Wallet is still syncing...</center>
+          )}
+        </div>
       ) : sortedWallets.length > 0 ? (
         <Stack spacing={1} direction="column">
           <Stack
