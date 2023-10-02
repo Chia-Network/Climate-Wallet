@@ -204,7 +204,7 @@ export default function TokenSidebar() {
         <div>
           <Loading center />
           {walletState !== SyncingStatus.SYNCED && (
-            <center>You Chia Wallet is still syncing...</center>
+            <center>Your Chia Wallet is still syncing...</center>
           )}
         </div>
       ) : sortedWallets.length > 0 ? (
