@@ -1,3 +1,12 @@
+## [1.1.20](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.19...1.1.20) (2023-10-02)
+
+
+### Bug Fixes
+
+* empty wallet state ([1769e05](https://github.com/Chia-Network/Climate-Wallet/commit/1769e05691fe22ce18923b26896dbb9b49343561))
+
+
+
 ## [1.1.19](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.18...1.1.19) (2023-09-29)
 
 
