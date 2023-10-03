@@ -1,0 +1,1 @@
+export const MOJO_PER_CHIA = 1000000000000
