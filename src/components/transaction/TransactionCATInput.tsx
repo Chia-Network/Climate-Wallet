@@ -25,13 +25,17 @@ const TransactionCATInput = () => {
 
   const max = (walletBalance?.confirmedWalletBalance ?? 1000) / 1000
 
+  if (isLoadingWalletBalance) {
+    return null
+  }
+
   return (
     <TextField
       label={<Trans>Quantity</Trans>}
       fullWidth
       {...register('amount', {
         required: true,
-        pattern: /^-?\d+$/,
+        pattern: TOKEN_AMOUNT_REGEX,
         max,
       })}
       error={Boolean(errors['amount'])}
