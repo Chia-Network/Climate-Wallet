@@ -37,9 +37,6 @@ jobs:
               intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
-            # token-driver-artifact:
-            #   arm: climate-tokenization-chia-linux-arm64
-            #   intel: climate-tokenization-chia-linux-amd64
             executable-extension: ''
             build-result-pattern: '"climate-wallet"*".deb"'
             artifact-name: linux
@@ -51,9 +48,6 @@ jobs:
               intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
-            # token-driver-artifact:
-            #   arm: climate-tokenization-chia-macos-arm64
-            #   intel: climate-tokenization-chia-macos-amd64
             executable-extension: ''
             build-result-pattern: '"Climate Wallet-"*".dmg"'
             artifact-name: macos
@@ -64,8 +58,6 @@ jobs:
               intel: [windows-latest]
             electron-builder-options: --windows
             electron-builder-unpacked: win-unpacked
-            # token-driver-artifact:
-            #   intel: climate-tokenization-chia-windows-amd64
             executable-extension: '.exe'
             build-result-pattern: '"Climate Wallet Setup "*".exe"'
             artifact-name: windows
@@ -102,19 +94,6 @@ jobs:
         if: matrix.os.matrix == 'macos'
         run: |
           npm install dmg-license
-
-      # - name: download token driver
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
-      #     DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
-      #   run: |
-      #     RUN_ID=$(gh run list --repo chia-network/climate-token-driver --branch ${{ matrix.configuration.token-driver-artifact-ref }} --limit 1 --workflow "Build & Release" --json databaseId --jq '.[0].databaseId')
-      #     gh run download $RUN_ID --repo chia-network/climate-token-driver --name climate-token-driver_${{ matrix.os.matrix }}_${{ matrix.configuration.token-driver-artifact-ref }}_${{ matrix.arch.artifact-name }} --dir downloaded-artifacts/
-      #     mkdir -p extraResources/
-      #     # expected to fail if there are multiple files
-      #     mv downloaded-artifacts/* "${DESTINATION}"
-      #     chmod a+x "${DESTINATION}"
-      #     ls -la extraResources/ || true
 
       - name: Download Token Driver Client
         env:
@@ -205,11 +184,13 @@ jobs:
           sm_code_signing_cert_sha1_hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
           file: '${{ github.workspace }}/${{ env.INSTALLER_FILE }}'
 
-      - name: Upload Installer to artifacts
-        uses: actions/upload-artifact@v3
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.15
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
-          path: 'artifacts/*'
+          files: artifacts/*
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.sha }}
+        if: startsWith(github.ref, 'refs/tags/')
 
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
@@ -222,24 +203,6 @@ jobs:
     needs:
       - build
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: installers
-
-      - name: Report installers
-        run: |
-          ls -lda installers/* || true
-          echo ====
-          ls -lda installers/*/* || true
-
-      - name: Release
-        uses: softprops/action-gh-release@v0.1.15
-        with:
-          files: installers/*/*
-          fail_on_unmatched_files: true
-          target_commitish: ${{ github.sha }}
-
       - name: Get repo name
         id: repo-name
         run: |
