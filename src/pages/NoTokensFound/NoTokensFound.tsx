@@ -1,19 +1,28 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { Box, Grid } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useWalletsBalance, useWalletsList } from '@/hooks/wallet'
+import {
+  useCWAddStrayCats,
+  useWalletsBalance,
+  useWalletsList,
+  useWalletState,
+} from '@/hooks/wallet'
 import { useGetAllCWAssets } from '@/hooks/useGetAllCWAssets'
+import SyncingStatus from '@/constants/SyncingStatus'
 import { WalletType } from '@chia/api'
 import { checkMarketplaceIdentifier } from '@/util/token'
 import { WalletListItem } from '../../types/WalletType'
 
 const NoTokensFound = () => {
   const navigate = useNavigate()
+  const { state: walletState } = useWalletState()
 
   const { list: wallets, isLoading: isLoadingWallets } = useWalletsList(
     [WalletType.STANDARD_WALLET, WalletType.CAT],
     ''
   )
+
+  const { isLoadingAddStrayCats } = useCWAddStrayCats()
 
   const { data: allCWAssets, isLoading: isLoadingAllCWAssets } =
     useGetAllCWAssets()
@@ -36,9 +45,30 @@ const NoTokensFound = () => {
     useWalletsBalance(filteredWallets)
 
   const isLoading =
-    isLoadingWallets || isLoadingAllCWAssets || isLoadingWalletsBalance
+    isLoadingWallets ||
+    isLoadingAllCWAssets ||
+    isLoadingAddStrayCats ||
+    isLoadingWalletsBalance
 
-  if (isLoading) {
+  useEffect(() => {
+    // Since most of the hooks in this repo are "hooks" of "hooks",
+    // Its difficult to use the traditional "pollingInterval" method
+    // So instead on an interval we are going to redirect to the dashboard
+    // where it will do a fresh check for climate tokens and redirect back here
+    // if there are none, where the cycle will continue until tokens are detected.
+    const interval = setInterval(() => {
+      console.log('Checking for Climate Tokens')
+      navigate('/dashboard')
+    }, 60000)
+    return () => clearInterval(interval)
+  }, [isLoading, filteredWallets])
+
+  if (
+    isLoading &&
+    walletState === SyncingStatus.SYNCED &&
+    filteredWallets.length !== 0
+  ) {
+    console.log('Climate Tokens Detected')
     navigate('/dashboard')
   }
 

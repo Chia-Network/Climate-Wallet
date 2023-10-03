@@ -181,7 +181,7 @@ export default function TokenSidebar() {
 
   if (
     !isLoading &&
-    sortedWallets.length === 0 &&
+    filteredWallets.length === 0 &&
     walletState === SyncingStatus.SYNCED
   ) {
     navigate('/dashboard/wallets/no-token')
