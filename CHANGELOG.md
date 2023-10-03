@@ -1,3 +1,19 @@
+## [1.1.22](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.21...1.1.22) (2023-10-03)
+
+
+### Bug Fixes
+
+* show validation error when fee amount is greater then wallet balance ([1565cca](https://github.com/Chia-Network/Climate-Wallet/commit/1565cca246de023d8d848fc47c5723500807170f))
+
+
+### Features
+
+* autodetection of tokens on no token screen ([642ac90](https://github.com/Chia-Network/Climate-Wallet/commit/642ac906cd525c6330e02abd4fb8331e3b8abe0c))
+* only allow whole number sends ([de82a55](https://github.com/Chia-Network/Climate-Wallet/commit/de82a55cba913d9739f3ea3d3de82b2fe9784f38))
+* rework token types ([12ae9ea](https://github.com/Chia-Network/Climate-Wallet/commit/12ae9ea70dbf625a4cf3e377ad68f8ab569fa564))
+
+
+
 ## [1.1.21](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.19...1.1.21) (2023-10-02)
 
 
