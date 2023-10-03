@@ -184,12 +184,6 @@ jobs:
           sm_code_signing_cert_sha1_hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
           file: '${{ github.workspace }}/${{ env.INSTALLER_FILE }}'
 
-      - name: Upload Installer to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
-          path: 'artifacts/*'
-
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
