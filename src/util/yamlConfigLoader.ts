@@ -29,6 +29,7 @@ const defaultConfig: Config = {
   apiTimeout: 20 * 1000,
   version: version,
 }
+
 const homeDir = os.homedir()
 const persistanceFolderPath = `${homeDir}/.chia/mainnet/climate-wallet`
 const configFilePath = path.resolve(`${persistanceFolderPath}/config.yaml`)
