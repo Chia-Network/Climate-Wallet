@@ -1,4 +1,4 @@
-## [1.1.20](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.19...1.1.20) (2023-10-02)
+## [1.1.21](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.19...1.1.21) (2023-10-02)
 
 
 ### Bug Fixes
