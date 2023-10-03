@@ -31,8 +31,8 @@ const TransactionCATInput = () => {
       fullWidth
       {...register('amount', {
         required: true,
-        pattern: TOKEN_AMOUNT_REGEX,
-        max: max,
+        pattern: /^-?\d+$/,
+        max,
       })}
       error={Boolean(errors['amount'])}
       InputProps={{
@@ -53,7 +53,15 @@ const TransactionCATInput = () => {
             wallet.
           </Trans>
         ) : (
-          <Trans>Amount input format is error.</Trans>
+          <>
+            {!isNaN(parseFloat(getValues('amount'))) &&
+            isFinite(Number(getValues('amount'))) &&
+            !Number.isInteger(Number(getValues('amount'))) ? (
+              <Trans>Only integers are allowed.</Trans>
+            ) : (
+              <Trans>Amount input format is error.</Trans>
+            )}
+          </>
         ))
       }
       required
