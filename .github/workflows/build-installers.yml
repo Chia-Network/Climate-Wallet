@@ -192,6 +192,13 @@ jobs:
           target_commitish: ${{ github.sha }}
         if: startsWith(github.ref, 'refs/tags/')
 
+      # Create aritifacts so we have builds to test from pull requests
+      - name: Upload Installer to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
+          path: 'artifacts/*'
+
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
         if: always()
