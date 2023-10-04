@@ -1,3 +1,13 @@
+## [1.1.24](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.23...1.1.24) (2023-10-04)
+
+
+### Bug Fixes
+
+* add dependancy to memo ([e030fea](https://github.com/Chia-Network/Climate-Wallet/commit/e030fea73a975fe93b35e9ae517e5e06d12867b9))
+* excel sheet tweak ([5dbef18](https://github.com/Chia-Network/Climate-Wallet/commit/5dbef18b876e39ce80edd8d0e45f4d1b8ed1cdce))
+
+
+
 ## [1.1.23](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.22...1.1.23) (2023-10-04)
 
 
