@@ -101,12 +101,15 @@ const onRunDevService = () => {
 }
 
 const onRunService = () => {
-  let productionRunApp = 'main'
+  let productionRunApp = 'token-driver-client'
   if (process.platform === 'win32') {
-    productionRunApp = 'main.exe'
+    productionRunApp = 'token-driver-client.exe'
   }
 
-  const script = path.join(__dirname, `../../../extraResources/${productionRunApp}`)
+  const script = path.join(
+    __dirname,
+    `../../../extraResources/${productionRunApp}`
+  )
   return require('child_process').execFile(script)
 }
 
