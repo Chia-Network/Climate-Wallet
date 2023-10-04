@@ -160,7 +160,7 @@ export default function TokenSidebar() {
         }`,
       }
     })
-  }, [allCWAssets, filteredWallets])
+  }, [allCWAssets, filteredWallets, walletsBalance])
 
   const isLoading =
     isLoadingWallets ||
