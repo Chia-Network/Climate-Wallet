@@ -7,7 +7,7 @@ interface Props {
 }
 
 const useGetTransactionInfos = ({ cwAsset, balance }: Props) => {
-  return [
+  const info = [
     { subtitle: <Trans>Project Name</Trans>, value: cwAsset?.projectName },
     { subtitle: <Trans>Vintage Year </Trans>, value: cwAsset?.vintageYear },
     {
@@ -15,14 +15,19 @@ const useGetTransactionInfos = ({ cwAsset, balance }: Props) => {
       value: cwAsset?.currentRegistry,
     },
     {
-      subtitle: <Trans>Quantity Held</Trans>,
+      subtitle: <Trans>Active Token Balance</Trans>,
       value: balance,
     },
-    {
+  ]
+
+  if (cwAsset?.sequence_num !== 0) {
+    info.push({
       subtitle: <Trans>Type</Trans>,
       value: cwAsset?.sequence_num,
-    },
-  ]
+    })
+  }
+
+  return info
 }
 
 export default useGetTransactionInfos

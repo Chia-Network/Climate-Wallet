@@ -139,7 +139,7 @@ const TokenContent = () => {
       <Stack direction="row">
         <TokenCard
           icon={<AccountBalanceWalletOutlinedIcon />}
-          title={<Trans>Quantity Held</Trans>}
+          title={<Trans>Active Token Balance</Trans>}
         >
           <Stack direction="row" alignItems="flex-end" spacing={2}>
             <Typography

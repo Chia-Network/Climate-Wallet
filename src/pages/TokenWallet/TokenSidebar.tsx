@@ -147,9 +147,11 @@ export default function TokenSidebar() {
         (a) =>
           checkMarketplaceIdentifier(a.marketplaceIdentifier) === wallet.assetId
       )
+
       // TODO : check data
       return {
         Registry: asset.currentRegistry,
+        Quantity: walletsBalance[filteredWallets.indexOf(wallet)],
         'Project Name': asset.projectName,
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
