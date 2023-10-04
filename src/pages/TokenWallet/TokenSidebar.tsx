@@ -155,7 +155,7 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': `${getCWLink()}/#/units?orgUid=${asset.orgUid}&search=${
+        'CADT Link': `${getCWLink()}/#/units?orgUid=${asset.orgUid}&search=${
           asset.marketplaceIdentifier
         }`,
       }
