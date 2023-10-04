@@ -1,3 +1,35 @@
+## [1.1.23](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.22...1.1.23) (2023-10-04)
+
+
+### Bug Fixes
+
+* various bug fixes and tweaks ([f8937c3](https://github.com/Chia-Network/Climate-Wallet/commit/f8937c35ac293b85ee59a9524fb8219310beb0ae))
+
+
+### Features
+
+* add additional unit search ([a4ac4d4](https://github.com/Chia-Network/Climate-Wallet/commit/a4ac4d4db531b7e3c20714dc3e3a3c78cfe015e6))
+* cleanup process on exit ([37ae5f4](https://github.com/Chia-Network/Climate-Wallet/commit/37ae5f4efc71c457413afe4acb3230a94501a480))
+* handle task kill for nix machines ([93df5a8](https://github.com/Chia-Network/Climate-Wallet/commit/93df5a84275ca9951082b5ec8167138e7ef48760))
+
+
+
+## [1.1.22](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.21...1.1.22) (2023-10-03)
+
+
+### Bug Fixes
+
+* show validation error when fee amount is greater then wallet balance ([1565cca](https://github.com/Chia-Network/Climate-Wallet/commit/1565cca246de023d8d848fc47c5723500807170f))
+
+
+### Features
+
+* autodetection of tokens on no token screen ([642ac90](https://github.com/Chia-Network/Climate-Wallet/commit/642ac906cd525c6330e02abd4fb8331e3b8abe0c))
+* only allow whole number sends ([de82a55](https://github.com/Chia-Network/Climate-Wallet/commit/de82a55cba913d9739f3ea3d3de82b2fe9784f38))
+* rework token types ([12ae9ea](https://github.com/Chia-Network/Climate-Wallet/commit/12ae9ea70dbf625a4cf3e377ad68f8ab569fa564))
+
+
+
 ## [1.1.21](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.19...1.1.21) (2023-10-02)
 
 
