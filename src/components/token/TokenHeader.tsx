@@ -87,7 +87,7 @@ const TokenHeader = () => {
               marginRight: '6px',
             }}
           />
-          <Trans>View Details</Trans>
+          <Trans>View On CADT</Trans>
         </Button>
       </Stack>
       <TokenCard
@@ -137,10 +137,13 @@ const TokenHeader = () => {
             )
           }
         />
-        <TokenHeaderDesc
-          title={<Trans>Type</Trans>}
-          value={asset?.sequence_num}
-        />
+        {asset?.sequence_num !== 0 && (
+          <TokenHeaderDesc
+            title={<Trans>Type</Trans>}
+            value={asset?.sequence_num}
+          />
+        )}
+
         <TokenHeaderDesc
           title={<Trans>Token Asset ID</Trans>}
           value={assetId}
