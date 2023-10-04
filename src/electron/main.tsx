@@ -24,6 +24,7 @@ import ReactDOMServer from 'react-dom/server'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import url from 'url'
 import packageJson from '../../package.json'
+import { killPortProcess } from 'kill-port-process'
 
 const AppIcon = require('@/assets/img/climate_wallet-green.png')
 
@@ -100,13 +101,21 @@ const onRunDevService = () => {
   })
 }
 
-const onRunService = () => {
-  let productionRunApp = 'main'
+const getProductionRunApp = () => {
+  let productionRunApp = 'token-driver-client'
   if (process.platform === 'win32') {
-    productionRunApp = 'main.exe'
+    productionRunApp = 'token-driver-client.exe'
   }
+  return productionRunApp
+}
 
-  const script = path.join(__dirname, `../../../extraResources/${productionRunApp}`)
+const onRunService = () => {
+  const productionRunApp = getProductionRunApp()
+
+  const script = path.join(
+    __dirname,
+    `../../../extraResources/${productionRunApp}`
+  )
   return require('child_process').execFile(script)
 }
 
@@ -338,7 +347,7 @@ const killTokenPort = (port) => {
     })
 }
 
-//app start here
+// app start here
 app.on('ready', () => {
   killTokenPort(process.env.CLIMATE_TOKEN_DRIVER_PORT || '31314')
 
@@ -346,17 +355,33 @@ app.on('ready', () => {
 })
 
 const exitPyProc = () => {
-  pyProc.kill()
+  killPortProcess(31314)
+  killPortProcess(process.env.CLIMATE_TOKEN_DRIVER_PORT || 31314)
+
+  const productionRunApp = getProductionRunApp()
+
+  if (process.platform === 'win32') {
+    require('child_process').exec(`taskkill /F /IM ${productionRunApp}`)
+  } else {
+    require('child_process').exec(`pkill ${productionRunApp}`)
+  }
+
+  pyProc?.kill()
   console.log('child process exit')
   pyProc = null
 }
 
 app.on('will-quit', (e) => {
-  pyProc.kill()
+  exitPyProc()
 })
+
+app.on('before-quit', (e) => {
+  exitPyProc()
+})
+
 //app quit+
 app.on('window-all-closed', () => {
-  pyProc.kill()
+  exitPyProc()
   app.quit()
 })
 
@@ -368,6 +393,10 @@ ipcMain.on('load-page', (_, arg: { file: string; query: string }) => {
       slashes: true,
     }) + arg.query
   )
+
+  mainWindow.on('close', () => {
+    exitPyProc()
+  })
 })
 
 ipcMain.handle('setLocale', (_event, locale: string) => {

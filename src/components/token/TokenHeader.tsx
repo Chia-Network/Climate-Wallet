@@ -52,7 +52,9 @@ const TokenHeader = () => {
 
   const handleViewDetails = () => {
     openExternal(
-      `${getCWLink()}/#/units?orgUid=all&unitId=${asset.warehouseUnitId}`
+      `${getCWLink()}/#/units?orgUid=${asset.orgUid}&search=${
+        asset.marketplaceIdentifier
+      }`
     )
   }
 
@@ -87,7 +89,7 @@ const TokenHeader = () => {
               marginRight: '6px',
             }}
           />
-          <Trans>View Details</Trans>
+          <Trans>View On CADT</Trans>
         </Button>
       </Stack>
       <TokenCard
@@ -137,10 +139,13 @@ const TokenHeader = () => {
             )
           }
         />
-        <TokenHeaderDesc
-          title={<Trans>Type</Trans>}
-          value={asset?.sequence_num}
-        />
+        {asset?.sequence_num !== 0 && (
+          <TokenHeaderDesc
+            title={<Trans>Type</Trans>}
+            value={asset?.sequence_num}
+          />
+        )}
+
         <TokenHeaderDesc
           title={<Trans>Token Asset ID</Trans>}
           value={assetId}
