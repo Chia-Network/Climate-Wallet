@@ -102,9 +102,9 @@ const onRunDevService = () => {
 }
 
 const getProductionRunApp = () => {
-  let productionRunApp = 'main'
+  let productionRunApp = 'token-driver-client'
   if (process.platform === 'win32') {
-    productionRunApp = 'main.exe'
+    productionRunApp = 'token-driver-client.exe'
   }
   return productionRunApp
 }
