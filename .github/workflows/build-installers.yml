@@ -98,7 +98,7 @@ jobs:
       - name: Download Token Driver Client
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
-          DESTINATION: extraResources/main${{ matrix.os.executable-extension }}
+          DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
         run: |
           gh release download ${{ matrix.configuration.token-driver-artifact-ref }} --repo chia-network/climate-token-driver --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip --dir downloaded-artifacts/
           pushd downloaded-artifacts
