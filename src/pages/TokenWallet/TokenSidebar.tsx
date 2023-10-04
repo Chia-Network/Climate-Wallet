@@ -148,7 +148,6 @@ export default function TokenSidebar() {
           checkMarketplaceIdentifier(a.marketplaceIdentifier) === wallet.assetId
       )
 
-      // TODO : check data
       return {
         Registry: asset.currentRegistry,
         Quantity: walletsBalance[filteredWallets.indexOf(wallet)],
@@ -156,8 +155,8 @@ export default function TokenSidebar() {
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
         'Project Link': asset.projectLink,
-        'CW Link': `${getCWLink()}/#/units?orgUid=all&unitId=${
-          asset.warehouseUnitId
+        'CW Link': `${getCWLink()}/#/units?orgUid=${asset.orgUid}&search=${
+          asset.marketplaceIdentifier
         }`,
       }
     })
