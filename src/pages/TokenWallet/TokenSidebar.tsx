@@ -142,15 +142,20 @@ export default function TokenSidebar() {
 
   const allCWAssetsCSVData = useMemo(() => {
     if (!allCWAssets || !filteredWallets) return []
+
     return filteredWallets.map((wallet) => {
       const asset = allCWAssets.find(
         (a) =>
           checkMarketplaceIdentifier(a.marketplaceIdentifier) === wallet.assetId
       )
 
+      const balanceIndex = filteredWallets.indexOf(wallet)
+      const balance = walletsBalance[balanceIndex]
+      const safeQuantity = balance !== 0 ? balance / 1000 : 0 // Protect against dividing by zero
+
       return {
         Registry: asset.currentRegistry,
-        Quantity: walletsBalance[filteredWallets.indexOf(wallet)],
+        Quantity: safeQuantity,
         'Project Name': asset.projectName,
         'Project ID': asset.projectId,
         'Vintage Year': asset.vintageYear,
