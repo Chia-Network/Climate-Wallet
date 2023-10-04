@@ -1,3 +1,7 @@
+## [1.1.25](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.24...1.1.25) (2023-10-04)
+
+
+
 ## [1.1.24](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.23...1.1.24) (2023-10-04)
 
 
