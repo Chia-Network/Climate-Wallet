@@ -140,7 +140,7 @@ jobs:
 
           gh run download $RUN_ID \
             --repo chia-network/climate-token-driver \
-            --name climate-token-driver-${{ matrix.preconfiguration.name }}-${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name }}
+            --name climate-token-driver-${{ matrix.preconfiguration.name }}-${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name }} \
             --dir downloaded-artifacts/
 
           mkdir -p extraResources/
