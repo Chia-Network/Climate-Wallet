@@ -19,7 +19,7 @@ defaults:
 
 jobs:
   build:
-    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
+    name: 👷 ${{ matrix.os.emoji }} ${{ matrix.preconfiguration.name }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
     runs-on: ${{ matrix.os.runs-on[matrix.arch.matrix] }}
     strategy:
       fail-fast: false
@@ -126,7 +126,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
         run: |
-          RUN_ID=$gh run list ${{ matrix.configuration.token-driver-artifact-ref }} \
+          RUN_ID=$(gh run list ${{ matrix.configuration.token-driver-artifact-ref }} \
             --repo chia-network/climate-token-driver \
             --branch $(gh release view \
               --repo chia-network/climate-token-driver \
@@ -136,7 +136,7 @@ jobs:
             --status completed \
             --limit 1 \
             --json databaseId \
-            --jq '.[0].databaseId'
+            --jq '.[0].databaseId')
 
           gh run download $RUN_ID \
             --repo chia-network/climate-token-driver \
