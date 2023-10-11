@@ -19,7 +19,7 @@ defaults:
 
 jobs:
   build:
-    name: Build Installer ${{ matrix.os.emoji }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
+    name: 👷 ${{ matrix.os.emoji }} ${{ matrix.preconfiguration.name }} ${{ matrix.os.name }} ${{ matrix.arch.name }}
     runs-on: ${{ matrix.os.runs-on[matrix.arch.matrix] }}
     strategy:
       fail-fast: false
@@ -70,6 +70,13 @@ jobs:
             matrix: intel
             artifact-name: x64
             electron-builder-options: --x64
+        preconfiguration:
+          - name: default
+            cadt-api-server-host: 'https://observer.climateactiondata.org/api'
+            cadt-ui-host: 'https://observer.climateactiondata.org'
+          - name: testneta
+            cadt-api-server-host: 'https://chia-cadt-demo.chiamanaged.com/observer'
+            cadt-ui-host: 'https://chia-cadt-demo.chiamanaged.com/'
         exclude:
           - os:
               matrix: windows
@@ -95,12 +102,15 @@ jobs:
         run: |
           npm install dmg-license
 
-      - name: Download Token Driver Client
+      - name: Download Token Driver Client from release
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
         run: |
-          gh release download ${{ matrix.configuration.token-driver-artifact-ref }} --repo chia-network/climate-token-driver --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip --dir downloaded-artifacts/
+          gh release download ${{ matrix.configuration.token-driver-artifact-ref }} \
+            --repo chia-network/climate-token-driver \
+            --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip \
+            --dir downloaded-artifacts/
           pushd downloaded-artifacts
           unzip *.zip
           rm -f *.zip
@@ -109,12 +119,49 @@ jobs:
           mv downloaded-artifacts/* "${DESTINATION}"
           chmod a+x "${DESTINATION}"
           ls -la extraResources/ || true
+        if: matrix.preconfiguration.name == 'default'
 
-      - name: prep
+      - name: Download Token Driver Client from artifact for custom config
+        env:
+          GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
+          DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
+        run: |
+          RUN_ID=$(gh run list ${{ matrix.configuration.token-driver-artifact-ref }} \
+            --repo chia-network/climate-token-driver \
+            --branch $(gh release view \
+              --repo chia-network/climate-token-driver \
+              --json tagName \
+              --jq '.tagName') \
+            --workflow "Build & Release" \
+            --status completed \
+            --limit 1 \
+            --json databaseId \
+            --jq '.[0].databaseId')
+
+          gh run download $RUN_ID \
+            --repo chia-network/climate-token-driver \
+            --name climate-token-driver-${{ matrix.preconfiguration.name }}-${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name }} \
+            --dir downloaded-artifacts/
+
+          mkdir -p extraResources/
+          mv downloaded-artifacts/* "${DESTINATION}"
+          chmod a+x "${DESTINATION}"
+          ls -la extraResources/ || true
+        if: matrix.preconfiguration.name != 'default'
+
+      - name: Prep .env file
         run: |
           cp .env.example .env
           # back to this once we have a lock: npm ci
           npm install
+
+      - name: Populate .env file for custom builds
+        run: |
+          perl -pi -e 's{CADT_API_SERVER_HOST=.*}{CADT_API_SERVER_HOST=${{ matrix.preconfiguration.cadt-api-server-host }}}g' .env
+          perl -pi -e 's{CADT_UI_HOST=.*}{CADT_UI_HOST=${{ matrix.preconfiguration.cadt-ui-host }}}g' .env
+          cat .env
+        if: matrix.preconfiguration.name != 'default'
+
 
       - name: Import Apple installer signing certificate
         if: matrix.os.matrix == 'macos'
@@ -190,14 +237,23 @@ jobs:
           files: artifacts/*
           fail_on_unmatched_files: true
           target_commitish: ${{ github.sha }}
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && matrix.preconfiguration.name == 'default'
 
       # Create aritifacts so we have builds to test from pull requests
-      - name: Upload Installer to artifacts
+      - name: Upload installer to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
           path: 'artifacts/*'
+        if: matrix.preconfiguration.name == 'default'
+
+      - name: Upload custom installers to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-${{ matrix.preconfiguration.name }}-installer
+          path: 'artifacts/*'
+        if: matrix.preconfiguration.name != 'default'
+
 
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
