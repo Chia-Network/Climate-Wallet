@@ -105,6 +105,7 @@ const TokenContent = () => {
     },
     {
       pollingInterval: 10000,
+      skip: !walletId,
     }
   )
 

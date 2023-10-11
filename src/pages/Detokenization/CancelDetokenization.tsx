@@ -80,7 +80,10 @@ const CancelDetokenization = () => {
     mode: 'onChange',
   })
 
-  const { data: assetId } = useGetCATAssetIdQuery({ walletId })
+  const { data: assetId } = useGetCATAssetIdQuery(
+    { walletId: walletId },
+    { skip: !walletId }
+  )
 
   const { data: cwAsset, isLoading: isLoadingAsset } =
     useGetAllCWAssetsById(assetId)
@@ -92,6 +95,7 @@ const CancelDetokenization = () => {
       },
       {
         pollingInterval: 10000,
+        skip: !walletId,
       }
     )
 

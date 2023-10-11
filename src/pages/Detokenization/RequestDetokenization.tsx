@@ -66,7 +66,10 @@ const RequestDetokenization = () => {
   })
   const { register, formState, handleSubmit, reset, getValues } = methods
 
-  const { data: assetId } = useGetCATAssetIdQuery({ walletId })
+  const { data: assetId } = useGetCATAssetIdQuery(
+    { walletId: walletId },
+    { skip: !walletId }
+  )
   const { data: cwAsset } = useGetAllCWAssetsById(assetId)
   const { data: walletBalance } = useGetWalletBalanceQuery(
     {
@@ -74,6 +77,7 @@ const RequestDetokenization = () => {
     },
     {
       pollingInterval: 10000,
+      skip: !walletId,
     }
   )
 

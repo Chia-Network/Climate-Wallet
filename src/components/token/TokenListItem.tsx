@@ -76,7 +76,10 @@ const TokenListItem = ({ walletId }: TokenListItemProps) => {
   )
 
   const { walletId: selectedWalletId, setWalletId } = useSelectedWallet()
-  const { data: assetId } = useGetCATAssetIdQuery({ walletId: walletId })
+  const { data: assetId } = useGetCATAssetIdQuery(
+    { walletId: walletId },
+    { skip: !walletId }
+  )
   const {
     data: asset,
     isLoading: isLoadingAsset,
@@ -85,7 +88,7 @@ const TokenListItem = ({ walletId }: TokenListItemProps) => {
 
   const { data: walletBalance } = useGetWalletBalanceQuery(
     { walletId },
-    { pollingInterval: 10000 }
+    { pollingInterval: 10000, skip: !walletId }
   )
   const { wallet, unit = '' } = useWallet(walletId)
   const isSelected = walletId === Number(selectedWalletId)

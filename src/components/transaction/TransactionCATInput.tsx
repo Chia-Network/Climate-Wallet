@@ -15,6 +15,7 @@ const TransactionCATInput = () => {
       },
       {
         pollingInterval: 10000,
+        skip: !walletId,
       }
     )
   const {

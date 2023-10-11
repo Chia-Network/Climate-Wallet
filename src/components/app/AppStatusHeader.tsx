@@ -125,7 +125,7 @@ export default function AppStatusHeader() {
   // XCH
   const { data: walletBalance } = useGetWalletBalanceQuery(
     { walletId: chiaWalletId },
-    { pollingInterval: 10000 }
+    { pollingInterval: 10000, skip: !chiaWalletId }
   )
 
   const { wallet, unit = '', loading } = useWallet(chiaWalletId)
