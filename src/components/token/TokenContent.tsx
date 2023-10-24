@@ -75,7 +75,7 @@ const TokenContent = () => {
       return undefined
     }
 
-    const assetData = metadata?.[`meta_${asset?.asset_id}`]
+    const assetData = metadata?.[asset?.asset_id]
 
     if (!assetData) {
       return undefined
