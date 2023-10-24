@@ -1,3 +1,12 @@
+## [1.1.26](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.25...1.1.26) (2023-10-24)
+
+
+### Bug Fixes
+
+* missing meta_ prefix fixes ([f920f3d](https://github.com/Chia-Network/Climate-Wallet/commit/f920f3d3c3f6a220ad5fee9d44337a760efd0cc5))
+
+
+
 ## [1.1.25](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.24...1.1.25) (2023-10-04)
 
 
