@@ -1,18 +1,22 @@
 # Climate Wallet
 
+![Minimum Chia Version](https://raw.githubusercontent.com/Chia-Network/core-registry-api/main/minimumChiaVersion.svg)  
+![Tested Up to Chia Version](https://raw.githubusercontent.com/Chia-Network/core-registry-api/main/testedChiaVersion.svg)
+
 This repository holds the source code for the Climate Wallet in the Climate Tokenization Suite. Related programs are:
-* [Climate Tokenization Engine](https://github.com/Chia-Network/Climate-Tokenization-Engine) and [UI](https://github.com/Chia-Network/Climate-Tokenization-Engine-UI)
-* [Climate Token Driver](https://github.com/Chia-Network/climate-token-driver)
-* [CADT](https://github.com/Chia-Network/cadt) and [UI](https://github.com/Chia-Network/cadt-ui)
-* [Chia Blockchain](https://github.com/Chia-Network/chia-blockchain)
+
+- [Climate Tokenization Engine](https://github.com/Chia-Network/Climate-Tokenization-Engine) and [UI](https://github.com/Chia-Network/Climate-Tokenization-Engine-UI)
+- [Climate Token Driver](https://github.com/Chia-Network/climate-token-driver)
+- [CADT](https://github.com/Chia-Network/cadt) and [UI](https://github.com/Chia-Network/cadt-ui)
+- [Chia Blockchain](https://github.com/Chia-Network/chia-blockchain)
 
 Note this wallet is an independent plugin to the latest official [Chia Wallet](https://www.chia.net/downloads/).
 
-*Note: Version 1.1.0 contains breaking changes. Configuration variables are renamed in the config.yaml file and are best handled by taking a backup of the Climate Wallet config.yaml file, unistalling the Climate Wallet and deleting the climate-wallet config.yaml file, then reinstalling and reconfiguring.*
+_Note: Version 1.1.0 contains breaking changes. Configuration variables are renamed in the config.yaml file and are best handled by taking a backup of the Climate Wallet config.yaml file, unistalling the Climate Wallet and deleting the climate-wallet config.yaml file, then reinstalling and reconfiguring._
 
 # Usage
 
-The Climate Wallet connects with the official [Chia Wallet](https://www.chia.net/downloads/) running on localhost.  The Climate Wallet also needs to connect to a [CADT](https://github.com/Chia-Network/cadt) node, which could be a publicly available observer node.  
+The Climate Wallet connects with the official [Chia Wallet](https://www.chia.net/downloads/) running on localhost. The Climate Wallet also needs to connect to a [CADT](https://github.com/Chia-Network/cadt) node, which could be a publicly available observer node.
 
 ## Installation
 
@@ -20,7 +24,7 @@ Precompiled binaries and installers are available for x86 and ARM versions of Ma
 
 #### Using APT on Debian-based Linux Distros (Ubuntu, Mint, etc)
 
-The Climate Wallet can be installed with `apt`.  
+The Climate Wallet can be installed with `apt`.
 
 1. Start by updating apt and allowing repository download over HTTPS:
 
@@ -48,16 +52,16 @@ sudo apt-get update
 sudo apt-get install climate-wallet
 ```
 
-5.  Run the Climate Wallet from your OS launcher or at the command line with `climate-wallet`. 
+5.  Run the Climate Wallet from your OS launcher or at the command line with `climate-wallet`.
 
 ## Configuration
 
-A config.yaml file located at `./chia/mainnet/climate-wallet`. This config file is created when the application is first run.  When configuration changes are made, the application must be restarted before they take effect.  The default values in this file: 
+A config.yaml file located at `./chia/mainnet/climate-wallet`. This config file is created when the application is first run. When configuration changes are made, the application must be restarted before they take effect. The default values in this file:
 
-  - `cadtApiServerHosts`: List of CADT API servers
-  - `apiTimeout`: API request timeout
-  - `cadtUiHost`:  CADT UI host
-  - `version`: Climate Wallet version
+- `cadtApiServerHosts`: List of CADT API servers
+- `apiTimeout`: API request timeout
+- `cadtUiHost`: CADT UI host
+- `version`: Climate Wallet version
 
 # Developer Guide
 
@@ -76,7 +80,6 @@ A config.yaml file located at `./chia/mainnet/climate-wallet`. This config file 
   - `theme`: material-ui theme setting
   - `types`: typescript types
   - `util`: this project utilities
-
 
 ## Prerequisite
 
@@ -101,7 +104,6 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
   ```
 
   submodule used `Climate Token Driver Suite` client service port `31314`
-
 
 ### Run from source for development
 
@@ -170,8 +172,8 @@ The first part of this is the commit "type". The most common types are "feat" fo
 - `chore` is for changes that don't modify code, like a version bump
 - `revert` is for reverting a previous commit
 
-After the type and scope there should be a colon.  The "subject" of the commit follows. It should be a short indication of the change. The commit convention prefers that this is written in the present-imperative tense.
+After the type and scope there should be a colon. The "subject" of the commit follows. It should be a short indication of the change. The commit convention prefers that this is written in the present-imperative tense.
 
 ### Branch Layout
 
-All pull requests should be made against the `develop` branch.  Commits to the `main` branch will trigger a release, so the `main` branch is always the code in the latest release.
+All pull requests should be made against the `develop` branch. Commits to the `main` branch will trigger a release, so the `main` branch is always the code in the latest release.
