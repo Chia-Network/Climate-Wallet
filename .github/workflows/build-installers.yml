@@ -156,8 +156,6 @@ jobs:
       - name: Prep .env file
         run: |
           cp .env.example .env
-          # back to this once we have a lock: npm ci
-          npm install
 
       - name: Populate .env file for custom builds
         run: |
@@ -165,7 +163,6 @@ jobs:
           perl -pi -e 's{CADT_UI_HOST=.*}{CADT_UI_HOST=${{ matrix.preconfiguration.cadt-ui-host }}}g' .env
           cat .env
         if: matrix.preconfiguration.name != 'default'
-
 
       - name: Import Apple installer signing certificate
         if: matrix.os.matrix == 'macos'
@@ -187,6 +184,7 @@ jobs:
       - name: Build electron app
         if: matrix.os.matrix != 'macos'
         run: |
+          npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
@@ -196,6 +194,7 @@ jobs:
           # macos
           CSC_FOR_PULL_REQUEST: 'true'
         run: |
+          npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
@@ -257,7 +256,6 @@ jobs:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-${{ matrix.preconfiguration.name }}-installer
           path: 'artifacts/*'
         if: matrix.preconfiguration.name != 'default'
-
 
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
