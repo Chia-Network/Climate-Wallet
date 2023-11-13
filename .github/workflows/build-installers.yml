@@ -13,6 +13,10 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref == 'refs/heads/main' && github.sha || '' }}
   cancel-in-progress: true
 
+permissions:
+  id-token: write
+  contents: write
+
 defaults:
   run:
     shell: bash
@@ -152,8 +156,6 @@ jobs:
       - name: Prep .env file
         run: |
           cp .env.example .env
-          # back to this once we have a lock: npm ci
-          npm install
 
       - name: Populate .env file for custom builds
         run: |
@@ -161,7 +163,6 @@ jobs:
           perl -pi -e 's{CADT_UI_HOST=.*}{CADT_UI_HOST=${{ matrix.preconfiguration.cadt-ui-host }}}g' .env
           cat .env
         if: matrix.preconfiguration.name != 'default'
-
 
       - name: Import Apple installer signing certificate
         if: matrix.os.matrix == 'macos'
@@ -183,6 +184,7 @@ jobs:
       - name: Build electron app
         if: matrix.os.matrix != 'macos'
         run: |
+          npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
@@ -192,6 +194,7 @@ jobs:
           # macos
           CSC_FOR_PULL_REQUEST: 'true'
         run: |
+          npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
 
@@ -254,7 +257,6 @@ jobs:
           path: 'artifacts/*'
         if: matrix.preconfiguration.name != 'default'
 
-
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
         if: always()
@@ -276,7 +278,10 @@ jobs:
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
 
+      - name: Gets JWT Token from GitHub
+        uses: Chia-Network/actions/github/jwt@main
+
       - name: Trigger apt repo update
         run: |
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/start
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/success/deploy
+          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/start
+          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/success/deploy
