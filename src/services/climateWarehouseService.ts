@@ -14,7 +14,7 @@ export const climateWarehouseServiceApi = createApi({
           hasMarketplaceIdentifier: true,
           includeProjectInfoInSearch: true,
           page: 1,
-          limit: 1000,
+          limit: 100,
         },
         method: 'get',
       }),
@@ -50,7 +50,7 @@ export const climateWarehouseServiceApi = createApi({
     getAllCWProject: builder.query({
       query: () => ({
         url: '/v1/projects',
-        params: { onlyMarketplaceProjects: true, page: 1, limit: 1000 },
+        params: { onlyMarketplaceProjects: true, page: 1, limit: 100 },
         method: 'get',
       }),
       transformResponse: (response: any) => {
