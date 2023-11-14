@@ -1,3 +1,12 @@
+## [1.1.28](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.27...1.1.28) (2023-11-14)
+
+
+### Bug Fixes
+
+* exit retirements loop if retirement response is empty ([fd5f116](https://github.com/Chia-Network/Climate-Wallet/commit/fd5f116859b41129c9abb98b1452b40c83030c17))
+
+
+
 ## [1.1.27](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.26...1.1.27) (2023-11-13)
 
 
