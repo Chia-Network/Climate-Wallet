@@ -7,7 +7,10 @@ import { useGetCATAssetIdQuery } from '@chia/api-react'
 const useSelectedWallet = () => {
   const walletId = useTypedSelector((state) => state.wallet.walletId)
   const wallets = useWallet(walletId)
-  const { data: assetId } = useGetCATAssetIdQuery({ walletId: walletId })
+  const { data: assetId } = useGetCATAssetIdQuery(
+    { walletId: walletId },
+    { skip: !walletId }
+  )
   const {
     data: asset,
     isLoading: isLoadingAsset,
