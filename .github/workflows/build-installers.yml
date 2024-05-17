@@ -176,6 +176,7 @@ jobs:
         run: |
           # TODO: make this an action?
           # https://github.com/Chia-Network/chia-blockchain/blob/9b8cdd36daebf2efe8777c98e212e564f4cdd475/build_scripts/build_linux_deb-2-installer.sh#L72
+          sudo apt update
           sudo apt -y install ruby3.0 ruby3.0-dev
           sudo gem install public_suffix -v 4.0.7
           sudo gem install fpm
