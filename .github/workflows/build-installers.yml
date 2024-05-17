@@ -178,6 +178,7 @@ jobs:
           # https://github.com/Chia-Network/chia-blockchain/blob/9b8cdd36daebf2efe8777c98e212e564f4cdd475/build_scripts/build_linux_deb-2-installer.sh#L72
           #
           # Install Ruby Version Manager
+          gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
           curl -sSL https://get.rvm.io | bash -s stable
           source ~/.rvm/scripts/rvm
           # Install ruby3
