@@ -183,8 +183,8 @@ jobs:
           source ~/.rvm/scripts/rvm
           # Install ruby3
           rvm install ruby-3
-          sudo gem install public_suffix -v 4.0.7
-          sudo gem install fpm
+          gem install public_suffix -v 4.0.7
+          gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
       - name: Build electron app
