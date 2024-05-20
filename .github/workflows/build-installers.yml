@@ -189,7 +189,7 @@ jobs:
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
       - name: Build electron app
-        if: ${{ !(matrix.os == 'linux' && matrix.arch == 'arm' ) || matrix.os == 'macos' }}
+        if: ${{ !(matrix.os == 'linux' && matrix.arch == 'arm' ) || matrix.os != 'macos' }}
         run: |
           npm install
           npm run build
