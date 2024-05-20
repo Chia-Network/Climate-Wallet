@@ -49,7 +49,7 @@ jobs:
             emoji: 🍎
             runs-on:
               arm: [macOS, ARM64]
-              intel: [macos-latest]
+              intel: [macos-12]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             executable-extension: ''
@@ -176,14 +176,31 @@ jobs:
         run: |
           # TODO: make this an action?
           # https://github.com/Chia-Network/chia-blockchain/blob/9b8cdd36daebf2efe8777c98e212e564f4cdd475/build_scripts/build_linux_deb-2-installer.sh#L72
-          sudo apt -y install ruby ruby-dev
-          sudo gem install public_suffix -v 4.0.7
-          sudo gem install fpm
+          #
+          # Install Ruby Version Manager
+          gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+          curl -sSL https://get.rvm.io | bash -s stable
+          source ~/.rvm/scripts/rvm
+          rvm reload
+          # Install ruby3
+          rvm install ruby-3.2.1
+          rvm use ruby-3.2.1
+          ruby --version
+          gem install public_suffix -v 4.0.7
+          gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
       - name: Build electron app
-        if: matrix.os.matrix != 'macos'
+        if: (matrix.os.matrix == 'linux' && matrix.arch.matrix == 'intel') || matrix.os.matrix == 'windows'
         run: |
+          npm install
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (Linux ARM)
+        if: matrix.os.matrix == 'linux' && matrix.arch.matrix == 'arm'
+        run: |
+          source ~/.rvm/scripts/rvm
           npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
@@ -208,12 +225,12 @@ jobs:
         if: matrix.os.matrix == 'macos'
         run: |
           DMG_FILE=$(find ${{ github.workspace }}/artifacts/ -type f -name '*.dmg')
-          npm install -g notarize-cli
-          notarize-cli \
-            --file="$DMG_FILE" \
-            --bundle-id net.chia.climate-wallet \
-            --username "${{ secrets.APPLE_NOTARIZE_USERNAME }}" \
-            --password "${{ secrets.APPLE_NOTARIZE_PASSWORD }}"
+          xcrun notarytool submit \
+          --wait \
+          --apple-id "${{ secrets.APPLE_NOTARIZE_USERNAME }}" \
+          --password "${{ secrets.APPLE_NOTARIZE_PASSWORD }}" \
+          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+          "$DMG_FILE"
 
       # Windows Code Signing
       - name: Get installer name for signing
