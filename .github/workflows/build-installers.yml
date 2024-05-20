@@ -182,7 +182,8 @@ jobs:
           curl -sSL https://get.rvm.io | bash -s stable
           source ~/.rvm/scripts/rvm
           # Install ruby3
-          rvm install ruby-3
+          rvm install ruby-3.2.1
+          rvm use ruby-3.2.1
           gem install public_suffix -v 4.0.7
           gem install fpm
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
@@ -190,6 +191,7 @@ jobs:
       - name: Build electron app
         if: matrix.os.matrix != 'macos'
         run: |
+          source ~/.rvm/scripts/rvm
           npm install
           npm run build
           npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
