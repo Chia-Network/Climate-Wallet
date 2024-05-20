@@ -189,7 +189,14 @@ jobs:
           echo "USE_SYSTEM_FPM=true" >> "${GITHUB_ENV}"
 
       - name: Build electron app
-        if: matrix.os.matrix != 'macos'
+        if: matrix.os.matrix != 'macos' && ( matrix.os.matrix == 'linux' && matrix.arch.matrix != 'arm' )
+        run: |
+          npm install
+          npm run build
+          npm run package-none -- ${{ matrix.os.electron-builder-options }} ${{ matrix.arch.electron-builder-options }}
+
+      - name: Build electron app (Linux ARM)
+        if: matrix.os.matrix == 'linux' && matrix.arch.matrix == 'arm'
         run: |
           source ~/.rvm/scripts/rvm
           npm install
