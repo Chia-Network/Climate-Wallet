@@ -52,7 +52,7 @@ const TokenHeader = () => {
 
   const handleViewDetails = () => {
     openExternal(
-      `${getCWLink()}/#/units?orgUid=${asset.orgUid}&search=${
+      `${getCWLink()}/units?orgUid=${asset.orgUid}&search=${
         asset.marketplaceIdentifier
       }`
     )
