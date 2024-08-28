@@ -1,3 +1,12 @@
+## [1.1.30](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.29...1.1.30) (2024-08-28)
+
+
+### Features
+
+* updated url format to work with cadt-ui v2 ([75d0754](https://github.com/Chia-Network/Climate-Wallet/commit/75d0754751bac1bd7c90deeeb50f0ebdc8f1a7fd))
+
+
+
 ## [1.1.29](https://github.com/Chia-Network/Climate-Wallet/compare/1.1.28...1.1.29) (2023-11-14)
 
 
