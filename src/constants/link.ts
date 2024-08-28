@@ -1,1 +1,1 @@
-export const CW_LINK = 'https://app.climatewarehouse.chia.net'
+export const CW_LINK = 'https://observer.climateactiondata.org'
