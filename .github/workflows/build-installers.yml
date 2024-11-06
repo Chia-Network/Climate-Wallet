@@ -92,7 +92,7 @@ jobs:
         uses: Chia-Network/actions/clean-workspace@main
 
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -300,5 +300,5 @@ jobs:
         with:
           json_data: '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}'
           glue_url: ${{ secrets.GLUE_API_URL }}
-          glue_project: "climate-tokenization"
-          glue_path: "trigger"
+          glue_project: 'climate-tokenization'
+          glue_path: 'trigger'
