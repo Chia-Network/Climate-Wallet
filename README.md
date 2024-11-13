@@ -148,6 +148,20 @@ You will need a running instance of [Chia Wallet](https://www.chia.net/downloads
   npm run package-mac
   ```
 
+### Updating Submodule
+
+Updating the Climate Token Driver is done with standard git commands and is documented here for easy reference:
+
+1.  Create new branch `git checkout -b update-token-driver`
+2.  Change into climate-token-driver directory `cd climate-token-driver`
+3.  `git pull`
+4.  Checkout a commit or a tag. Tagged releases preferable `git checkout 1.0.40`
+5.  `cd ..`
+6.  `git add climate-token-driver`
+7.  Commit the updated submodule `git commit -m "chore: update climate token driver submodule"`
+8.  `git push`
+
+
 ## Contributing
 
 [Signed commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) are required.
