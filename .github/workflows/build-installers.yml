@@ -92,12 +92,12 @@ jobs:
         uses: Chia-Network/actions/clean-workspace@main
 
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node 18.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -164,8 +164,19 @@ jobs:
           cat .env
         if: matrix.preconfiguration.name != 'default'
 
+      - name: Test for secrets access
+        id: check_secrets
+        shell: bash
+        run: |
+          unset HAS_SIGNING_SECRET
+
+          if [ -n "$SIGNING_SECRET" ]; then HAS_SIGNING_SECRET='true' ; fi
+          echo "HAS_SIGNING_SECRET=${HAS_SIGNING_SECRET}" >> "$GITHUB_OUTPUT"
+        env:
+          SIGNING_SECRET: "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}"
+
       - name: Import Apple installer signing certificate
-        if: matrix.os.matrix == 'macos'
+        if: matrix.os.matrix == 'macos' && steps.check_secrets.outputs.HAS_SIGNING_SECRET
         uses: Apple-Actions/import-codesign-certs@v2
         with:
           p12-file-base64: ${{ secrets.APPLE_DEV_ID_APP }}
@@ -222,7 +233,7 @@ jobs:
           cp -v dist/${{ matrix.os.build-result-pattern }} artifacts/
 
       - name: Notarize
-        if: matrix.os.matrix == 'macos'
+        if: matrix.os.matrix == 'macos' && steps.check_secrets.outputs.HAS_SIGNING_SECRET
         run: |
           DMG_FILE=$(find ${{ github.workspace }}/artifacts/ -type f -name '*.dmg')
           xcrun notarytool submit \
@@ -242,7 +253,7 @@ jobs:
           echo "INSTALLER_FILE=$FILE" >> "$GITHUB_ENV"
 
       - name: Sign windows artifacts
-        if: matrix.os.matrix == 'windows'
+        if: matrix.os.matrix == 'windows' && steps.check_secrets.outputs.HAS_SIGNING_SECRET
         uses: chia-network/actions/digicert/windows-sign@main
         with:
           sm_api_key: ${{ secrets.SM_API_KEY }}
@@ -295,10 +306,10 @@ jobs:
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
 
-      - name: Gets JWT Token from GitHub
-        uses: Chia-Network/actions/github/jwt@main
-
       - name: Trigger apt repo update
-        run: |
-          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/start
-          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" --data '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}' ${{ secrets.GLUE_API_URL }}/api/v1/climate-tokenization/${{ github.sha }}/success/deploy
+        uses: Chia-Network/actions/github/glue@main
+        with:
+          json_data: '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}'
+          glue_url: ${{ secrets.GLUE_API_URL }}
+          glue_project: 'climate-tokenization'
+          glue_path: 'trigger'
