@@ -272,14 +272,14 @@ jobs:
 
       # Create aritifacts so we have builds to test from pull requests
       - name: Upload installer to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
           path: 'artifacts/*'
         if: matrix.preconfiguration.name == 'default'
 
       - name: Upload custom installers to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-${{ matrix.preconfiguration.name }}-installer
           path: 'artifacts/*'
