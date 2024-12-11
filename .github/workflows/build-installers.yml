@@ -49,7 +49,7 @@ jobs:
             emoji: 🍎
             runs-on:
               arm: [macOS, ARM64]
-              intel: [macos-12]
+              intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             executable-extension: ''
