@@ -111,6 +111,32 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
         run: |
+          # Figure out the version string to use
+          if [ -z ${{ matrix.configuration.token-driver-artifact-ref }} ]; then
+            echo "No version specified - getting latest version number from Github"
+            location_string=\
+              $(curl -sI https://github.com/Chia-Network/climate-token-driver/releases/latest | \
+              grep -i 'Location:')
+            token_driver_version=$(echo "$location_string" | awk -F '/' '{print $NF}')
+          else
+            token_driver_version=${{ matrix.configuration.token-driver-artifact-ref }}
+          fi
+
+          # Create correct string for testneta/default build
+          if [ ${{ matrix.preconfiguration.name }} == 'default' ]; then
+            preconfiguration=
+
+          mkdir -p downloaded-artifacts
+          wget -O downloaded-artifact/climate-token-driver_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip \
+            https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip
+          pushd downloaded-artifacts
+          unzip *.zip
+          rm -f *.zip
+          popd
+
+
+          ############
+
           gh release download ${{ matrix.configuration.token-driver-artifact-ref }} \
             --repo chia-network/climate-token-driver \
             --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip \
