@@ -90,9 +90,6 @@ jobs:
               matrix: arm
 
     steps:
-      - name: Clean workspace
-        uses: Chia-Network/actions/clean-workspace@main
-
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
@@ -125,7 +122,7 @@ jobs:
 
           echo "Token Driver version to download: ${token_driver_version}"
           mkdir -p downloaded-artifacts
-          wget --no-verbose -O downloaded-artifacts/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip
+          curl -L -o downloaded-artifacts/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip
           pushd downloaded-artifacts
           unzip *.zip
           rm -f *.zip
