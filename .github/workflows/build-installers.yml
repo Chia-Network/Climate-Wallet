@@ -125,7 +125,7 @@ jobs:
 
           echo "Token Driver version to download: ${token_driver_version}"
           mkdir -p downloaded-artifacts
-          wget -O downloaded-artifacts/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip
+          wget --no-verbose -O downloaded-artifacts/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip
           pushd downloaded-artifacts
           unzip *.zip
           rm -f *.zip
