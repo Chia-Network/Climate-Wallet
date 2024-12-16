@@ -112,13 +112,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
+        shell: bash
         run: |
           # Figure out the version string to use
           if [ -z ${{ matrix.configuration.token-driver-artifact-ref }} ]; then
             echo "No version specified - getting latest version number from Github"
-            location_string=\
-              $(curl -sI https://github.com/Chia-Network/climate-token-driver/releases/latest | \
-              grep -i 'Location:')
+            location_string=$(curl -sI https://github.com/Chia-Network/climate-token-driver/releases/latest | grep -i 'Location:')
             token_driver_version=$(echo "$location_string" | awk -F '/' '{print $NF}')
           else
             token_driver_version=${{ matrix.configuration.token-driver-artifact-ref }}
