@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - token-driver-artifact-ref: '' # Set to blank string for latest version
+          - token-driver-artifact-ref: '' # Set to blank string for latest version. Use taga only - job artifacts are not accessible
         python-version: [3.9]
         os:
           # TODO: use old versions for improved compatibility?
@@ -78,9 +78,11 @@ jobs:
           - name: default
             cadt-api-server-host: 'https://observer.climateactiondata.org/api'
             cadt-ui-host: 'https://observer.climateactiondata.org'
+            token-driver-filename-string: ''
           - name: testneta
             cadt-api-server-host: 'https://chia-cadt-demo.chiamanaged.com/observer'
             cadt-ui-host: 'https://chia-cadt-demo.chiamanaged.com/'
+            token-driver-filename-string: '-testneta'
         exclude:
           - os:
               matrix: windows
@@ -122,25 +124,9 @@ jobs:
             token_driver_version=${{ matrix.configuration.token-driver-artifact-ref }}
           fi
 
-          # Create correct string for testneta/default build
-          if [ ${{ matrix.preconfiguration.name }} == 'default' ]; then
-            preconfiguration=
-
           mkdir -p downloaded-artifacts
-          wget -O downloaded-artifact/climate-token-driver_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip \
-            https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip
-          pushd downloaded-artifacts
-          unzip *.zip
-          rm -f *.zip
-          popd
-
-
-          ############
-
-          gh release download ${{ matrix.configuration.token-driver-artifact-ref }} \
-            --repo chia-network/climate-token-driver \
-            --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip \
-            --dir downloaded-artifacts/
+          wget -O downloaded-artifact/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip \
+            https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.token-driver-filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}-${{ matrix.arch.artifact-name }}.zip
           pushd downloaded-artifacts
           unzip *.zip
           rm -f *.zip
@@ -149,35 +135,6 @@ jobs:
           mv downloaded-artifacts/* "${DESTINATION}"
           chmod a+x "${DESTINATION}"
           ls -la extraResources/ || true
-        if: matrix.preconfiguration.name == 'default'
-
-      - name: Download Token Driver Client from artifact for custom config
-        env:
-          GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
-          DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
-        run: |
-          RUN_ID=$(gh run list ${{ matrix.configuration.token-driver-artifact-ref }} \
-            --repo chia-network/climate-token-driver \
-            --branch $(gh release view \
-              --repo chia-network/climate-token-driver \
-              --json tagName \
-              --jq '.tagName') \
-            --workflow "Build & Release" \
-            --status completed \
-            --limit 1 \
-            --json databaseId \
-            --jq '.[0].databaseId')
-
-          gh run download $RUN_ID \
-            --repo chia-network/climate-token-driver \
-            --name climate-token-driver-${{ matrix.preconfiguration.name }}-${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name }} \
-            --dir downloaded-artifacts/
-
-          mkdir -p extraResources/
-          mv downloaded-artifacts/* "${DESTINATION}"
-          chmod a+x "${DESTINATION}"
-          ls -la extraResources/ || true
-        if: matrix.preconfiguration.name != 'default'
 
       - name: Prep .env file
         run: |
