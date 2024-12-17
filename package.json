@@ -140,7 +140,7 @@
     "dotenv-webpack": "^8.0.1",
     "electron": "^25.3.2",
     "electron-builder": "^24.6.3",
-    "electron-winstaller": "5.0.0",
+    "electron-winstaller": "5.4.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
