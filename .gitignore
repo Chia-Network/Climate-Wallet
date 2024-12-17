@@ -33,7 +33,7 @@ chia-blockchain.tar.gz.tar.gz
 *.manifest
 build_scripts/*.dmg
 build_scripts/build
-
+downloaded-artifacts
 
 # Installer logs
 pip-log.txt
