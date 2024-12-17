@@ -28,6 +28,8 @@ jobs:
           passphrase: ${{ secrets.CHIA_AUTOMATION_PRIVATE_GPG_PASSPHRASE }}
 
       - name: Check for current version tag. Create if it doesn't exist
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
            stable_version=$(gh release list --limit 1 --order desc --exclude-pre-releases --json tagName --jq ".[].tagName")
             echo "Latest release is $stable_version"
