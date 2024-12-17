@@ -124,7 +124,7 @@
     "@types/validator": "13.7.1",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "@xmldom/xmldom": "^0.8.10",
+    "@xmldom/xmldom": "^0.9.6",
     "app-builder-lib": "^24.6.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "8.2.3",
