@@ -27,11 +27,11 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { WalletListItem } from '../../types/WalletType'
 
-enum TokeSortEnum {
-  QuentyHL = 0, // Quantity - high to low
-  QuentyLH = 1, // Quantity -  low to high
-  NameAZ = 2, // Name -  A to Z
-  NameZA = 3, // Name -  Z to A
+enum TokenSortEnum {
+  QuantityHightToLow = 0, // Quantity - high to low
+  QuantityLowToHigh = 1, // Quantity -  low to high
+  NameAToZ = 2, // Name -  A to Z
+  NameZToA = 3, // Name -  Z to A
 }
 
 const StyledRoot = styled(Stack)(({ theme }) => ({
@@ -54,8 +54,8 @@ export default function TokenSidebar() {
   )
   const { walletId, setWalletId } = useSelectedWallet()
 
-  const [tokenSort, setTokenSort] = useState<TokeSortEnum>(
-    TokeSortEnum.QuentyHL
+  const [tokenSort, setTokenSort] = useState<TokenSortEnum>(
+    TokenSortEnum.QuantityHightToLow
   )
   const { isDetokenWallet } = useDetokenzationBlockingList()
 
@@ -65,6 +65,9 @@ export default function TokenSidebar() {
     error: errorAllCWAssets,
   } = useGetAllCWAssets()
 
+  /**
+   * this filters down to just CATS with unit records in CADT (climate warehouse)
+   */
   const filteredWallets = useMemo<WalletListItem[]>(() => {
     if (!wallets || !allCWAssets) {
       return []
@@ -83,7 +86,7 @@ export default function TokenSidebar() {
     useWalletsBalance(filteredWallets)
 
   // TODO : can refactor
-  const sortedWallets = useMemo<WalletListItem[]>(() => {
+  const sortedTokens = useMemo<WalletListItem[]>(() => {
     if (filteredWallets.length !== walletsBalance.length) {
       return [...filteredWallets]
     }
@@ -91,21 +94,21 @@ export default function TokenSidebar() {
     switch (tokenSort) {
       default:
         return [...filteredWallets]
-      case TokeSortEnum.QuentyHL:
+      case TokenSortEnum.QuantityHightToLow:
         return [...filteredWallets].sort((a, b) => {
           return (
             walletsBalance[filteredWallets.indexOf(b)] -
             walletsBalance[filteredWallets.indexOf(a)]
           )
         })
-      case TokeSortEnum.QuentyLH:
+      case TokenSortEnum.QuantityLowToHigh:
         return [...filteredWallets].sort((a, b) => {
           return (
             walletsBalance[filteredWallets.indexOf(a)] -
             walletsBalance[filteredWallets.indexOf(b)]
           )
         })
-      case TokeSortEnum.NameAZ:
+      case TokenSortEnum.NameAToZ:
         return [...filteredWallets].sort((a, b) => {
           var aName =
             allCWAssets.find(
@@ -121,7 +124,7 @@ export default function TokenSidebar() {
             )?.projectName ?? ''
           return aName.localeCompare(bName)
         })
-      case TokeSortEnum.NameZA:
+      case TokenSortEnum.NameZToA:
         return [...filteredWallets].sort((a, b) => {
           var aName =
             allCWAssets.find(
@@ -178,12 +181,12 @@ export default function TokenSidebar() {
   useEffect(() => {
     if (
       !walletId &&
-      sortedWallets.length > 0 &&
+      sortedTokens.length > 0 &&
       filteredWallets.length === walletsBalance.length
     ) {
-      setWalletId(sortedWallets[0].walletId)
+      setWalletId(sortedTokens[0].walletId)
     }
-  }, [sortedWallets, filteredWallets, walletsBalance])
+  }, [sortedTokens, filteredWallets, walletsBalance])
 
   if (
     !isLoading &&
@@ -200,7 +203,7 @@ export default function TokenSidebar() {
           <Typography variant="h5">
             <Trans>My Wallet</Trans>
           </Typography>
-          {!isLoading && sortedWallets.length > 0 && (
+          {!isLoading && sortedTokens.length > 0 && (
             <ExportButton fileName="token.csv" data={allCWAssetsCSVData} />
           )}
         </Stack>
@@ -213,7 +216,7 @@ export default function TokenSidebar() {
             <center>Your Chia Wallet is still syncing...</center>
           )}
         </div>
-      ) : sortedWallets.length > 0 ? (
+      ) : sortedTokens.length > 0 ? (
         <Stack spacing={1} direction="column">
           <Stack
             direction="row"
@@ -234,31 +237,30 @@ export default function TokenSidebar() {
                 value={tokenSort}
                 displayEmpty
                 onChange={(event) => {
-                  setTokenSort(event.target.value as TokeSortEnum)
+                  setTokenSort(event.target.value as TokenSortEnum)
                 }}
                 sx={{
                   height: '40px',
                   color: theme.palette.text.secondary,
                 }}
               >
-                <MenuItem value={TokeSortEnum.QuentyHL}>
+                <MenuItem value={TokenSortEnum.QuantityHightToLow}>
                   <Trans>Quantity - high to low</Trans>
                 </MenuItem>
-                <MenuItem value={TokeSortEnum.QuentyLH}>
+                <MenuItem value={TokenSortEnum.QuantityLowToHigh}>
                   <Trans>Quantity - low to high</Trans>
                 </MenuItem>
-                <MenuItem value={TokeSortEnum.NameAZ}>
-                  <Trans>Name - A to Z</Trans>
+                <MenuItem value={TokenSortEnum.NameAToZ}>
+                  <Trans>Project Name - A to Z</Trans>
                 </MenuItem>
-                <MenuItem value={TokeSortEnum.NameZA}>
-                  <Trans>Name - Z to A</Trans>
+                <MenuItem value={TokenSortEnum.NameZToA}>
+                  <Trans>Project Name - Z to A</Trans>
                 </MenuItem>
               </Select>
             </FormControl>
           </Stack>
-          {sortedWallets.map((wallet) => {
+          {sortedTokens.map((wallet) => {
             const { walletId, assetId } = wallet
-
             return (
               <TokenListItem
                 key={assetId ?? walletId}
