@@ -37,7 +37,7 @@ jobs:
             matrix: linux
             emoji: 🐧
             runs-on:
-              arm: [Linux, ARM64]
+              arm: [ubuntu-22.04-arm]
               intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
