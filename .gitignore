@@ -98,6 +98,5 @@ extraResources/
 
 dist
 yarn.lock
-package-lock.json
 main.build
 .env
