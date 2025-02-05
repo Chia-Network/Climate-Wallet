@@ -152,7 +152,7 @@ jobs:
           if [ -n "$SIGNING_SECRET" ]; then HAS_SIGNING_SECRET='true' ; fi
           echo "HAS_SIGNING_SECRET=${HAS_SIGNING_SECRET}" >> "$GITHUB_OUTPUT"
         env:
-          SIGNING_SECRET: "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}"
+          SIGNING_SECRET: '${{ secrets.SM_CLIENT_CERT_FILE_B64 }}'
 
       - name: Change the package.json version if an RC tag
         if: startsWith(github.ref, 'refs/tags/') && contains( github.ref, '-rc')
@@ -281,7 +281,7 @@ jobs:
           fail_on_unmatched_files: true
           target_commitish: ${{ github.sha }}
           prerelease: ${{steps.is_latest.outputs.IS_PRERELEASE}}
-          make_latest: "${{steps.is_latest.outputs.IS_LATEST}}"
+          make_latest: '${{steps.is_latest.outputs.IS_LATEST}}'
         if: startsWith(github.ref, 'refs/tags/')
 
       # Create aritifacts so we have builds to test from pull requests
@@ -296,9 +296,9 @@ jobs:
         if: always()
         run: security delete-keychain signing_temp.keychain || true
 
-  release:
+  apt:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') && !contains( github.ref, '-rc')
+    if: startsWith(github.ref, 'refs/tags/')
     needs:
       - build
     steps:
@@ -314,10 +314,35 @@ jobs:
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
 
+      # Set glue project
+      - name: Set glue project
+        id: is_latest
+        shell: bash
+        run: |
+          unset IS_LATEST
+
+          echo "Github ref is $GITHUB_REF"
+
+          if [[ "$GITHUB_REF" =~ "-rc" ]]; then
+            echo "release candidate tag matched"
+            IS_LATEST='false'
+            IS_PRERELEASE='true'
+            GLUE_PROJECT='climate-tokenization-test'
+          else
+            echo "main branch release matched"
+            IS_LATEST='true'
+            IS_PRERELEASE='false'
+            GLUE_PROJECT='climate-tokenization'
+          fi
+
+          echo "IS_LATEST=${IS_LATEST}" >> "$GITHUB_OUTPUT"
+          echo "IS_PRERELEASE=${IS_PRERELEASE}" >> "$GITHUB_OUTPUT"
+          echo "GLUE_PROJECT=${GLUE_PROJECT}" >> "$GITHUB_OUTPUT"
+
       - name: Trigger apt repo update
         uses: Chia-Network/actions/github/glue@main
         with:
           json_data: '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}'
           glue_url: ${{ secrets.GLUE_API_URL }}
-          glue_project: 'climate-tokenization'
+          glue_project: '${{steps.is_latest.outputs.GLUE_PROJECT}}'
           glue_path: 'trigger'
