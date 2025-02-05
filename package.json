@@ -93,7 +93,7 @@
     "styled-components": "5.3.3",
     "unique-names-generator": "4.6.0",
     "validator": "13.7.0",
-    "ws": "8.17.1"
+    "ws": "8.4.2"
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
@@ -124,7 +124,7 @@
     "@types/validator": "13.7.1",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "@xmldom/xmldom": "^0.9.6",
+    "@xmldom/xmldom": "^0.8.10",
     "app-builder-lib": "^24.6.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "8.2.3",
