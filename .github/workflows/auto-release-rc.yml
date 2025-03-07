@@ -31,39 +31,25 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-           stable_version=$(gh release list --limit 1 --order desc --exclude-pre-releases --json tagName --jq ".[].tagName")
-            echo "Latest release is $stable_version"
-            rc_version=$(gh release list --json tagName --jq ".[] | select(.tagName | test(\"${version}-rc*\")) | .tagName")
-            echo "Latest release candidate is $rc_version"
+          stable_version=$(gh release list --limit 1 --order desc --exclude-pre-releases --json tagName --jq ".[].tagName")
+          echo "Latest release is $stable_version"
 
-            if [[ -z ${rc_version} ]]; then
-              # Extract the major, minor, and patch versions
-              IFS='.' read -r major minor patch <<< "$stable_version"
+          # Extract the major, minor, and patch versions
+          IFS='.' read -r major minor patch <<< "$stable_version"
 
-              # Increment the patch version
-              new_patch=$((patch + 1))
+          # Increment the patch version
+          new_patch=$((patch + 1))
 
-              # Construct the new version string
-              version="$major.$minor.$new_patch-rc1"
+          new_version="$major.$minor.$new_patch"
 
-              echo "New version: $version"
+          rc_version=$(gh release list --json tagName --jq ".[] | select(.tagName | test(\"${new_version}-rc*\")) | .tagName")
+          echo "Latest release candidate is $rc_version"
 
-            else
-              # Extract the major, minor, patch, and rc parts
-              IFS='.-' read -r major minor patch rc <<< "$rc_version"
+          if [[ -z ${rc_version} ]]; then
+            # Construct the new version string using new_version
+            version="${new_version}-rc1"
 
-              # Extract just the number of the rc
-              rc_number="${rc#rc}"
-
-              # Increment the rc number
-              rc_number=$((rc_number +1))
-
-              # Construct the new version string
-              version="$major.$minor.$patch-rc$rc_number"
-
-              echo "New version: $version"
-
-            fi
+            echo "New version: $version"
 
             if [ $(git tag -l "$version") ]; then
               echo "$version tag exists, deleting..."
@@ -76,3 +62,30 @@ jobs:
             changes=$(npx conventional-changelog-cli -r 1 | tail -n +2)
             git tag $version -m "Release $version  $changes"
             git push origin $version
+          else
+            # Extract the major, minor, patch, and rc parts
+            IFS='.-' read -r major minor patch rc <<< "$rc_version"
+
+            # Extract just the number of the rc
+            rc_number="${rc#rc}"
+
+            # Increment the rc number
+            rc_number=$((rc_number +1))
+
+            # Construct the new version string
+            version="$major.$minor.$patch-rc$rc_number"
+
+            echo "New version: $version"
+
+            if [ $(git tag -l "$version") ]; then
+              echo "$version tag exists, deleting..."
+              git tag -d $version
+              git push --delete origin $version
+            fi
+            echo "Tag does not exist. Creating and pushing tag"
+            rm -f CHANGELOG.md
+            npx conventional-changelog-cli -p angular -i CHANGELOG.md -s -r 0
+            changes=$(npx conventional-changelog-cli -r 1 | tail -n +2)
+            git tag $version -m "Release $version  $changes"
+            git push origin $version
+          fi
