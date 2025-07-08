@@ -2,6 +2,9 @@
 # then triggers the normal "on tag" release automation in the build job
 name: Auto Tag
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
