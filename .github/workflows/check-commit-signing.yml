@@ -1,8 +1,5 @@
 name: 🚨 Check commit signing
 
-permissions:
-  contents: read
-
 on:
   push:
     branches:
