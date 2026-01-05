@@ -27,6 +27,7 @@ export const climateWarehouseServiceApi = createApi({
 
         return response
       },
+      keepUnusedDataFor: 0,
     }),
 
     // get one unit by warehouseUnitId
@@ -36,6 +37,7 @@ export const climateWarehouseServiceApi = createApi({
         params: { warehouseUnitId },
         method: 'get',
       }),
+      keepUnusedDataFor: 0,
     }),
 
     // get all organizations
@@ -44,6 +46,7 @@ export const climateWarehouseServiceApi = createApi({
         url: '/v1/organizations',
         method: 'get',
       }),
+      keepUnusedDataFor: 0,
     }),
 
     // get all project
@@ -62,6 +65,7 @@ export const climateWarehouseServiceApi = createApi({
 
         return response
       },
+      keepUnusedDataFor: 0,
     }),
 
     // get one project by warehouseProjectId
@@ -71,6 +75,7 @@ export const climateWarehouseServiceApi = createApi({
         params: { warehouseProjectId },
         method: 'get',
       }),
+      keepUnusedDataFor: 0,
     }),
 
     // get one project by orgUid
@@ -80,6 +85,7 @@ export const climateWarehouseServiceApi = createApi({
         params: { orgUid },
         method: 'get',
       }),
+      keepUnusedDataFor: 0,
     }),
   }),
 })

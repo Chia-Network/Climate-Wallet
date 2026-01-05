@@ -12,19 +12,19 @@ export function useGetAllCWAssets() {
     data: assets,
     isLoading: isLoadingAssets,
     error: errorAssets,
-  } = useGetAllCWAssetQuery('')
+  } = useGetAllCWAssetQuery(undefined, { pollingInterval: 60_000})
 
   const {
     data: organizations,
     isLoading: isLoadingOrganizations,
     error: errorOrganizations,
-  } = useGetAllOrganizationsQuery('')
+  } = useGetAllOrganizationsQuery(undefined, { pollingInterval: 60_000})
 
   const {
     data: projects,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetAllCWProjectQuery('')
+  } = useGetAllCWProjectQuery(undefined, { pollingInterval: 60_000})
 
   const isLoading =
     isLoadingAssets || isLoadingOrganizations || isLoadingProjects

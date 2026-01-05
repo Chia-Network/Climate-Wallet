@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - token-driver-artifact-ref: '' # Set to blank string for latest version
+          - token-driver-artifact-ref: '' # Set to blank string for latest version. Use taga only - job artifacts are not accessible
         python-version: [3.9]
         os:
           # TODO: use old versions for improved compatibility?
@@ -37,7 +37,7 @@ jobs:
             matrix: linux
             emoji: 🐧
             runs-on:
-              arm: [Linux, ARM64]
+              arm: [ubuntu-22.04-arm]
               intel: [ubuntu-latest]
             electron-builder-options: --linux
             electron-builder-unpacked: linux-unpacked
@@ -49,7 +49,7 @@ jobs:
             emoji: 🍎
             runs-on:
               arm: [macOS, ARM64]
-              intel: [macos-12]
+              intel: [macos-latest]
             electron-builder-options: --macos
             electron-builder-unpacked: mac
             executable-extension: ''
@@ -78,9 +78,11 @@ jobs:
           - name: default
             cadt-api-server-host: 'https://observer.climateactiondata.org/api'
             cadt-ui-host: 'https://observer.climateactiondata.org'
+            filename-string: ''
           - name: testneta
             cadt-api-server-host: 'https://chia-cadt-demo.chiamanaged.com/observer'
             cadt-ui-host: 'https://chia-cadt-demo.chiamanaged.com/'
+            filename-string: '-testneta'
         exclude:
           - os:
               matrix: windows
@@ -88,16 +90,13 @@ jobs:
               matrix: arm
 
     steps:
-      - name: Clean workspace
-        uses: Chia-Network/actions/clean-workspace@main
-
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node 18.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
 
@@ -110,11 +109,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
           DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
+        shell: bash
         run: |
-          gh release download ${{ matrix.configuration.token-driver-artifact-ref }} \
-            --repo chia-network/climate-token-driver \
-            --pattern climate-token-driver_${{ matrix.os.matrix}}_*_${{ matrix.arch.artifact-name }}.zip \
-            --dir downloaded-artifacts/
+          # Figure out the version string to use
+          if [ -z ${{ matrix.configuration.token-driver-artifact-ref }} ]; then
+            echo "No version specified - getting latest version number from Github"
+            location_string=$(curl -sI https://github.com/Chia-Network/climate-token-driver/releases/latest | grep -i 'Location:' | tr -d '\r')
+            token_driver_version=$(echo "$location_string" | awk -F '/' '{print $NF}')
+          else
+            token_driver_version=${{ matrix.configuration.token-driver-artifact-ref }}
+          fi
+
+          echo "Token Driver version to download: ${token_driver_version}"
+          mkdir -p downloaded-artifacts
+          curl -L -o downloaded-artifacts/climate-token-driver${{ matrix.preconfiguration.filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip https://github.com/Chia-Network/climate-token-driver/releases/download/${token_driver_version}/climate-token-driver${{ matrix.preconfiguration.filename-string }}_${{ matrix.os.matrix}}_${token_driver_version}_${{ matrix.arch.artifact-name }}.zip
           pushd downloaded-artifacts
           unzip *.zip
           rm -f *.zip
@@ -123,35 +131,6 @@ jobs:
           mv downloaded-artifacts/* "${DESTINATION}"
           chmod a+x "${DESTINATION}"
           ls -la extraResources/ || true
-        if: matrix.preconfiguration.name == 'default'
-
-      - name: Download Token Driver Client from artifact for custom config
-        env:
-          GH_TOKEN: ${{ secrets.GH_READ_REPOS }}
-          DESTINATION: extraResources/token-driver-client${{ matrix.os.executable-extension }}
-        run: |
-          RUN_ID=$(gh run list ${{ matrix.configuration.token-driver-artifact-ref }} \
-            --repo chia-network/climate-token-driver \
-            --branch $(gh release view \
-              --repo chia-network/climate-token-driver \
-              --json tagName \
-              --jq '.tagName') \
-            --workflow "Build & Release" \
-            --status completed \
-            --limit 1 \
-            --json databaseId \
-            --jq '.[0].databaseId')
-
-          gh run download $RUN_ID \
-            --repo chia-network/climate-token-driver \
-            --name climate-token-driver-${{ matrix.preconfiguration.name }}-${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name }} \
-            --dir downloaded-artifacts/
-
-          mkdir -p extraResources/
-          mv downloaded-artifacts/* "${DESTINATION}"
-          chmod a+x "${DESTINATION}"
-          ls -la extraResources/ || true
-        if: matrix.preconfiguration.name != 'default'
 
       - name: Prep .env file
         run: |
@@ -173,11 +152,22 @@ jobs:
           if [ -n "$SIGNING_SECRET" ]; then HAS_SIGNING_SECRET='true' ; fi
           echo "HAS_SIGNING_SECRET=${HAS_SIGNING_SECRET}" >> "$GITHUB_OUTPUT"
         env:
-          SIGNING_SECRET: "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}"
+          SIGNING_SECRET: '${{ secrets.SM_CLIENT_CERT_FILE_B64 }}'
+
+      - name: Change the package.json version if an RC tag
+        if: startsWith(github.ref, 'refs/tags/') && contains( github.ref, '-rc')
+        shell: bash
+        run: |
+          echo "Github ref: $GITHUB_REF"
+          IFS='/' read -r base directory tag <<< "$GITHUB_REF"
+          echo "Extracted tag is $tag"
+
+          jq ".version = \"${tag}\"" package.json > package.tmp
+          mv package.tmp package.json
 
       - name: Import Apple installer signing certificate
         if: matrix.os.matrix == 'macos' && steps.check_secrets.outputs.HAS_SIGNING_SECRET
-        uses: Apple-Actions/import-codesign-certs@v2
+        uses: Apple-Actions/import-codesign-certs@v6
         with:
           p12-file-base64: ${{ secrets.APPLE_DEV_ID_APP }}
           p12-password: ${{ secrets.APPLE_DEV_ID_APP_PASS }}
@@ -256,41 +246,58 @@ jobs:
         if: matrix.os.matrix == 'windows' && steps.check_secrets.outputs.HAS_SIGNING_SECRET
         uses: chia-network/actions/digicert/windows-sign@main
         with:
+          sm_certkey_alias: ${{ secrets.SM_CERTKEY_ALIAS }}
           sm_api_key: ${{ secrets.SM_API_KEY }}
           sm_client_cert_file_b64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
           sm_client_cert_password: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
           sm_code_signing_cert_sha1_hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
           file: '${{ github.workspace }}/${{ env.INSTALLER_FILE }}'
 
+      # RC release should not be set as latest
+      - name: Decide if release should be set as latest
+        id: is_latest
+        shell: bash
+        run: |
+          unset IS_LATEST
+
+          echo "Github ref is $GITHUB_REF"
+
+          if [[ "$GITHUB_REF" =~ "-rc" ]]; then
+            echo "release candidate tag matched"
+            IS_LATEST='false'
+            IS_PRERELEASE='true'
+          else
+            echo "main branch release matched"
+            IS_LATEST='true'
+            IS_PRERELEASE='false'
+          fi
+
+          echo "IS_LATEST=${IS_LATEST}" >> "$GITHUB_OUTPUT"
+          echo "IS_PRERELEASE=${IS_PRERELEASE}" >> "$GITHUB_OUTPUT"
+
       - name: Release
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v2
         with:
           files: artifacts/*
           fail_on_unmatched_files: true
           target_commitish: ${{ github.sha }}
-        if: startsWith(github.ref, 'refs/tags/') && matrix.preconfiguration.name == 'default'
+          prerelease: ${{steps.is_latest.outputs.IS_PRERELEASE}}
+          make_latest: '${{steps.is_latest.outputs.IS_LATEST}}'
+        if: startsWith(github.ref, 'refs/tags/')
 
       # Create aritifacts so we have builds to test from pull requests
       - name: Upload installer to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-installer
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}${{ matrix.preconfiguration.filename-string }}-installer
           path: 'artifacts/*'
-        if: matrix.preconfiguration.name == 'default'
-
-      - name: Upload custom installers to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.arch.artifact-name}}-${{ matrix.preconfiguration.name }}-installer
-          path: 'artifacts/*'
-        if: matrix.preconfiguration.name != 'default'
 
       # We want to delete this no matter what happened in the previous steps (failures, success, etc)
       - name: Delete signing keychain
         if: always()
         run: security delete-keychain signing_temp.keychain || true
 
-  release:
+  apt:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     needs:
@@ -298,18 +305,45 @@ jobs:
     steps:
       - name: Get repo name
         id: repo-name
+        shell: bash
         run: |
           echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 2)" >>$GITHUB_OUTPUT
 
       - name: Get tag name
         id: tag-name
+        shell: bash
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
+
+      # Set glue project
+      - name: Set glue project
+        id: is_latest
+        shell: bash
+        run: |
+          unset IS_LATEST
+
+          echo "Github ref is $GITHUB_REF"
+
+          if [[ "$GITHUB_REF" =~ "-rc" ]]; then
+            echo "release candidate tag matched"
+            IS_LATEST='false'
+            IS_PRERELEASE='true'
+            GLUE_PROJECT='climate-tokenization-test'
+          else
+            echo "main branch release matched"
+            IS_LATEST='true'
+            IS_PRERELEASE='false'
+            GLUE_PROJECT='climate-tokenization'
+          fi
+
+          echo "IS_LATEST=${IS_LATEST}" >> "$GITHUB_OUTPUT"
+          echo "IS_PRERELEASE=${IS_PRERELEASE}" >> "$GITHUB_OUTPUT"
+          echo "GLUE_PROJECT=${GLUE_PROJECT}" >> "$GITHUB_OUTPUT"
 
       - name: Trigger apt repo update
         uses: Chia-Network/actions/github/glue@main
         with:
           json_data: '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"climate-wallet\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"false","arm64":"available"}'
           glue_url: ${{ secrets.GLUE_API_URL }}
-          glue_project: 'climate-tokenization'
+          glue_project: '${{steps.is_latest.outputs.GLUE_PROJECT}}'
           glue_path: 'trigger'
