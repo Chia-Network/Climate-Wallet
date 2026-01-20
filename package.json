@@ -101,7 +101,7 @@
     "@babel/preset-env": "7.16.8",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
-    "@babel/register": "7.16.9",
+    "@babel/register": "7.25.9",
     "@babel/runtime": "^7.18.9",
     "@lingui/babel-preset-react": "^2.9.2",
     "@lingui/cli": "3.13.0",
