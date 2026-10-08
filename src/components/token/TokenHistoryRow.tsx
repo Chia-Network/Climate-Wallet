@@ -111,23 +111,19 @@ const TokenHistoryRow = ({ transactionHistory }: TokenHistoryRowProps) => {
   ]
 
   const memosNode = useMemo<RowType>(() => {
-    const memos = getMemosDescription(memoHexs)
+    const decodedMemoResult = getMemosDescription(memoHexs)
     return {
       key: 'Memos',
       title: <Trans>{'Memos'}</Trans>,
       value:
         Object.values(memoHexs).length === 0 ? (
           <Typography variant="inherit">{''}</Typography>
-        ) : memos.state ? (
-          <Stack direction="row" spacing={1}>
-            {memos.value.map((memo, index) => (
-              <Typography variant="inherit" key={index}>
-                {memo ?? ''}
-              </Typography>
-            ))}
-          </Stack>
         ) : (
-          <Typography variant="inherit">{memos.value[0]}</Typography>
+          decodedMemoResult.state && (
+            <Typography variant="inherit">
+              {decodedMemoResult.value[0] ?? ''}
+            </Typography>
+          )
         ),
     }
   }, [memoHexs])

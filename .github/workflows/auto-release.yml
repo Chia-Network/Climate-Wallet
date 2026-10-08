@@ -2,6 +2,9 @@
 # then triggers the normal "on tag" release automation in the build job
 name: Auto Tag
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -15,14 +18,11 @@ jobs:
     name: Create Changelog and tag release
     runs-on: ubuntu-latest
     steps:
-      - name: Clean workspace
-        uses: Chia-Network/actions/clean-workspace@main
-
       - name: Checkout current branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Need PACKAGE_ADMIN_PAT token so when the tag is created, the tag automation runs
-          token: ${{ secrets.PACKAGE_ADMIN_PAT }}
+          token: ${{ secrets.REPO_COMMIT }}
           fetch-depth: 0
 
       - uses: Chia-Network/actions/commit-sign/gpg@main

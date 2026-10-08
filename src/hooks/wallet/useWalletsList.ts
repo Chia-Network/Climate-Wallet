@@ -43,7 +43,10 @@ export default function useWalletsList(
   hide: (walletId: number) => void
   show: (id: number | string) => Promise<void>
 } {
-  const { data: wallets, isLoading: isLoadingGetWallets } = useGetWalletsQuery()
+  const { data: wallets, isLoading: isLoadingGetWallets } =
+    useGetWalletsQuery(undefined, {
+      pollingInterval: 10000,
+    })
   const { data: catList, isLoading: isLoadingGetCatList } = useGetCatListQuery()
   const { data: strayCats, isLoading: isLoadingGetStrayCats } =
     useGetStrayCatsQuery(undefined, {
@@ -125,6 +128,7 @@ export default function useWalletsList(
         (wallet: Wallet) =>
           ![WalletType.CAT, WalletType.POOLING_WALLET].includes(wallet.type)
       ) ?? []
+
     const catBaseWallets =
       wallets?.filter((wallet: Wallet) => wallet.type === WalletType.CAT) ?? []
 

@@ -1,6 +1,6 @@
 # Climate Wallet
 
-![Minimum Chia Version](https://raw.githubusercontent.com/Chia-Network/core-registry-api/main/minimumChiaVersion.svg)  
+![Minimum Chia Version](https://raw.githubusercontent.com/Chia-Network/core-registry-api/main/minimumChiaVersion.svg)
 ![Tested Up to Chia Version](https://raw.githubusercontent.com/Chia-Network/core-registry-api/main/testedChiaVersion.svg)
 
 This repository holds the source code for the Climate Wallet in the Climate Tokenization Suite. Related programs are:
@@ -191,3 +191,8 @@ After the type and scope there should be a colon. The "subject" of the commit fo
 ### Branch Layout
 
 All pull requests should be made against the `develop` branch. Commits to the `main` branch will trigger a release, so the `main` branch is always the code in the latest release.
+
+## Attribution
+
+* [Document Object Model](https://www.w3.org/TR/DOM-Requirements/) by [W3C](https://www.w3.org/) licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+* [caniuselite](https://github.com/browserslist/caniuse-lite) by [Browserlist](https://browsersl.ist/) licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
