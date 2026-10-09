@@ -8,7 +8,7 @@
   "homepage": "./",
   "main": "build/electron/main.js",
   "engines": {
-    "node": ">=18.16.0"
+    "node": ">=24.14.1"
   },
   "scripts": {
     "start": "npm run electron",
