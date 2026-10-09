@@ -142,7 +142,7 @@
     "electron-builder": "^24.6.3",
     "electron-winstaller": "5.0.0",
     "eslint": "^8.21.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
