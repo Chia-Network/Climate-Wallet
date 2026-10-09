@@ -157,7 +157,7 @@
     "keytar": "^7.9.0",
     "lodash-webpack-plugin": "0.11.6",
     "minizip-asm.js": "^1.0.10",
-    "prettier": "^2.7.1",
+    "prettier": "^3.4.2",
     "prettier-eslint": "^15.0.1",
     "react-refresh": "0.11.0",
     "request": "^2.88.2",
